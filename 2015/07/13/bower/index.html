@@ -1,0 +1,728 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="Blog for M" />
+
+
+
+  <meta name="keywords" content="bower,js,package-manager," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: ''
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+
+
+  <title> Bower // M </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">M</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+<form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '4i1GtPgrpPo8ddmCMWmC','2.0.0');
+</script>
+
+<div class="site-search-toggle"></div>
+    </div>
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Bower
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-13
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/js/">js</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <h3 id="介绍">介绍</h3><p>Bower 是一个针对Web开发的包管理器。该工具主要用来帮助用户轻松安装CSS、JavaScript、图像等相关包，并管理这些包之间的依赖。</p>
+<p>功能有些类似于<a href="/2015/07/13/composer" title="composer">Composer</a>。Bower既可以管理基于本地资源的包，也可以管理基于git系统的包。 在Bower中，可以通过 component.json文件来定义包的名称、版本、代码中的主要元素、版本之间的依赖关系等。</p>
+<h3 id="安装">安装</h3><p>Bower 是一个命令行工具。通过<a href="http://nodejs.org/" title="Node and npm" target="_blank" rel="external">npm</a>安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g bower</span><br></pre></td></tr></table></figure></p>
+<h3 id="命令">命令</h3><h4 id="cache_(管理bower缓存)">cache (管理bower缓存)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower cache &lt;<span class="built_in">command</span>&gt; [&lt;args&gt;]</span><br></pre></td></tr></table></figure>
+<h4 id="help_(显示Bower命令的帮助信息)">help (显示Bower命令的帮助信息)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower <span class="built_in">help</span> &lt;<span class="built_in">command</span>&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="home_(通过浏览器打开一个包的github发布页)">home (通过浏览器打开一个包的github发布页)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ bower home</span><br><span class="line">$ bower home &lt;package&gt;</span><br><span class="line">$ bower home &lt;package&gt;<span class="comment">#&lt;version&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果不带<code>&lt;package&gt;</code>, 则打开本地版本的主页</p>
+<h4 id="info_(查看包的信息)">info (查看包的信息)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ bower info &lt;package&gt;</span><br><span class="line">$ bower info &lt;package&gt; [&lt;property&gt;]</span><br><span class="line">$ bower info &lt;package&gt;<span class="comment">#&lt;version&gt; [&lt;property&gt;]</span></span><br></pre></td></tr></table></figure>
+<h4 id="init_(创建bower-json文件)">init (创建bower.json文件)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower init</span><br></pre></td></tr></table></figure>
+<h4 id="install_(安装包到项目)">install (安装包到项目)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ bower install [&lt;options&gt;]</span><br><span class="line">$ bower install &lt;endpoint&gt; [&lt;endpoint&gt; ..] [&lt;options&gt;]</span><br></pre></td></tr></table></figure>
+<p>可以采用多种方式安装:</p>
+<ul>
+<li><code>&lt;package&gt;</code></li>
+<li><code>&lt;package&gt;#&lt;version&gt;</code></li>
+<li><code>&lt;name&gt;=&lt;package&gt;#&lt;version&gt;</code></li>
+</ul>
+<p>方式参数说明:</p>
+<ul>
+<li><code>&lt;package&gt;</code> 可以是package URL, 物理地址或者注册名</li>
+<li><code>&lt;version&gt;</code> 有效的版本号、commit、branch等等</li>
+<li><code>&lt;name&gt;</code> 本地包的命名</li>
+</ul>
+<h5 id="package_can_be:">package can be:</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">Method</th>
+<th style="text-align:center">examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Registered package name</td>
+<td style="text-align:center"><code>jquery</code> <code>normalize.css</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Git endpoint</td>
+<td style="text-align:center"><code>https://github.com/user/package.git</code> <code>git@github.com:user/package.git</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Git endpoint without .git</td>
+<td style="text-align:center"><code>git+https://github.com/user/package</code> <code>git+ssh://git@github.com/user/package</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Local folder</td>
+<td style="text-align:center"><code>my/local/folder/</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Public Subversion endpoint</td>
+<td style="text-align:center"><code>jquery</code> <code>svn+http://package.googlecode.com/svn/</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Private Subversion endpoint</td>
+<td style="text-align:center"><code>svn+ssh://package.googlecode.com/svn/</code> <code>svn+https://package.googlecode.com/svn/</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Shorthand (defaults to GitHub)</td>
+<td style="text-align:center"><code>user/package</code></td>
+</tr>
+<tr>
+<td style="text-align:left">URL</td>
+<td style="text-align:center"><code>http://example.com/script.js</code> <code>http://example.com/style.css</code> <code>http://example.com/package.zip</code>(contents will be extracted) <code>http://example.com/package.tar</code>(contents will be extracted)</td>
+</tr>
+<tr>
+<td style="text-align:left">Registered package name</td>
+<td style="text-align:center"><code>jquery</code> <code>normalize.css</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Registered package name</td>
+<td style="text-align:center"><code>jquery</code> <code>normalize.css</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Registered package name</td>
+<td style="text-align:center"><code>jquery</code> <code>normalize.css</code></td>
+</tr>
+</tbody>
+</table>
+<h5 id="version_can_be:">version can be:</h5><table>
+<thead>
+<tr>
+<th style="text-align:left">#</th>
+<th style="text-align:center">example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">semver version</td>
+<td style="text-align:center"><code>#1.2.3</code></td>
+</tr>
+<tr>
+<td style="text-align:left">version range</td>
+<td style="text-align:center"><code>#1.2</code> <br> <code>#~1.2.3</code> <br> <code>#^1.2.3</code> <br> <code>#&gt;=1.2.3 &lt;2.0</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Git tag</td>
+<td style="text-align:center"><code>#&lt;tag&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Git commit SHA</td>
+<td style="text-align:center"><code>#&lt;branch&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Subversion revision</td>
+<td style="text-align:center"><code>#&lt;revision&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h5 id="install_options">install options</h5><ul>
+<li><code>-F</code>, <code>--force-latest</code>: Force latest version on conflict</li>
+<li><code>-p</code>, <code>--production</code>: Do not install project devDependencies</li>
+<li><code>-S</code>, <code>--save</code>: Save installed packages into the project’s bower.json dependencies</li>
+<li><code>-D</code>, <code>--save-dev</code>: Save installed packages into the project’s bower.json devDependencies</li>
+<li><code>-E</code>, <code>--save-exact</code>: Configure installed packages with an exact version rather than semver</li>
+</ul>
+<h5 id="部分示例:">部分示例:</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># registered package</span></span><br><span class="line">$ bower install jquery</span><br><span class="line"><span class="comment"># GitHub shorthand</span></span><br><span class="line">$ bower install desandro/masonry</span><br><span class="line"><span class="comment"># Git endpoint</span></span><br><span class="line">$ bower install git://github.com/user/package.git</span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line">$ bower install http://example.com/script.js</span><br></pre></td></tr></table></figure>
+<h4 id="link_(包目录的符号连接)">link (包目录的符号连接)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ bower link</span><br><span class="line">$ bower link &lt;name&gt; [&lt;<span class="built_in">local</span> name&gt;]</span><br></pre></td></tr></table></figure>
+<p>The link functionality allows developers to easily test their packages. Linking is a two-step process.<br>Using ‘bower link’ in a project folder will create a global link. Then, in some other package, <code>bower link &lt;name&gt;</code> will create a link in the components folder pointing to the previously created link.<br>This allows to easily test a package because changes will be reflected immediately. When the link is no longer necessary, simply remove it with <code>bower uninstall &lt;name&gt;</code>.</p>
+<h4 id="list_(列出项目已安装的包)">list (列出项目已安装的包)</h4><h5 id="list_options">list options</h5><ul>
+<li><code>-p</code>, <code>--paths</code>: Generates a simple JSON source mapping</li>
+<li><code>-r</code>, <code>--relative</code>: Make paths relative to the directory config property, which defaults to bower_components</li>
+</ul>
+<h4 id="lookup_(根据包名查询包的URL)">lookup (根据包名查询包的URL)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower lookup &lt;name&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="login_(github)">login (github)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower login</span><br></pre></td></tr></table></figure>
+<h5 id="login_options">login options</h5><ul>
+<li><code>-t</code>, <code>--token</code>: Pass an existing GitHub auth token rather than prompting for username and password</li>
+</ul>
+<h4 id="prune_(删除项目无关的包)">prune (删除项目无关的包)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower prune</span><br></pre></td></tr></table></figure>
+<h4 id="register_(注册一个包)">register (注册一个包)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower register &lt;name&gt; &lt;url&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="search_(搜索包)">search (搜索包)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ bower search</span><br><span class="line">$ bower search &lt;name&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="update_(更新项目的包)">update (更新项目的包)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower update &lt;name&gt; [&lt;name&gt; ..] [&lt;options&gt;]</span><br></pre></td></tr></table></figure>
+<h5 id="update_options">update options</h5><ul>
+<li><code>-F</code>, <code>--force-latest</code>: Force latest version on conflict</li>
+<li><code>-p</code>, <code>--production</code>: Do not install project devDependencies</li>
+</ul>
+<h4 id="uninstall_(删除项目的包)">uninstall (删除项目的包)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower uninstall &lt;name&gt; [&lt;name&gt; ..] [&lt;options&gt;]</span><br></pre></td></tr></table></figure>
+<h5 id="uninstall_options">uninstall options</h5><ul>
+<li><code>-S</code>, <code>--save</code>: Remove uninstalled packages from the project’s bower.json dependencies</li>
+<li><code>-D</code>, <code>--save-dev</code>: Remove uninstalled packages from the project’s bower.json devDependencies<h4 id="unregister_(Unregisters_a_package)">unregister (Unregisters a package)</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower bower unregister &lt;package&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="version">version</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower version [&lt;newversion&gt; | major | minor | patch]</span><br></pre></td></tr></table></figure>
+<p>Run this in a package directory to bump the version and write the new data back to the bower.json file.</p>
+<p>更多参考：<a href="http://bower.io/docs/api/" title="api" target="_blank" rel="external">官方文档</a></p>
+<h3 id="使用">使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower install jquery</span><br></pre></td></tr></table></figure>
+<p>上述命令完成以后，你会在你刚才创建的目录下看到一个bower_components的文件夹，其中目录如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ tree bower_components/</span><br><span class="line">bower_components/</span><br><span class="line">└── jquery</span><br><span class="line">    ├── README.md</span><br><span class="line">    ├── bower.json</span><br><span class="line">    ├── component.json</span><br><span class="line">    ├── composer.json</span><br><span class="line">    ├── jquery-migrate.js</span><br><span class="line">    ├── jquery-migrate.min.js</span><br><span class="line">    ├── jquery.js</span><br><span class="line">    ├── jquery.min.js</span><br><span class="line">    ├── jquery.min.map</span><br><span class="line">    └── package.json</span><br><span class="line"></span><br><span class="line"><span class="number">1</span> directory, <span class="number">10</span> files</span><br></pre></td></tr></table></figure></p>
+<p>然后在HTML中引入文件即可</p>
+<h3 id="提交自己的类库">提交自己的类库</h3><ol>
+<li>生成bower.json配置文件</li>
+<li>在github创建一个资源库：js-bower</li>
+<li>本地工程绑定github, 然后push到github上</li>
+<li><p>注册到bower官方类库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower register nodejs-bower git@github.com:bsspirit/js-bower.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询自己的包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower search js-bower</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装自己的包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bower install nodejs-bower</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/bower/"> #bower </a>
+          
+            <a href="/tags/js/"> #js </a>
+          
+            <a href="/tags/package-manager/"> #package-manager </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/13/composer/">Composer</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/10/Markdown简明语法教程/">Markdown简明语法教程</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/uploads/images/avatar_white.png" alt="Misael Yau" />
+          <p class="site-author-name">Misael Yau</p>
+        </div>
+        <p class="site-description motion-element">Blog for M</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">3.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cache_(管理bower缓存)"><span class="nav-number">3.1.</span> <span class="nav-text">cache (管理bower缓存)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#help_(显示Bower命令的帮助信息)"><span class="nav-number">3.2.</span> <span class="nav-text">help (显示Bower命令的帮助信息)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#home_(通过浏览器打开一个包的github发布页)"><span class="nav-number">3.3.</span> <span class="nav-text">home (通过浏览器打开一个包的github发布页)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#info_(查看包的信息)"><span class="nav-number">3.4.</span> <span class="nav-text">info (查看包的信息)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#init_(创建bower-json文件)"><span class="nav-number">3.5.</span> <span class="nav-text">init (创建bower.json文件)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#install_(安装包到项目)"><span class="nav-number">3.6.</span> <span class="nav-text">install (安装包到项目)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#package_can_be:"><span class="nav-number">3.6.1.</span> <span class="nav-text">package can be:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#version_can_be:"><span class="nav-number">3.6.2.</span> <span class="nav-text">version can be:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#install_options"><span class="nav-number">3.6.3.</span> <span class="nav-text">install options</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#部分示例:"><span class="nav-number">3.6.4.</span> <span class="nav-text">部分示例:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#link_(包目录的符号连接)"><span class="nav-number">3.7.</span> <span class="nav-text">link (包目录的符号连接)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#list_(列出项目已安装的包)"><span class="nav-number">3.8.</span> <span class="nav-text">list (列出项目已安装的包)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#list_options"><span class="nav-number">3.8.1.</span> <span class="nav-text">list options</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lookup_(根据包名查询包的URL)"><span class="nav-number">3.9.</span> <span class="nav-text">lookup (根据包名查询包的URL)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#login_(github)"><span class="nav-number">3.10.</span> <span class="nav-text">login (github)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#login_options"><span class="nav-number">3.10.1.</span> <span class="nav-text">login options</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#prune_(删除项目无关的包)"><span class="nav-number">3.11.</span> <span class="nav-text">prune (删除项目无关的包)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#register_(注册一个包)"><span class="nav-number">3.12.</span> <span class="nav-text">register (注册一个包)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#search_(搜索包)"><span class="nav-number">3.13.</span> <span class="nav-text">search (搜索包)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#update_(更新项目的包)"><span class="nav-number">3.14.</span> <span class="nav-text">update (更新项目的包)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#update_options"><span class="nav-number">3.14.1.</span> <span class="nav-text">update options</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#uninstall_(删除项目的包)"><span class="nav-number">3.15.</span> <span class="nav-text">uninstall (删除项目的包)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#uninstall_options"><span class="nav-number">3.15.1.</span> <span class="nav-text">uninstall options</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unregister_(Unregisters_a_package)"><span class="nav-number">3.16.</span> <span class="nav-text">unregister (Unregisters a package)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#version"><span class="nav-number">3.17.</span> <span class="nav-text">version</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交自己的类库"><span class="nav-number">5.</span> <span class="nav-text">提交自己的类库</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Misael Yau</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+  
+
+  
+
+
+
+
+  
+  
+
+  
+  <!-- lazyload -->
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+      <script type="text/javascript">
+        jQuery(function() {          
+            jQuery("#posts img").lazyload({
+              placeholder:"http://www.arao.me/loading.gif",  
+                effect:"fadeIn"
+              });
+            });
+    </script>   
+</body>
+</html>
