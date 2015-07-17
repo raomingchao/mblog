@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="git," />
 
 
 
@@ -57,7 +57,7 @@
 
 
 
-  <title> MySQL笔记 // M </title>
+  <title> git常用技巧 // M </title>
 </head>
 
 <body>
@@ -178,7 +178,7 @@
           
           
             
-              MySQL笔记
+              git常用技巧
             
           
         </h1>
@@ -186,14 +186,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-07-10
+          发表于 2015-07-17
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/sql/">sql</a>
+              <a href="/categories/git/">git</a>
 
               
               
@@ -206,8 +206,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/10/MySQL笔记/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/10/MySQL笔记/"></span>
+            <a href="/2015/07/17/git-skills/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/17/git-skills/"></span>
             </a>
           </span>
           
@@ -221,26 +221,18 @@
       
 
       
-        <h3 id="新建utf8数据库">新建utf8数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> db_name <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</span></span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> 的语法：</span><br><span class="line"><span class="keyword">CREATE</span> &#123;<span class="keyword">DATABASE</span> | <span class="keyword">SCHEMA</span>&#125; [<span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] db_name</span><br><span class="line">[create_specification [, create_specification] ...]</span><br><span class="line">create_specification:</span><br><span class="line">[<span class="keyword">DEFAULT</span>] <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> charset_name</span><br><span class="line">| [<span class="keyword">DEFAULT</span>] <span class="keyword">COLLATE</span> collation_name</span></span><br></pre></td></tr></table></figure>
-<h3 id="更改数据库的字符编码">更改数据库的字符编码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> db_name <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</span></span><br></pre></td></tr></table></figure>
-<h3 id="导入sql文件">导入sql文件</h3><blockquote>
-<ol>
-<li>mysql -uroot -pllpz</li>
-<li>use DATABASE_NAME;</li>
-<li>source /home/databases/123.sql</li>
-<li>done!</li>
-</ol>
-</blockquote>
-<h3 id="重置root密码">重置root密码</h3><blockquote>
-<ol>
-<li>vi /etc/mysql/my.cnf</li>
-<li>在[mysqld]段下加入一行“skip-grant-tables”</li>
-<li>mysql -&gt; use mysql -&gt; update user set password=PASSWORD(“llpz”) where user=’root’; -&gt; 把密码重置为new_pass。退出数据库管理。</li>
-<li>mysql -uroot -pllpz</li>
-<li>done!</li>
-</ol>
-</blockquote>
-
+        <h3 id="强制拉取master(覆盖本地)：">强制拉取master(覆盖本地)：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:laravel/laravel.git --depth=1</span><br></pre></td></tr></table></figure>
+<h3 id="只拉取最后一次的提交结果。">只拉取最后一次的提交结果。</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:laravel/laravel.git --depth=1</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="开发者私人信息保密方法">开发者私人信息保密方法</h3><p>实际开发中（类似邮件功能）需要开发者私人密码的文件，可以采用以下方法进行隐私保护。请在命令行中使用。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#20551;&#35774;&#25991;&#20214;&#26080;&#25913;&#21160;&#65292;&#20316;&#29992;&#20110;&#29256;&#26412;&#24211;&#20013;&#24050;&#23384;&#22312;&#30340;&#25991;&#20214;&#12290;&#10;// &#27492;&#26041;&#27861;&#23558;&#30830;&#20445;&#26412;&#22320;&#25991;&#20214;&#19981;&#25552;&#20132;&#65292;&#24182;&#19988;&#29256;&#26412;&#24211;&#20013;&#27492;&#25991;&#20214;&#30340;&#21464;&#26356;&#26080;&#27861;&#24433;&#21709;&#26412;&#22320;&#25991;&#20214;&#12290;&#10;git update-index --assume-unchanged app/config/mail.php&#10;// &#21462;&#28040;&#24182;&#24674;&#22797;&#20026;&#26222;&#36890;&#25991;&#20214;&#10;git update-index --no-assume-unchanged app/config/mail.php</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="设置全局代理（来自网络）">设置全局代理（来自网络）</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy https://user:password@address:port</span><br></pre></td></tr></table></figure>
+<h3 id="clone某个特定分支">clone某个特定分支</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir $BRANCH &#10;cd $BRANCH &#10;git init &#10;git remote add -t $BRANCH -f origin $REMOTE_REPO &#10;git checkout $BRANCH</span><br></pre></td></tr></table></figure>
+<h3 id="比较某个文件和远程分支上的区别">比较某个文件和远程分支上的区别</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff localbranch remotebranch filepath</span><br></pre></td></tr></table></figure>
+<h3 id="在版本库所有版本中搜寻一条字符串">在版本库所有版本中搜寻一条字符串</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rev-list --all | ( &#10;    while read revision; do &#10;        git grep -F &#39;Your search string&#39; $revision &#10;    done &#10;)</span><br></pre></td></tr></table></figure>
+<h3 id="向分支提交一个初始的空commit，保证完全复位">向分支提交一个初始的空commit，保证完全复位</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.&#21019;&#24314;&#19968;&#20010;&#26032;&#30340;&#31354;&#20998;&#25903;&#65292;&#20363;&#22914;&#65306;newroot&#10;&#10;git checkout --orphan newroot &#10;git rm --cached -r . &#10;git clean -f -d &#10;2.&#21019;&#24314;&#31354;&#30340;commit&#10;&#10;git commit --allow-empty -m &#39;[empty] initial commit&#39; &#10;3.&#37325;&#26032;&#21457;&#36865;&#20998;&#25903;&#30340;&#20840;&#37096;&#20869;&#23481;&#10;&#10;git rebase --onto newroot --root master &#10;4.&#21024;&#38500;&#20020;&#26102;&#20998;&#25903;newroot&#10;&#10;git branch -d newroot &#10;&#29616;&#22312;master&#23601;&#24050;&#32463;&#21253;&#21547;&#20102;&#19968;&#20010;&#31354;&#30340;root commit&#20102;&#12290;</span><br></pre></td></tr></table></figure>
+<h3 id="如何修改一个特定的commit">如何修改一个特定的commit</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#24403;&#20320;&#24819;&#22312;&#25512;&#36865;&#21069;&#37325;&#20570;&#20320;&#26368;&#21518;&#30340;commit&#26102;&#65292;&#21487;&#20197;&#20351;&#29992;&#20462;&#25913;&#21629;&#20196;&#65288;git commit --amend&#65289;&#12290;&#22914;&#26524;&#20320;&#24819;&#20462;&#25913;&#30340;&#19981;&#26159;&#26368;&#21518;&#19968;&#20010;commit&#21602;&#65311;&#10;&#10;&#36825;&#31181;&#24773;&#20917;&#19979;&#65292;&#20320;&#21487;&#20197;&#20351;&#29992;git rebase&#65292;&#20363;&#22914;&#65292;&#20320;&#24819;&#35201;&#20462;&#25913;bbc643cd commit&#65292;&#36816;&#34892;&#19979;&#38754;&#30340;&#21629;&#20196;&#65306;&#10;&#10;$git rebase bbc643cd^ --interactive  &#10;&#22312;&#40664;&#35748;&#30340;&#32534;&#36753;&#22120;&#20013;&#36873;&#25321;&#24182;&#20462;&#25913;&#20320;&#26399;&#26395;&#20462;&#25913;&#30340;&#65292;&#28982;&#21518;&#20445;&#23384;&#20462;&#25913;&#24182;&#36755;&#20837;&#65306;&#10;&#10;$ git add &#10;&#60;&#10;filepattern&#10;&#62;&#10;  &#10;&#29616;&#22312;&#20320;&#23601;&#21487;&#20197;&#20351;&#29992;&#10;&#10;$git commit --amend &#10;&#26469;&#20462;&#25913;commit&#65292;&#20043;&#21518;&#20351;&#29992;&#10;&#10;$ git rebase --continue  &#10;&#36820;&#22238;&#20043;&#21069;&#26368;&#26032;&#30340;commit&#12290;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -248,7 +240,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/"> #mysql </a>
+            <a href="/tags/git/"> #git </a>
           
         </div>
       
@@ -257,11 +249,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/10/PHP技巧汇总/">PHP技巧汇总</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/13/composer/">Composer</a>
             
           </div>
         </div>
@@ -281,8 +273,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/07/10/MySQL笔记/"
-               data-title="MySQL笔记" data-url="http://misael.cn/2015/07/10/MySQL笔记/">
+          <div class="ds-thread" data-thread-key="2015/07/17/git-skills/"
+               data-title="git常用技巧" data-url="http://misael.cn/2015/07/17/git-skills/">
           </div>
         
       </div>
@@ -381,7 +373,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建utf8数据库"><span class="nav-number">1.</span> <span class="nav-text">新建utf8数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改数据库的字符编码"><span class="nav-number">2.</span> <span class="nav-text">更改数据库的字符编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入sql文件"><span class="nav-number">3.</span> <span class="nav-text">导入sql文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重置root密码"><span class="nav-number">4.</span> <span class="nav-text">重置root密码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#强制拉取master(覆盖本地)："><span class="nav-number">1.</span> <span class="nav-text">强制拉取master(覆盖本地)：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只拉取最后一次的提交结果。"><span class="nav-number">2.</span> <span class="nav-text">只拉取最后一次的提交结果。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发者私人信息保密方法"><span class="nav-number">3.</span> <span class="nav-text">开发者私人信息保密方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置全局代理（来自网络）"><span class="nav-number">4.</span> <span class="nav-text">设置全局代理（来自网络）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clone某个特定分支"><span class="nav-number">5.</span> <span class="nav-text">clone某个特定分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较某个文件和远程分支上的区别"><span class="nav-number">6.</span> <span class="nav-text">比较某个文件和远程分支上的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在版本库所有版本中搜寻一条字符串"><span class="nav-number">7.</span> <span class="nav-text">在版本库所有版本中搜寻一条字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向分支提交一个初始的空commit，保证完全复位"><span class="nav-number">8.</span> <span class="nav-text">向分支提交一个初始的空commit，保证完全复位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何修改一个特定的commit"><span class="nav-number">9.</span> <span class="nav-text">如何修改一个特定的commit</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
