@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="git,github," />
 
 
 
@@ -57,7 +57,7 @@
 
 
 
-  <title> MySQL笔记 // M </title>
+  <title> 自动部署 -- github // M </title>
 </head>
 
 <body>
@@ -178,7 +178,7 @@
           
           
             
-              MySQL笔记
+              自动部署 -- github
             
           
         </h1>
@@ -186,14 +186,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-07-10
+          发表于 2015-07-17
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/sql/">sql</a>
+              <a href="/categories/git/">git</a>
 
               
               
@@ -206,8 +206,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/10/MySQL笔记/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/10/MySQL笔记/"></span>
+            <a href="/2015/07/17/github-auto-deploy/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/17/github-auto-deploy/"></span>
             </a>
           </span>
           
@@ -221,26 +221,12 @@
       
 
       
-        <h3 id="新建utf8数据库">新建utf8数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> db_name <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</span></span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> 的语法：</span><br><span class="line"><span class="keyword">CREATE</span> &#123;<span class="keyword">DATABASE</span> | <span class="keyword">SCHEMA</span>&#125; [<span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] db_name</span><br><span class="line">[create_specification [, create_specification] ...]</span><br><span class="line">create_specification:</span><br><span class="line">[<span class="keyword">DEFAULT</span>] <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> charset_name</span><br><span class="line">| [<span class="keyword">DEFAULT</span>] <span class="keyword">COLLATE</span> collation_name</span></span><br></pre></td></tr></table></figure>
-<h3 id="更改数据库的字符编码">更改数据库的字符编码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> db_name <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</span></span><br></pre></td></tr></table></figure>
-<h3 id="导入sql文件">导入sql文件</h3><blockquote>
-<ol>
-<li>mysql -uroot -pllpz</li>
-<li>use DATABASE_NAME;</li>
-<li>source /home/databases/123.sql</li>
-<li>done!</li>
+        <h3 id="原理">原理</h3><p>利用github的webhooks API配置服务器地址<br>当每次push的时候，就会自动触发github hooks然后发送命令到的服务器(预先配置好URL)，然后就执行git pull了</p>
+<h3 id="步骤">步骤</h3><h4 id="github中">github中</h4><ol>
+<li>在github上开启hooks<br><img src="/uploads/images/github-auto-deploy_0.png" alt="在github上开启hooks" title="在github上开启hooks"></li>
+<li>在Deploy keys配置key</li>
 </ol>
-</blockquote>
-<h3 id="重置root密码">重置root密码</h3><blockquote>
-<ol>
-<li>vi /etc/mysql/my.cnf</li>
-<li>在[mysqld]段下加入一行“skip-grant-tables”</li>
-<li>mysql -&gt; use mysql -&gt; update user set password=PASSWORD(“llpz”) where user=’root’; -&gt; 把密码重置为new_pass。退出数据库管理。</li>
-<li>mysql -uroot -pllpz</li>
-<li>done!</li>
-</ol>
-</blockquote>
-
+<h4 id="服务器端">服务器端</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$command</span> = shell_exec(<span class="string">'cd /home/wwwroot/projectDir &amp;&amp; git reset --hard HEAD &amp;&amp; git pull 2&gt;&amp;1'</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$command</span>;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -248,7 +234,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/"> #mysql </a>
+            <a href="/tags/git/"> #git </a>
+          
+            <a href="/tags/github/"> #github </a>
           
         </div>
       
@@ -257,11 +245,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/10/PHP技巧汇总/">PHP技巧汇总</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/17/git-skills/">git常用技巧</a>
             
           </div>
         </div>
@@ -281,8 +269,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/07/10/MySQL笔记/"
-               data-title="MySQL笔记" data-url="http://misael.cn/2015/07/10/MySQL笔记/">
+          <div class="ds-thread" data-thread-key="2015/07/17/github-auto-deploy/"
+               data-title="自动部署 -- github" data-url="http://misael.cn/2015/07/17/github-auto-deploy/">
           </div>
         
       </div>
@@ -381,7 +369,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建utf8数据库"><span class="nav-number">1.</span> <span class="nav-text">新建utf8数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改数据库的字符编码"><span class="nav-number">2.</span> <span class="nav-text">更改数据库的字符编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入sql文件"><span class="nav-number">3.</span> <span class="nav-text">导入sql文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重置root密码"><span class="nav-number">4.</span> <span class="nav-text">重置root密码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#github中"><span class="nav-number">2.1.</span> <span class="nav-text">github中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器端"><span class="nav-number">2.2.</span> <span class="nav-text">服务器端</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
