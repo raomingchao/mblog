@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="git,github," />
+  <meta name="keywords" content="gif,osx,windows,系统工具," />
 
 
 
@@ -57,7 +57,7 @@
 
 
 
-  <title> 自动部署 -- github // M </title>
+  <title> Gif 录屏工具 // M </title>
 </head>
 
 <body>
@@ -178,7 +178,7 @@
           
           
             
-              自动部署 -- github
+              Gif 录屏工具
             
           
         </h1>
@@ -186,14 +186,30 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-07-17
+          发表于 2015-07-21
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/git/">git</a>
+              <a href="/categories/osx/">osx</a>
+
+              
+              
+                ， 
+              
+
+            
+              <a href="/categories/osx/windows/">windows</a>
+
+              
+              
+                ， 
+              
+
+            
+              <a href="/categories/osx/windows/系统工具/">系统工具</a>
 
               
               
@@ -206,8 +222,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/17/github-auto-deploy/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/17/github-auto-deploy/"></span>
+            <a href="/2015/07/21/gif-record-licecap/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/21/gif-record-licecap/"></span>
             </a>
           </span>
           
@@ -221,12 +237,32 @@
       
 
       
-        <h3 id="原理">原理</h3><p>利用github的webhooks API配置服务器地址<br>当每次push的时候，就会自动触发github hooks然后发送命令到的服务器(预先配置好URL)，然后就执行git pull了</p>
-<h3 id="步骤">步骤</h3><h4 id="github中">github中</h4><ol>
-<li>在github上开启hooks<br><img src="/uploads/images/github-auto-deploy_0.png" alt="在github上开启hooks" title="在github上开启hooks"></li>
-<li>在Deploy keys配置key</li>
-</ol>
-<h4 id="服务器端">服务器端</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$command</span> = shell_exec(<span class="string">'cd /home/wwwroot/projectDir &amp;&amp; git reset --hard HEAD &amp;&amp; git pull 2&gt;&amp;1'</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$command</span>;</span><br></pre></td></tr></table></figure>
+        <h1 id="LICEcap">LICEcap</h1><blockquote>
+<p>简洁易用的动画屏幕录制软件</p>
+</blockquote>
+<p><img src="http://7xkj44.com1.z0.glb.clouddn.com/licecap.gif" alt="功能展示" title="功能展示"></p>
+<h2 id="功能特点：">功能特点：</h2><ul>
+<li>录制为 .GIF 或 .LCF。</li>
+<li>录制过程中，可移动捕捉框，从而改变录制范围。</li>
+<li>暂停/重新开始录制，并可插入文字（暂不支持中文）说明帧。</li>
+<li>录制过程中，可用全局热键 (shift+space) 暂停/继续。</li>
+<li>录制帧频可调，以便于平衡CPU占用率。</li>
+<li>设定标题帧，显示基本信息。</li>
+<li>录制鼠标按下动作。</li>
+<li>录制时，显示时间。</li>
+</ul>
+<h2 id="系统需求:">系统需求:</h2><ul>
+<li>若为Windows: Windows XP/Vista/7 (其他版本或许能用，某些功能会丧失）</li>
+<li>若为OSX: OS 10.4+, PPC 或 Intel (注: OS X 支持仍在测试阶段，某些功能尚未实现)</li>
+<li>合情合理的 CPU</li>
+<li>较大数量的内存 (1GB+, 尤其是录为 LCF 时)</li>
+</ul>
+<h2 id="最新版本:">最新版本:</h2><p><a href="http://www.cockos.com/licecap/licecap12-install.exe" title="windows v1.2 download" target="_blank" rel="external">LICEcap v1.2 for Windows</a> (8/4/2011) (432kb 安装包)<br><a href="http://www.cockos.com/licecap/licecap12.dmg" title="osx v1.2 download" target="_blank" rel="external">LICEcap v1.2 for OSX</a> (注: alpha 版本) (8/4/2011) (800kb DMG)<br>录制之前，用户可设定录制区域大小<br>在暂停时，插入文本帧 - 源自 JeffOS, 多谢 JeffOS!<br>OSX 版本: v1.2alpha (doesn’t support proper cursors or mouse status or hotkeys, but somewhat usable)<br>历史版本:<br><a href="http://www.cockos.com/licecap/licecap11-install.exe" title="v.1.1" target="_blank" rel="external">LICEcap v1.1</a> (6/9/10) (389kb 安装包)<br>修复 LCF 导出宽度不是4的整倍时的问题<br>增加暂停热键 (shift+space)</p>
+<p><a href="http://www.cockos.com/licecap/licecap10-install.exe" title="v.10" target="_blank" rel="external">LICEcap v1.0</a> (6/7/10) (389kb 安装包)<br>首次发布。</p>
+<blockquote>
+<p><a href="https://github.com/lepht/licecap" title="githublink" target="_blank" rel="external">GitHub</a> <a href="http://www.cockos.com/licecap/" title="官网" target="_blank" rel="external">官网</a></p>
+</blockquote>
+
       
     </div>
 
@@ -234,9 +270,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/git/"> #git </a>
+            <a href="/tags/gif/"> #gif </a>
           
-            <a href="/tags/github/"> #github </a>
+            <a href="/tags/osx/"> #osx </a>
+          
+            <a href="/tags/windows/"> #windows </a>
+          
+            <a href="/tags/系统工具/"> #系统工具 </a>
           
         </div>
       
@@ -245,13 +285,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/17/loading-animation-collection-spinkit/">Loading图标收集[SpinKit]</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/17/git-skills/">git常用技巧</a>
+              <a href="/2015/07/21/gulp-cheat-sheet/">Gulp Cheat Sheet</a>
             
           </div>
         </div>
@@ -271,8 +309,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/07/17/github-auto-deploy/"
-               data-title="自动部署 -- github" data-url="http://misael.cn/2015/07/17/github-auto-deploy/">
+          <div class="ds-thread" data-thread-key="2015/07/21/gif-record-licecap/"
+               data-title="Gif 录屏工具" data-url="http://misael.cn/2015/07/21/gif-record-licecap/">
           </div>
         
       </div>
@@ -371,7 +409,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#github中"><span class="nav-number">2.1.</span> <span class="nav-text">github中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器端"><span class="nav-number">2.2.</span> <span class="nav-text">服务器端</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LICEcap"><span class="nav-number">1.</span> <span class="nav-text">LICEcap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#功能特点："><span class="nav-number">1.1.</span> <span class="nav-text">功能特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统需求:"><span class="nav-number">1.2.</span> <span class="nav-text">系统需求:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最新版本:"><span class="nav-number">1.3.</span> <span class="nav-text">最新版本:</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
