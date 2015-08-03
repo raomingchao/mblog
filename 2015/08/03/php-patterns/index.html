@@ -1,0 +1,656 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="Misael's Blog" />
+
+
+
+  <meta name="keywords" content="php,设计模式," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: ''
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?153ab4cca012c65c1e8181938cf81db7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> PHP设计模式 // M </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">M</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+<form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '4i1GtPgrpPo8ddmCMWmC','2.0.0');
+</script>
+
+<div class="site-search-toggle"></div>
+    </div>
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              PHP设计模式
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-08-03
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/php/">php</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/03/php-patterns/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/03/php-patterns/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <h2 id="模式简介">模式简介</h2><h3 id="什么是模式">什么是模式</h3><p>在软件世界中，每个开发机构就像一个部落，而模式就是对部落的某种共同记忆的一种表现。—-Grady Booch,《J2EE核心模式》<br>模式便是特定环境下同类问题的一种解决方法 —-Gand of Four，《设计模式：可复用面向对象软件基础》<br>正如上面所暗示的，设计模式便是分析过的问题和问题解决方案所阐述的优秀实践。注意模式本质是自下而上的。它们来源于实践非空洞的理论。</p>
+<h3 id="模式概览">模式概览</h3><p>一个模式的核心由4个部分组成：命名、问题、解决方案和效果。</p>
+<h3 id="命名">命名</h3><p>命名非常重要。命名可以说丰富了程序员的语言,少许简短的文字便可表示相当复杂的问题和解决方案。命名必须兼顾简洁性和描述性。《设计模式》说道：找到一个好名字,成了我们在开发模式目录中最困难的部分之一。<br>Martin Flower 也赞同模式命名至关重要,因为模式的目的之一就是为开发者更加有效的交流提供词汇。</p>
+<h3 id="问题">问题</h3><p>无论解决方案如何优雅，问题以及问题发生的环境都是一个模式的基础。找出问题比使用模式目录中的解决方案更难。<br>模式会小心谨慎地描述问题的空间（发生的条件和环境）。问题会被置于环境中简明扼要地描述。问题会被分解成不同的细节和各种表现。</p>
+<h3 id="解决方案">解决方案</h3><p>解决方案最初和问题放在一起的。尽管代码有现成的,但是解决方案从来不是简单的复制哦，有可能实现上又上百种的细微差。<br>把一个比方:就像农作物播种操作，如果你盲目的遵循书本上的步骤,那么有可能到收货季节你有可能挨饿，以模式为基础，但又针 对各种情况随机应变的方案更加实用。虽然问题（农作物成长）的基本解决方案大致相同（播种、灌溉、收割）,但是实际场景会有 各种因素,比如土壤类别、地理位置、土地方位、当地有害物等等。</p>
+<h3 id="效果">效果</h3><p>在设计代码的时候，你所做的每一个决定都会带来不同的结果。当然我们总是希望得到令人满意的针对问题的解决方案。解决方案一旦部署，理想情况下它也许非常适合与其他模式一同工作。但是也要留心是否会带来风险。</p>
+<h2 id="单例模式(Singleton)">单例模式(Singleton)</h2><h3 id="概念">概念</h3><p>作为对象的创建模式，单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统全局地提供这个实例。它不会创建实例副本，而是会向单例类内部存储的实例返回一个引用。</p>
+<h3 id="特点">特点</h3><ol>
+<li><p>一个类只有一个实例</p>
+</li>
+<li><p>它必须自行创建这个实例</p>
+</li>
+<li><p>必须自行向整个系统提供这个实例</p>
+</li>
+</ol>
+<h3 id="三个要点">三个要点</h3><ol>
+<li>需要一个保存类的唯一私有静态变量</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="variable">$_instance</span>;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>构造函数和克隆函数必须声明为私有的，防止外部程序new类从而失去单例模式的意义</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="variable">$this</span>-&gt;_db = mysql_connect(<span class="string">'xxxx'</span>);  </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//覆盖__clone()方法，禁止克隆 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>必须提供一个访问这个实例的公共的静态方法（通常为getInstance方法），从而返回唯一实例的一个引用</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;   </span><br><span class="line">    <span class="keyword">if</span>(!(<span class="keyword">self</span>::<span class="variable">$_instance</span> <span class="keyword">instanceof</span> <span class="keyword">self</span>))&#123;   </span><br><span class="line">        <span class="keyword">self</span>::<span class="variable">$_instance</span> = <span class="keyword">new</span> <span class="keyword">self</span>();    </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>::<span class="variable">$_instance</span>;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="应用场景">应用场景</h3><ol>
+<li>应用程序与数据库交互<blockquote>
+<p>一个应用中会存在大量的数据库操作，比如过数据库句柄来连接数据库这一行为，使用单例模式可以避免大量的new操作，因为每一次new操作都会消耗内存资源和系统资源。</p>
+</blockquote>
+</li>
+<li>控制配置信息<blockquote>
+<p>如果系统中需要有一个类来全局控制某些配置信息, 那么使用单例模式可以很方便的实现。</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="代码实现">代码实现</h3><ol>
+<li><p>普通例子(不使用单例模式)</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化一个数据库句柄  </span></span><br><span class="line"><span class="variable">$db</span> = <span class="keyword">new</span> DB(...);</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加用户信息  </span></span><br><span class="line"><span class="variable">$db</span>-&gt;addUserInfo(...);</span><br><span class="line"></span><br><span class="line">......</span><br><span class="line">  </span><br><span class="line"><span class="comment">//在函数中访问数据库，查找用户信息  </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getUserInfo</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="variable">$db</span> = <span class="keyword">new</span> DB(...);<span class="comment">//再次new 数据库类，和数据库建立连接  </span></span><br><span class="line">    <span class="variable">$db</span> = query(....);<span class="comment">//根据查询语句访问数据库  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>应用单例模式</p>
+</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DB</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$_db</span>;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="variable">$_instance</span>;    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(...)</span></span>&#123;</span><br><span class="line">        <span class="variable">$this</span>-&gt;_db = mysql_connect(...);<span class="comment">//mysql    </span></span><br><span class="line">    &#125;    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span> </span>&#123;&#125;;  <span class="comment">//覆盖__clone()方法，禁止克隆    </span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(! (<span class="keyword">self</span>::<span class="variable">$_instance</span> <span class="keyword">instanceof</span> <span class="keyword">self</span>) ) &#123;    </span><br><span class="line">            <span class="keyword">self</span>::<span class="variable">$_instance</span> = <span class="keyword">new</span> <span class="keyword">self</span>();    </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>::<span class="variable">$_instance</span>;    </span><br><span class="line">    &#125;    </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">addUserInfo</span><span class="params">(...)</span></span>&#123;</span><br><span class="line">        <span class="comment">//实现mysql语句</span></span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getUserInfo</span><span class="params">(...)</span></span>&#123;</span><br><span class="line">       <span class="comment">//实现mysql语句</span></span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//test  </span></span><br><span class="line"><span class="variable">$db</span> = DB::getInstance();  </span><br><span class="line"><span class="variable">$db</span>-&gt;addUserInfo(...);  </span><br><span class="line"><span class="variable">$db</span>-&gt;getUserInfo(...);</span><br></pre></td></tr></table></figure>
+<h3 id="完整例子">完整例子</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">db</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$conn</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="variable">$sql</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="variable">$instance</span> = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">require_once</span>(<span class="string">'db.config.php'</span>);</span><br><span class="line">        <span class="variable">$this</span>-&gt;conn = mysql_connect(<span class="variable">$db</span>[<span class="string">'host'</span>], <span class="variable">$db</span>[<span class="string">'user'</span>], <span class="variable">$db</span>[<span class="string">'password'</span>]);</span><br><span class="line">        <span class="keyword">if</span> (!mysql_select_db(<span class="variable">$db</span>[<span class="string">'database'</span>], <span class="variable">$this</span>-&gt;conn)) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">"失败"</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        mysql_query(<span class="string">'set names utf8'</span>, <span class="variable">$this</span>-&gt;conn);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (is_null(<span class="keyword">self</span>::<span class="variable">$instance</span>)) &#123;</span><br><span class="line">            <span class="keyword">self</span>::<span class="variable">$instance</span> = <span class="keyword">new</span> db;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>::<span class="variable">$instance</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 查询数据库</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">select</span><span class="params">(<span class="variable">$table</span>, <span class="variable">$condition</span> = array<span class="params">()</span>, <span class="variable">$field</span> = array<span class="params">()</span>)</span> </span>&#123;</span><br><span class="line">        <span class="variable">$where</span> = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="variable">$condition</span>)) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="variable">$condition</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">                <span class="variable">$where</span> .= <span class="variable">$k</span> . <span class="string">"='"</span> . <span class="variable">$v</span> . <span class="string">"' and "</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$where</span> = <span class="string">'where '</span> . <span class="variable">$where</span> . <span class="string">'1=1'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$fieldstr</span> = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="variable">$field</span>)) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="variable">$field</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">                <span class="variable">$fieldstr</span> .= <span class="variable">$v</span> . <span class="string">','</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$fieldstr</span> = rtrim(<span class="variable">$fieldstr</span>, <span class="string">','</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable">$fieldstr</span> = <span class="string">'*'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">self</span>::<span class="variable">$sql</span> = <span class="string">"select &#123;$fieldstr&#125; from &#123;$table&#125; &#123;$where&#125;"</span>;</span><br><span class="line">        <span class="variable">$result</span> = mysql_query(<span class="keyword">self</span>::<span class="variable">$sql</span>, <span class="variable">$this</span>-&gt;conn);</span><br><span class="line">        <span class="variable">$resuleRow</span> = <span class="keyword">array</span>();</span><br><span class="line">        <span class="variable">$i</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (<span class="variable">$row</span> = mysql_fetch_assoc(<span class="variable">$result</span>)) &#123;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="variable">$row</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">                <span class="variable">$resuleRow</span>[<span class="variable">$i</span>][<span class="variable">$k</span>] = <span class="variable">$v</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$i</span>++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$resuleRow</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 添加一条记录</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">insert</span><span class="params">(<span class="variable">$table</span>, <span class="variable">$data</span>)</span> </span>&#123;</span><br><span class="line">        <span class="variable">$values</span> = <span class="string">''</span>;</span><br><span class="line">        <span class="variable">$datas</span> = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="variable">$data</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">            <span class="variable">$values</span> .= <span class="variable">$k</span> . <span class="string">','</span>;</span><br><span class="line">            <span class="variable">$datas</span> .= <span class="string">"'$v'"</span> . <span class="string">','</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$values</span> = rtrim(<span class="variable">$values</span>, <span class="string">','</span>);</span><br><span class="line">        <span class="variable">$datas</span> = rtrim(<span class="variable">$datas</span>, <span class="string">','</span>);</span><br><span class="line">        <span class="keyword">self</span>::<span class="variable">$sql</span> = <span class="string">"INSERT INTO  &#123;$table&#125; (&#123;$values&#125;) VALUES (&#123;$datas&#125;)"</span>;</span><br><span class="line">        <span class="keyword">if</span> (mysql_query(<span class="keyword">self</span>::<span class="variable">$sql</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> mysql_insert_id();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 修改一条记录</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">update</span><span class="params">(<span class="variable">$table</span>, <span class="variable">$data</span>, <span class="variable">$condition</span> = array<span class="params">()</span>)</span> </span>&#123;</span><br><span class="line">        <span class="variable">$where</span> = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="variable">$condition</span>)) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="variable">$condition</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">                <span class="variable">$where</span> .= <span class="variable">$k</span> . <span class="string">"='"</span> . <span class="variable">$v</span> . <span class="string">"' and "</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$where</span> = <span class="string">'where '</span> . <span class="variable">$where</span> . <span class="string">'1=1'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable">$updatastr</span> = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="variable">$data</span>)) &#123;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="variable">$data</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">                <span class="variable">$updatastr</span> .= <span class="variable">$k</span> . <span class="string">"='"</span> . <span class="variable">$v</span> . <span class="string">"',"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$updatastr</span> = <span class="string">'set '</span> . rtrim(<span class="variable">$updatastr</span>, <span class="string">','</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">self</span>::<span class="variable">$sql</span> = <span class="string">"update &#123;$table&#125; &#123;$updatastr&#125; &#123;$where&#125;"</span>;</span><br><span class="line">        <span class="keyword">return</span> mysql_query(<span class="keyword">self</span>::<span class="variable">$sql</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * 删除记录</span><br><span class="line">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">delete</span><span class="params">(<span class="variable">$table</span>, <span class="variable">$condition</span>)</span> </span>&#123;</span><br><span class="line">        <span class="variable">$where</span> = <span class="string">''</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="variable">$condition</span>)) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="variable">$condition</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) &#123;</span><br><span class="line">                <span class="variable">$where</span> .= <span class="variable">$k</span> . <span class="string">"='"</span> . <span class="variable">$v</span> . <span class="string">"' and "</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="variable">$where</span> = <span class="string">'where '</span> . <span class="variable">$where</span> . <span class="string">'1=1'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">self</span>::<span class="variable">$sql</span> = <span class="string">"delete from &#123;$table&#125; &#123;$where&#125;"</span>;</span><br><span class="line">        <span class="keyword">return</span> mysql_query(<span class="keyword">self</span>::<span class="variable">$sql</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getLastSql</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="keyword">self</span>::<span class="variable">$sql</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$db</span> = db::getInstance();</span><br><span class="line"><span class="comment">//$list = $db-&gt;select('demo',array('name'=&gt;'tom','password'=&gt;'ds'),array('name','password'));</span></span><br><span class="line"><span class="comment">//echo $db-&gt;insert('demo',array('name'=&gt;'最近你啦','password'=&gt;'123'));</span></span><br><span class="line"><span class="comment">//echo $db-&gt;update('demo',array("name"=&gt;'<span class="doctag"><span class="keyword">xxx</span></span>',"password"=&gt;'123'),array('id'=&gt;1));</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$db</span>-&gt;delete(<span class="string">'demo'</span>, <span class="keyword">array</span>(<span class="string">'id'</span> =&gt; <span class="string">'2'</span>));</span><br><span class="line">db::getLastSql();</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;pre&gt;"</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="工厂方法模式(FactoryMethod)">工厂方法模式(FactoryMethod)</h2><h2 id="抽象工厂模式(AbstractFactory)">抽象工厂模式(AbstractFactory)</h2><h2 id="适配器模式">适配器模式</h2><h2 id="策略模式">策略模式</h2><h2 id="观察者模式">观察者模式</h2><h2 id="原型模式(Prototype)">原型模式(Prototype)</h2><h2 id="装饰模式(Decorator)">装饰模式(Decorator)</h2><h2 id="迭代器模式">迭代器模式</h2><h2 id="代理模式">代理模式</h2><h2 id="组合模式(Composite)">组合模式(Composite)</h2><h2 id="外观模式(Facade)">外观模式(Facade)</h2><h2 id="综合实战">综合实战</h2>
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/php/"> #php </a>
+          
+            <a href="/tags/设计模式/"> #设计模式 </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/22/mamp/">MAC下PHP集成环境 - MAMP</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/08/03/php-patterns/"
+               data-title="PHP设计模式" data-url="http://misael.cn/2015/08/03/php-patterns/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/uploads/images/avatar_white.png" alt="Misael Yau" />
+          <p class="site-author-name">Misael Yau</p>
+        </div>
+        <p class="site-description motion-element">Misael's Blog</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/raomingchao" target="_blank">github</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/misael" target="_blank">weibo</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模式简介"><span class="nav-number">1.</span> <span class="nav-text">模式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是模式"><span class="nav-number">1.1.</span> <span class="nav-text">什么是模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式概览"><span class="nav-number">1.2.</span> <span class="nav-text">模式概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名"><span class="nav-number">1.3.</span> <span class="nav-text">命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">1.4.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">1.5.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果"><span class="nav-number">1.6.</span> <span class="nav-text">效果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式(Singleton)"><span class="nav-number">2.</span> <span class="nav-text">单例模式(Singleton)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三个要点"><span class="nav-number">2.3.</span> <span class="nav-text">三个要点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">2.4.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">2.5.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整例子"><span class="nav-number">2.6.</span> <span class="nav-text">完整例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式(FactoryMethod)"><span class="nav-number">3.</span> <span class="nav-text">工厂方法模式(FactoryMethod)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂模式(AbstractFactory)"><span class="nav-number">4.</span> <span class="nav-text">抽象工厂模式(AbstractFactory)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适配器模式"><span class="nav-number">5.</span> <span class="nav-text">适配器模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#策略模式"><span class="nav-number">6.</span> <span class="nav-text">策略模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#观察者模式"><span class="nav-number">7.</span> <span class="nav-text">观察者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型模式(Prototype)"><span class="nav-number">8.</span> <span class="nav-text">原型模式(Prototype)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰模式(Decorator)"><span class="nav-number">9.</span> <span class="nav-text">装饰模式(Decorator)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器模式"><span class="nav-number">10.</span> <span class="nav-text">迭代器模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式"><span class="nav-number">11.</span> <span class="nav-text">代理模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合模式(Composite)"><span class="nav-number">12.</span> <span class="nav-text">组合模式(Composite)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外观模式(Facade)"><span class="nav-number">13.</span> <span class="nav-text">外观模式(Facade)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#综合实战"><span class="nav-number">14.</span> <span class="nav-text">综合实战</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Misael Yau</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"misael"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+
+  
+  <!-- lazyload -->
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+      <script type="text/javascript">
+        jQuery(function() {          
+            jQuery("#posts img").lazyload({
+              placeholder:"http://www.arao.me/loading.gif",  
+                effect:"fadeIn"
+              });
+            });
+    </script>   
+</body>
+</html>
