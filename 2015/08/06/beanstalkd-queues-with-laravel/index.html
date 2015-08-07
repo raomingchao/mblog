@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="gif,osx,windows,系统工具," />
+  <meta name="keywords" content="beanstalkd,laravel,php," />
 
 
 
@@ -57,7 +57,7 @@
 
 
 
-  <title> Gif 录屏工具 // M </title>
+  <title> Laravel 队列[beanstalkd]实践 // M </title>
 </head>
 
 <body>
@@ -178,7 +178,7 @@
           
           
             
-              Gif 录屏工具
+              Laravel 队列[beanstalkd]实践
             
           
         </h1>
@@ -186,14 +186,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-07-21
+          发表于 2015-08-06
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/osx/">osx</a>
+              <a href="/categories/php/">php</a>
 
               
               
@@ -201,15 +201,7 @@
               
 
             
-              <a href="/categories/osx/windows/">windows</a>
-
-              
-              
-                ， 
-              
-
-            
-              <a href="/categories/osx/windows/系统工具/">系统工具</a>
+              <a href="/categories/php/laravel/">laravel</a>
 
               
               
@@ -222,8 +214,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/21/gif-record-licecap/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/21/gif-record-licecap/"></span>
+            <a href="/2015/08/06/beanstalkd-queues-with-laravel/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/06/beanstalkd-queues-with-laravel/"></span>
             </a>
           </span>
           
@@ -237,32 +229,57 @@
       
 
       
-        <h1 id="LICEcap">LICEcap</h1><blockquote>
-<p>简洁易用的动画屏幕录制软件<br><img src="http://7xkj44.com1.z0.glb.clouddn.com/licecap.gif" alt="功能展示" title="功能展示"></p>
+        <h2 id="安装">安装</h2><blockquote>
+<p>Ubuntu 12.04.5 LTS</p>
 </blockquote>
-<a id="more"></a>
-<h2 id="功能特点：">功能特点：</h2><ul>
-<li>录制为 .GIF 或 .LCF。</li>
-<li>录制过程中，可移动捕捉框，从而改变录制范围。</li>
-<li>暂停/重新开始录制，并可插入文字（暂不支持中文）说明帧。</li>
-<li>录制过程中，可用全局热键 (shift+space) 暂停/继续。</li>
-<li>录制帧频可调，以便于平衡CPU占用率。</li>
-<li>设定标题帧，显示基本信息。</li>
-<li>录制鼠标按下动作。</li>
-<li>录制时，显示时间。</li>
-</ul>
-<h2 id="系统需求:">系统需求:</h2><ul>
-<li>若为Windows: Windows XP/Vista/7 (其他版本或许能用，某些功能会丧失）</li>
-<li>若为OSX: OS 10.4+, PPC 或 Intel (注: OS X 支持仍在测试阶段，某些功能尚未实现)</li>
-<li>合情合理的 CPU</li>
-<li>较大数量的内存 (1GB+, 尤其是录为 LCF 时)</li>
-</ul>
-<h2 id="最新版本:">最新版本:</h2><p><a href="http://www.cockos.com/licecap/licecap12-install.exe" title="windows v1.2 download" target="_blank" rel="external">LICEcap v1.2 for Windows</a> (8/4/2011) (432kb 安装包)<br><a href="http://www.cockos.com/licecap/licecap12.dmg" title="osx v1.2 download" target="_blank" rel="external">LICEcap v1.2 for OSX</a> (注: alpha 版本) (8/4/2011) (800kb DMG)<br>录制之前，用户可设定录制区域大小<br>在暂停时，插入文本帧 - 源自 JeffOS, 多谢 JeffOS!<br>OSX 版本: v1.2alpha (doesn’t support proper cursors or mouse status or hotkeys, but somewhat usable)<br>历史版本:<br><a href="http://www.cockos.com/licecap/licecap11-install.exe" title="v.1.1" target="_blank" rel="external">LICEcap v1.1</a> (6/9/10) (389kb 安装包)<br>修复 LCF 导出宽度不是4的整倍时的问题<br>增加暂停热键 (shift+space)</p>
-<p><a href="http://www.cockos.com/licecap/licecap10-install.exe" title="v.10" target="_blank" rel="external">LICEcap v1.0</a> (6/7/10) (389kb 安装包)<br>首次发布。</p>
+<ol>
+<li>sudo apt-get install beanstalkd</li>
+<li>vi /etc/default/beanstalkd #uncomment START=yes</li>
+<li>service beanstalkd start</li>
+</ol>
 <blockquote>
-<p><a href="https://github.com/lepht/licecap" title="githublink" target="_blank" rel="external">GitHub</a> <a href="http://www.cockos.com/licecap/" title="官网" target="_blank" rel="external">官网</a></p>
+<p>安装Laravel 4.2下beanstalkd依赖包<code>pda/pheanstalk</code></p>
 </blockquote>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ composer require pda/pheanstalk <span class="comment">#输入2.1.*版本</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>网页控制台</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer create-project ptrofimov/beanstalk_console <span class="operator">-s</span> dev</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/ptrofimov/beanstalk_console" title="beanstalk_console" target="_blank" rel="external">Github beanstalk Console</a></p>
+<h2 id="配置">配置</h2><blockquote>
+<p>在 config/queue.php 中设置<code>defautl</code>选项为:<code>beanstalkd</code></p>
+</blockquote>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'beanstalkd'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">	<span class="string">'driver'</span> =&gt; <span class="string">'beanstalkd'</span>,</span><br><span class="line">	<span class="string">'host'</span>   =&gt; <span class="string">'localhost'</span>, <span class="comment">//可以设置未第三方服务器</span></span><br><span class="line">	<span class="string">'queue'</span>  =&gt; <span class="string">'default'</span>,</span><br><span class="line">	<span class="string">'ttr'</span>    =&gt; <span class="number">60</span>, <span class="comment">//seconds</span></span><br><span class="line">),</span><br></pre></td></tr></table></figure>
+<h2 id="测试">测试</h2><ol>
+<li>在路由中</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//推送一个闭包去队列，这个方法非常的方便及快速的来处理需要使用队列的简单的任务</span></span><br><span class="line">Route::get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Queue::push(<span class="function"><span class="keyword">function</span><span class="params">(<span class="variable">$job</span>)</span></span>&#123;</span><br><span class="line">		Log::info(<span class="string">'Queues test info'</span>);</span><br><span class="line">		<span class="variable">$job</span>-&gt;delete();<span class="comment">//删除</span></span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'Job added to the queue'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>启动Laravel queue 监听</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ php artisan queue:work <span class="comment">#处理队列中事务</span></span><br><span class="line">$ php artisan queue:listen <span class="comment">#监听</span></span><br></pre></td></tr></table></figure>
+<h2 id="处理错误队列">处理错误队列</h2><ol>
+<li>在数据库中生成存储queue job错误的表</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ php artisan queue:failed-table</span><br><span class="line">$ php artisan migrate</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在 config/queue.php 中设置<code>failed</code>中数据库配置项</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">|--------------------------------------------------------------------------</span><br><span class="line">| Failed Queue Jobs</span><br><span class="line">|--------------------------------------------------------------------------</span><br><span class="line">|</span><br><span class="line">| These options configure the behavior of failed queue job logging so you</span><br><span class="line">| can control which database and table are used to store the jobs that</span><br><span class="line">| have failed. You may change them to any database / table you wish.</span><br><span class="line">|</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="string">'failed'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line"></span><br><span class="line">	<span class="string">'database'</span> =&gt; <span class="string">'mysql'</span>, <span class="string">'table'</span> =&gt; <span class="string">'failed_jobs'</span>,</span><br><span class="line"></span><br><span class="line">),</span><br></pre></td></tr></table></figure>
+<ol>
+<li>设置failed job重试次数</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ php artisan queue:listen --tries=<span class="number">3</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>命令行中查看错误列表</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ php artisan queue:failed <span class="comment">#查询数据库表中错误列表</span></span><br></pre></td></tr></table></figure>
+<h2 id="守护处理队列进程(Supervisor)">守护处理队列进程(Supervisor)</h2><h3 id="安装-1">安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install supervisor</span><br></pre></td></tr></table></figure>
+<h3 id="配置-1">配置</h3><blockquote>
+<p>新建 <code>vi /etc/supervisor/conf.d/queue.conf</code></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[program:queue]</span><br><span class="line"><span class="built_in">command</span>=php artisan queue:listen --tries=<span class="number">2</span></span><br><span class="line">directory=/home/wwwroot/demo.example.com</span><br><span class="line">stdout_logfile=/home/wwwlogs/demo.example.com.supervisor.log</span><br><span class="line">redirect_stderr=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用">使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo supervisorctl</span><br><span class="line"><span class="built_in">help</span></span><br><span class="line">supervisor&gt; reread</span><br><span class="line">supervisor&gt; add queue</span><br><span class="line">supervisor&gt; start queue</span><br><span class="line">supervisor&gt; status</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -270,13 +287,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/gif/"> #gif </a>
+            <a href="/tags/beanstalkd/"> #beanstalkd </a>
           
-            <a href="/tags/osx/"> #osx </a>
+            <a href="/tags/laravel/"> #laravel </a>
           
-            <a href="/tags/windows/"> #windows </a>
-          
-            <a href="/tags/系统工具/"> #系统工具 </a>
+            <a href="/tags/php/"> #php </a>
           
         </div>
       
@@ -285,13 +300,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/22/mamp/">MAC下PHP集成环境 - MAMP</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/21/gulp-cheat-sheet/">Gulp Cheat Sheet</a>
+              <a href="/2015/08/03/php-patterns/">PHP设计模式</a>
             
           </div>
         </div>
@@ -311,8 +324,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/07/21/gif-record-licecap/"
-               data-title="Gif 录屏工具" data-url="http://misael.cn/2015/07/21/gif-record-licecap/">
+          <div class="ds-thread" data-thread-key="2015/08/06/beanstalkd-queues-with-laravel/"
+               data-title="Laravel 队列[beanstalkd]实践" data-url="http://misael.cn/2015/08/06/beanstalkd-queues-with-laravel/">
           </div>
         
       </div>
@@ -411,7 +424,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LICEcap"><span class="nav-number">1.</span> <span class="nav-text">LICEcap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#功能特点："><span class="nav-number">1.1.</span> <span class="nav-text">功能特点：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统需求:"><span class="nav-number">1.2.</span> <span class="nav-text">系统需求:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最新版本:"><span class="nav-number">1.3.</span> <span class="nav-text">最新版本:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理错误队列"><span class="nav-number">4.</span> <span class="nav-text">处理错误队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#守护处理队列进程(Supervisor)"><span class="nav-number">5.</span> <span class="nav-text">守护处理队列进程(Supervisor)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-1"><span class="nav-number">5.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-1"><span class="nav-number">5.2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">5.3.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
