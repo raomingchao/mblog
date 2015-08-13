@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="cocos,cocos2djs," />
 
 
 
@@ -57,7 +57,7 @@
 
 
 
-  <title> MySQL笔记 // M </title>
+  <title> coco2d-JS 快速安装 // M </title>
 </head>
 
 <body>
@@ -178,7 +178,7 @@
           
           
             
-              MySQL笔记
+              coco2d-JS 快速安装
             
           
         </h1>
@@ -186,14 +186,22 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-07-10
+          发表于 2015-08-13
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/sql/">sql</a>
+              <a href="/categories/cocos/">cocos</a>
+
+              
+              
+                ， 
+              
+
+            
+              <a href="/categories/cocos/cocos2djs/">cocos2djs</a>
 
               
               
@@ -206,8 +214,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/10/MySQL-note/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/10/MySQL-note/"></span>
+            <a href="/2015/08/13/cocos2d-js-quick-start/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/13/cocos2d-js-quick-start/"></span>
             </a>
           </span>
           
@@ -221,26 +229,10 @@
       
 
       
-        <h3 id="新建utf8数据库">新建utf8数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> db_name <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</span></span><br><span class="line"><span class="operator"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> 的语法：</span><br><span class="line"><span class="keyword">CREATE</span> &#123;<span class="keyword">DATABASE</span> | <span class="keyword">SCHEMA</span>&#125; [<span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>] db_name</span><br><span class="line">[create_specification [, create_specification] ...]</span><br><span class="line">create_specification:</span><br><span class="line">[<span class="keyword">DEFAULT</span>] <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> charset_name</span><br><span class="line">| [<span class="keyword">DEFAULT</span>] <span class="keyword">COLLATE</span> collation_name</span></span><br></pre></td></tr></table></figure>
-<h3 id="更改数据库的字符编码">更改数据库的字符编码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> db_name <span class="keyword">DEFAULT</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci;</span></span><br></pre></td></tr></table></figure>
-<h3 id="导入sql文件">导入sql文件</h3><blockquote>
-<ol>
-<li>mysql -uroot -pllpz</li>
-<li>use DATABASE_NAME;</li>
-<li>source /home/databases/123.sql</li>
-<li>done!</li>
-</ol>
-</blockquote>
-<h3 id="重置root密码">重置root密码</h3><blockquote>
-<ol>
-<li>vi /etc/mysql/my.cnf</li>
-<li>在[mysqld]段下加入一行“skip-grant-tables”</li>
-<li>mysql -&gt; use mysql -&gt; update user set password=PASSWORD(“llpz”) where user=’root’; -&gt; 把密码重置为new_pass。退出数据库管理。</li>
-<li>mysql -uroot -pllpz</li>
-<li>done!</li>
-</ol>
-</blockquote>
-
+        <h2 id="准备工作">准备工作</h2><h3 id="下载Cocos2d-JS">下载Cocos2d-JS</h3><p><a href="http://www.cocos.com/download/" title="Cocos2d-JS 3.0版本" target="_blank" rel="external">Cocos2d-JS 3.0版本</a></p>
+<h3 id="安装python">安装python</h3><h3 id="下载Android_SDK_Android">下载Android SDK Android</h3><h3 id="下载Android_NDK">下载Android NDK</h3><h3 id="下载Ant">下载Ant</h3><p><a href="http://pan.baidu.com/s/1bnyNMwv" title="apache-ant-1.9.6-bin" target="_blank" rel="external">apache-ant-1.9.6-bin</a></p>
+<h2 id="安装">安装</h2><h3 id="进入Cocos2d-JS目录">进入Cocos2d-JS目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">cocos2d-x-<span class="number">3.7</span>  ./setup.py</span><br><span class="line"></span><br><span class="line">Setting up cocos2d-x...</span><br><span class="line">-&gt;Check environment variable COCOS_CONSOLE_ROOT</span><br><span class="line">  -&gt;Search <span class="keyword">for</span> environment variable COCOS_CONSOLE_ROOT...</span><br><span class="line">    -&gt;COCOS_CONSOLE_ROOT is found : /Users/misael/Desktop/cocos2d-x-<span class="number">3.7</span>/tools/cocos2d-console/bin</span><br><span class="line"></span><br><span class="line">-&gt;Check environment variable COCOS_TEMPLATES_ROOT</span><br><span class="line">  -&gt;Search <span class="keyword">for</span> environment variable COCOS_TEMPLATES_ROOT...</span><br><span class="line">    -&gt;COCOS_TEMPLATES_ROOT is found : /Users/misael/Desktop/cocos2d-x-<span class="number">3.7</span>/templates</span><br><span class="line"></span><br><span class="line">-&gt;Configuration <span class="keyword">for</span> Android platform only, you can also skip and manually edit <span class="string">"/Users/misael/.zshrc"</span></span><br><span class="line"></span><br><span class="line">-&gt;Check environment variable NDK_ROOT</span><br><span class="line">  -&gt;Search <span class="keyword">for</span> environment variable NDK_ROOT...</span><br><span class="line">    -&gt;NDK_ROOT not found</span><br><span class="line"></span><br><span class="line">  -&gt;Search <span class="keyword">for</span> <span class="built_in">command</span> ndk-build <span class="keyword">in</span> system...</span><br><span class="line">    -&gt;Command ndk-build not found</span><br><span class="line"></span><br><span class="line">  -&gt;Please enter the path of NDK_ROOT (or press Enter to skip):</span><br><span class="line">-&gt;Check environment variable ANDROID_SDK_ROOT</span><br><span class="line">  -&gt;Search <span class="keyword">for</span> environment variable ANDROID_SDK_ROOT...</span><br><span class="line">    -&gt;ANDROID_SDK_ROOT not found</span><br><span class="line"></span><br><span class="line">  -&gt;Search <span class="keyword">for</span> <span class="built_in">command</span> android <span class="keyword">in</span> system...</span><br><span class="line">    -&gt;Command android not found</span><br><span class="line"></span><br><span class="line">  -&gt;Please enter the path of ANDROID_SDK_ROOT (or press Enter to skip):</span><br><span class="line">-&gt;Check environment variable ANT_ROOT</span><br><span class="line">  -&gt;Search <span class="keyword">for</span> environment variable ANT_ROOT...</span><br><span class="line">    -&gt;ANT_ROOT not found</span><br><span class="line"></span><br><span class="line">  -&gt;Search <span class="keyword">for</span> <span class="built_in">command</span> ant <span class="keyword">in</span> system...</span><br><span class="line">    -&gt;Command ant not found</span><br><span class="line"></span><br><span class="line">  -&gt;Please enter the path of ANT_ROOT (or press Enter to skip):/Users/misael/Desktop/cocos2d-x-<span class="number">3.7</span>/Android/apache-ant-<span class="number">1.9</span>.<span class="number">6</span>/bin</span><br><span class="line">  -&gt; Add ANT_ROOT environment variable...</span><br><span class="line">    -&gt;Added ANT_ROOT=/Users/misael/Desktop/cocos2d-x-<span class="number">3.7</span>/Android/apache-ant-<span class="number">1.9</span>.<span class="number">6</span>/bin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">A backup file <span class="string">"/Users/misael/.zshrc.backup1"</span> is created <span class="keyword">for</span> <span class="string">"/Users/misael/.zshrc"</span>.</span><br><span class="line"></span><br><span class="line">Please execute <span class="built_in">command</span>: <span class="string">"source /Users/misael/.zshrc"</span> to make added system variables take effect</span><br><span class="line"></span><br><span class="line">➜  cocos2d-x-<span class="number">3.7</span>  <span class="built_in">source</span> /Users/misael/.zshrc</span><br><span class="line">➜  cocos2d-x-<span class="number">3.7</span>  cocos new HelloCoco2djs <span class="operator">-l</span> js</span><br><span class="line">➜  cocos2d-x-<span class="number">3.7</span>  cocos new HelloCoco2djs <span class="operator">-l</span> js</span><br><span class="line">➜  cocos2d-x-<span class="number">3.7</span>  <span class="built_in">cd</span> ../</span><br><span class="line">➜  Desktop  <span class="built_in">source</span> /Users/misael/.zshrc</span><br><span class="line">➜  Desktop  cocos new HelloCoco2djs <span class="operator">-l</span> js</span><br></pre></td></tr></table></figure>
+<h2 id="编译HTML5">编译HTML5</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  Desktop  <span class="built_in">cd</span> HelloCoco2djs</span><br><span class="line">➜  HelloCoco2djs  cocos compile -p web -m release</span><br><span class="line">Running <span class="built_in">command</span>: compile</span><br><span class="line">Building mode: release</span><br><span class="line">running: <span class="string">'/Users/misael/Desktop/cocos2d-x-3.7/Android/apache-ant-1.9.6/bin/ant -f /Users/misael/Desktop/HelloCoco2djs/publish/html5/build.xml'</span></span><br><span class="line"></span><br><span class="line">Buildfile: /Users/misael/Desktop/HelloCoco2djs/publish/html5/build.xml</span><br><span class="line"></span><br><span class="line">compile:</span><br><span class="line">   [jscomp] Compiling <span class="number">157</span> file(s) with <span class="number">42</span> extern(s)</span><br><span class="line">   [jscomp] <span class="number">0</span> error(s), <span class="number">0</span> warning(s)</span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL</span><br><span class="line">Total time: <span class="number">9</span> seconds</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -248,7 +240,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/"> #mysql </a>
+            <a href="/tags/cocos/"> #cocos </a>
+          
+            <a href="/tags/cocos2djs/"> #cocos2djs </a>
           
         </div>
       
@@ -257,11 +251,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/10/PHP-skills/">PHP技巧汇总</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/06/beanstalkd-queues-with-laravel/">Laravel 队列[beanstalkd]实践</a>
             
           </div>
         </div>
@@ -281,8 +275,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/07/10/MySQL-note/"
-               data-title="MySQL笔记" data-url="http://misael.cn/2015/07/10/MySQL-note/">
+          <div class="ds-thread" data-thread-key="2015/08/13/cocos2d-js-quick-start/"
+               data-title="coco2d-JS 快速安装" data-url="http://misael.cn/2015/08/13/cocos2d-js-quick-start/">
           </div>
         
       </div>
@@ -381,7 +375,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#新建utf8数据库"><span class="nav-number">1.</span> <span class="nav-text">新建utf8数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更改数据库的字符编码"><span class="nav-number">2.</span> <span class="nav-text">更改数据库的字符编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入sql文件"><span class="nav-number">3.</span> <span class="nav-text">导入sql文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重置root密码"><span class="nav-number">4.</span> <span class="nav-text">重置root密码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Cocos2d-JS"><span class="nav-number">1.1.</span> <span class="nav-text">下载Cocos2d-JS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装python"><span class="nav-number">1.2.</span> <span class="nav-text">安装python</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Android_SDK_Android"><span class="nav-number">1.3.</span> <span class="nav-text">下载Android SDK Android</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Android_NDK"><span class="nav-number">1.4.</span> <span class="nav-text">下载Android NDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Ant"><span class="nav-number">1.5.</span> <span class="nav-text">下载Ant</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进入Cocos2d-JS目录"><span class="nav-number">2.1.</span> <span class="nav-text">进入Cocos2d-JS目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译HTML5"><span class="nav-number">3.</span> <span class="nav-text">编译HTML5</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
