@@ -1,0 +1,663 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="Misael's Blog" />
+
+
+
+  <meta name="keywords" content="docker," />
+
+
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: ''
+    },
+    sidebar: 'post'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?153ab4cca012c65c1e8181938cf81db7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> Docker 快速入门 // M </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">M</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+<form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '4i1GtPgrpPo8ddmCMWmC','2.0.0');
+</script>
+
+<div class="site-search-toggle"></div>
+    </div>
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Docker 快速入门
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-08-14
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/docker/">docker</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/14/docker-quick-start/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/14/docker-quick-start/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <h2 id="两张图理解VM和Docker">两张图理解VM和Docker</h2><p>VM 的 Hypervisor 需要实现对硬件的虚拟化，并且还要搭载自己的操作系统，自然在启动速度和资源利用率以及性能上有比较大的开销。<br><img src="http://7xkj44.com1.z0.glb.clouddn.com/docker-quick-start_vm.jpg" alt="VM" title="VM"></p>
+<p>Docker 的设计图是这样的：<br><img src="http://7xkj44.com1.z0.glb.clouddn.com/docker-quick-start_docker.jpg" alt="Docker" title="Docker"></p>
+<p>Docker 几乎就没有什么虚拟化的东西，并且直接复用了 Host 主机的 OS，在 Docker Engine 层面实现了调度和隔离重量一下子就降低了好几个档次。 Docker 的容器利用了  <a href="https://linuxcontainers.org/" title="LXC" target="_blank" rel="external">LXC</a>，管理利用了  <a href="http://blog.dotcloud.com/under-the-hood-linux-kernels-on-dotcloud-part" title="namespaces" target="_blank" rel="external">namespaces</a> 来做权限的控制和隔离，  <a href="http://blog.dotcloud.com/kernel-secrets-from-the-paas-garage-part-24-c" title="cgroups" target="_blank" rel="external">cgroups</a> 来进行资源的配置，并且还通过  <a href="http://blog.dotcloud.com/kernel-secrets-from-the-paas-garage-part-34-a" title="aufs" target="_blank" rel="external">aufs</a> 来进一步提高文件系统的资源利用率。<br>其中的 aufs 是个很有意思的东西，是  <a href="http://en.wikipedia.org/wiki/Unionfs" title="UnionFS" target="_blank" rel="external">UnionFS</a> 的一种。他的思想和 git 有些类似，可以把对文件系统的改动当成一次 commit 一层层的叠加。这样的话多个容器之间就可以共享他们的文件系统层次，每个容器下面都是共享的文件系统层次，上面再是各自对文件系统改动的层次，这样的话极大的节省了对存储的需求，并且也能加速容器的启动。</p>
+<h2 id="安装">安装</h2><h3 id="Mac_OS_X">Mac OS X</h3><h4 id="下载_Docker_Toolbox_并安装">下载 <a href="https://www.docker.com/toolbox" title="Docker Toolbox" target="_blank" rel="external">Docker Toolbox</a> 并安装</h4><h4 id="应用">应用</h4><blockquote>
+<p>运行Docker容器，你需要 </p>
+<ul>
+<li>create a new (or start an existing) Docker virtual machine</li>
+<li>switch your environment to your new VM</li>
+<li>use the docker client to create, load, and manage containers</li>
+</ul>
+</blockquote>
+<ol>
+<li>打开Docker CLI </li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run hello-world</span><br><span class="line">$ docker run -it ubuntu bash</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>第一步 <code>docker run hello-world</code> 这条命令完成了 内核加载完成Docker的工作。命令包括三个部分：<br><img src="http://docs.docker.com/tutimg/container_explainer.png" alt="The command you ran had three parts" title="The command you ran had three parts."></p>
+</blockquote>
+<h2 id="基本命令">基本命令</h2><h3 id="启动Docker">启动Docker</h3><p>如果你使用快速安装并且添加到PATH中，docker就被安装到快捷启动了，当Ubuntu系统启动时就启动了！你只需要运行命令sudo run docker help获得输出.<br>如果你获得结果是”docker: command not found”或者像” /var/lib/docker/repositories: permission denied”,你需要手动指定路径执行它.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># Run docker in daemon mode</span></span><br><span class="line">$ sudo &lt;path to&gt;/docker <span class="operator">-d</span> &amp;</span><br></pre></td></tr></table></figure>
+<h3 id="从索引仓库下载一个镜像">从索引仓库下载一个镜像</h3><p>这个将从索引仓库中通过名字找到ubuntu镜像，并且从索引仓库顶级中心来下载到本地镜像存储</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># 下载一个ubuntu镜像  </span></span><br><span class="line">$ sudo docker pull ubuntu</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：当镜像下载成功后，你可以看到12位的hash值像539c0211cd76，这是下载完整的镜像的精简ID，这些短的镜像ID是完整镜像ID的前12个字符—可以使用docker inspect 或者 docker images -notrunc=true来获得完整的镜像ID</p>
+</blockquote>
+<h3 id="运行交互性的shell（就像运行一个单独的linux）">运行交互性的shell（就像运行一个单独的linux）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># 使用ubuntu运行一个交互性的shell,</span></span><br><span class="line">$ <span class="comment"># 分配一个伪终端，附带stdin和stdout(输入/输出流)</span></span><br><span class="line">$ <span class="comment"># 如果你想退出分离出来的伪终端,</span></span><br><span class="line">$ <span class="comment"># 可以使用CTRL -p+CTRL -q --就像先按CTRL -p 然后CTRL -q</span></span><br><span class="line">$ sudo docker run -i -t ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
+<h3 id="管理员命令和docker组">管理员命令和docker组</h3><p>docker进程经常使用root用户运行，从docker的0.5.2版本开始，docker的进程绑定Unix Socket来代替一个TCP端口，在默认情况下Unix Socket属于root用户，所以在默认情况下，你需要赋予权限sudo</p>
+<p>从0.5.3版本开始，如果你(或者你安装的docker)创建的时候用的docker或者添加用户的unix群组，当docker进程启动的时候，这个docker进程会把Unix socket的读写(read/writable)的所有权交给docker群组.docker进程一般必须root用户运行，但是你运行docker客户端的用户是docker组的，这个时候你就不需要加sudo就可以运行全部的客户端命令</p>
+<blockquote>
+<p>警告：docker群组必须是和root等价的</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果不存在docker群组，添加一个用户群组</span></span><br><span class="line">$ sudo groupadd docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the connected user "$&#123;USER&#125;" to the docker group.</span></span><br><span class="line"><span class="comment"># Change the user name to match your preferred user.</span></span><br><span class="line"><span class="comment"># You may have to logout and log back in again for</span></span><br><span class="line"><span class="comment"># this to take effect.</span></span><br><span class="line">$ sudo gpasswd <span class="operator">-a</span> <span class="variable">$&#123;USER&#125;</span> docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># Restart the docker daemon.</span></span><br><span class="line">$ sudo service docker restart</span><br></pre></td></tr></table></figure>
+<h3 id="让Docker使用其它的host/port或者Unix_socket">让Docker使用其它的host/port或者Unix socket</h3><blockquote>
+<p>警告!<br>改变默认的docker进程绑定的TCP端口或者Unix docker的用户组，将会 通过允许非root用户获得root权限来修改主机，会增加你的安全风险！</p>
+</blockquote>
+<p>使用 -H 他可以运行你改变docker进程监听指定的IP和端口。默认情况下，他会监听 unix:///var/run/docker.sock只允许本地的root用户连接，你可以设置他 0.0.0.0:4243 或者指定主机IP给任何用户，但是这不是我们所推荐的，因为那么低权限将会获得root正在运行的主机进程的访问权限！</p>
+<p>同样，docker客户端可以使用-H 来指定连接的端口</p>
+<p>-H 授权主机和端口的格式是这样的:tcp://[host][:port] or unix://path</p>
+<blockquote>
+<p>举个例子</p>
+<ul>
+<li>tcp://host:4243 -&gt; 使用tcp连接 host:4243</li>
+<li>unix://path/to/socket -&gt; 使用socket位于 path/to/socket</li>
+</ul>
+</blockquote>
+<p>-H 当空的时候 将会使用默认值就像没有 -H一样</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Run docker in daemon mode</span></span><br><span class="line">$ sudo &lt;path to&gt;/docker -H <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">5555</span> <span class="operator">-d</span> &amp;</span><br><span class="line"><span class="comment"># Download an ubuntu image</span></span><br><span class="line">$ sudo docker -H :<span class="number">5555</span> pull ubuntu</span><br></pre></td></tr></table></figure>
+<p>-H 也可以用简短的方式授权TCP绑定： host[:port] or :port</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Run docker in daemon mode</span></span><br><span class="line">sudo &lt;path to&gt;/docker -H tcp://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">4243</span> -H unix:///var/run/docker.sock <span class="operator">-d</span> &amp;</span><br><span class="line"><span class="comment"># Download an ubuntu image, use default Unix socket</span></span><br><span class="line">$ sudo docker pull ubuntu</span><br><span class="line"><span class="comment"># OR use the TCP port</span></span><br><span class="line">$ sudo docker -H tcp://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">4243</span> pull ubuntu</span><br></pre></td></tr></table></figure>
+<h3 id="开启一个长时间运行的工作进程">开启一个长时间运行的工作进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启一个非常有用的长时间工作进程</span></span><br><span class="line">$ JOB=$(sudo docker run <span class="operator">-d</span> ubuntu /bin/sh -c <span class="string">"while true; do echo Hello world; sleep 1; done"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 到目前为止的收集的输出</span></span><br><span class="line">$ sudo docker logs <span class="variable">$JOB</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 杀死这个进程 </span></span><br><span class="line">$ sudo docker <span class="built_in">kill</span> <span class="variable">$JOB</span></span><br></pre></td></tr></table></figure>
+<h3 id="监听所有运行着的容器">监听所有运行着的容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker ps</span><br></pre></td></tr></table></figure>
+<h3 id="为服务绑定一个TCP端口">为服务绑定一个TCP端口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为容器绑定4444端口，并告诉网络监听4444</span></span><br><span class="line">$ JOB=$(sudo docker run <span class="operator">-d</span> -p <span class="number">4444</span> ubuntu:<span class="number">12.10</span> /bin/nc <span class="operator">-l</span> <span class="number">4444</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看我的容器用的公共端口</span></span><br><span class="line">$ PORT=$(sudo docker port <span class="variable">$JOB</span> <span class="number">4444</span> | awk -F: <span class="string">'&#123; print $2 &#125;'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接公共端口</span></span><br><span class="line">$ <span class="built_in">echo</span> hello world | nc <span class="number">127.0</span>.<span class="number">0.1</span> <span class="variable">$PORT</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确认网络连接是否工作</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"Daemon received: <span class="variable">$(sudo docker logs $JOB)</span>"</span></span><br></pre></td></tr></table></figure>
+<h3 id="提交（保存）容器的状态">提交（保存）容器的状态</h3><p>保存你的容器状态作为一个容器镜像，所以容易状态可以重用<br>当你保存你的容器的时候，仅仅只是保存现在容器和创建容器时候的不同状态（as a diff）,用’docker images’命令查看哪些镜像是你正在所使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Commit your container to a new named image</span></span><br><span class="line">$ sudo docker commit &lt;container_id&gt; &lt;some_name&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># List your containers</span></span><br><span class="line">$ sudo docker images</span><br></pre></td></tr></table></figure>
+<p>现在你有一个新的镜像状态（其实就是一个新的镜像），从中你可以创建新的实例</p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/"> #docker </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/13/cocos2d-js-quick-start/">coco2d-JS 快速安装</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/08/14/docker-quick-start/"
+               data-title="Docker 快速入门" data-url="http://misael.cn/2015/08/14/docker-quick-start/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/uploads/images/avatar_white.png" alt="Misael Yau" />
+          <p class="site-author-name">Misael Yau</p>
+        </div>
+        <p class="site-description motion-element">Misael's Blog</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/raomingchao" target="_blank">github</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/misael" target="_blank">weibo</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#两张图理解VM和Docker"><span class="nav-number">1.</span> <span class="nav-text">两张图理解VM和Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac_OS_X"><span class="nav-number">2.1.</span> <span class="nav-text">Mac OS X</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载_Docker_Toolbox_并安装"><span class="nav-number">2.1.1.</span> <span class="nav-text">下载 Docker Toolbox 并安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用"><span class="nav-number">2.1.2.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本命令"><span class="nav-number">3.</span> <span class="nav-text">基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Docker"><span class="nav-number">3.1.</span> <span class="nav-text">启动Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从索引仓库下载一个镜像"><span class="nav-number">3.2.</span> <span class="nav-text">从索引仓库下载一个镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行交互性的shell（就像运行一个单独的linux）"><span class="nav-number">3.3.</span> <span class="nav-text">运行交互性的shell（就像运行一个单独的linux）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理员命令和docker组"><span class="nav-number">3.4.</span> <span class="nav-text">管理员命令和docker组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#让Docker使用其它的host/port或者Unix_socket"><span class="nav-number">3.5.</span> <span class="nav-text">让Docker使用其它的host/port或者Unix socket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启一个长时间运行的工作进程"><span class="nav-number">3.6.</span> <span class="nav-text">开启一个长时间运行的工作进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听所有运行着的容器"><span class="nav-number">3.7.</span> <span class="nav-text">监听所有运行着的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为服务绑定一个TCP端口"><span class="nav-number">3.8.</span> <span class="nav-text">为服务绑定一个TCP端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交（保存）容器的状态"><span class="nav-number">3.9.</span> <span class="nav-text">提交（保存）容器的状态</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Misael Yau</span>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"misael"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+
+  
+  <!-- lazyload -->
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+      <script type="text/javascript">
+        jQuery(function() {          
+            jQuery("#posts img").lazyload({
+              placeholder:"http://www.arao.me/loading.gif",  
+                effect:"fadeIn"
+              });
+            });
+    </script>   
+</body>
+</html>
