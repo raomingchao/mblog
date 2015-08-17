@@ -246,36 +246,696 @@
 <blockquote>
 <p>注：当镜像下载成功后，你可以看到12位的hash值像539c0211cd76，这是下载完整的镜像的精简ID，这些短的镜像ID是完整镜像ID的前12个字符—可以使用docker inspect 或者 docker images -notrunc=true来获得完整的镜像ID</p>
 </blockquote>
-<h3 id="运行交互性的shell（就像运行一个单独的linux）">运行交互性的shell（就像运行一个单独的linux）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># 使用ubuntu运行一个交互性的shell,</span></span><br><span class="line">$ <span class="comment"># 分配一个伪终端，附带stdin和stdout(输入/输出流)</span></span><br><span class="line">$ <span class="comment"># 如果你想退出分离出来的伪终端,</span></span><br><span class="line">$ <span class="comment"># 可以使用CTRL -p+CTRL -q --就像先按CTRL -p 然后CTRL -q</span></span><br><span class="line">$ sudo docker run -i -t ubuntu /bin/bash</span><br></pre></td></tr></table></figure>
-<h3 id="管理员命令和docker组">管理员命令和docker组</h3><p>docker进程经常使用root用户运行，从docker的0.5.2版本开始，docker的进程绑定Unix Socket来代替一个TCP端口，在默认情况下Unix Socket属于root用户，所以在默认情况下，你需要赋予权限sudo</p>
-<p>从0.5.3版本开始，如果你(或者你安装的docker)创建的时候用的docker或者添加用户的unix群组，当docker进程启动的时候，这个docker进程会把Unix socket的读写(read/writable)的所有权交给docker群组.docker进程一般必须root用户运行，但是你运行docker客户端的用户是docker组的，这个时候你就不需要加sudo就可以运行全部的客户端命令</p>
+<h2 id="在Docker中运行应用">在Docker中运行应用</h2><p>Docker 允许你在容器内运行应用程序， 使用 <code>docker run</code> 命令来在容器内运行一个应用程序。</p>
+<h3 id="Hello_world">Hello world</h3><p>现在让我们来试试</p>
+<pre><code>$ sudo docker run <span class="string">ubuntu:</span><span class="number">14.04</span> <span class="regexp">/bin/</span>echo <span class="string">'Hello world'</span>
+Hello world
+</code></pre><p>刚才你启动了你的第一个容器！</p>
+<p>那么刚才发生了什么? 我们逐步来分析 <code>docker run</code> 命令做了哪些事情。</p>
+<p>首先，我们指定了 <code>docker</code> 二进制执行文件和我们想要执行的命令 <code>run</code>。<code>docker run</code> 组合会运行容器。</p>
+<p>接下来，我们指定一个镜像: <code>ubuntu 14.04</code> 。这是我们运行容器的来源。 Docker 称此为镜像。在本例中，我们使用一个 <code>Ubuntu 14.04</code> 操作系统镜像。</p>
+<p>当你指定一个镜像，Docker 首先会先从你的 Docker 本地主机上查看镜像是否存在，如果没有，Docker 就会从镜像仓库 <a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub</a> 下载公共镜像。</p>
+<p>接下来，我们告诉 Docker 在容器内我们需要运行什么命令：</p>
+<pre><code>/bin/<span class="built_in">echo</span> <span class="string">'Hello world'</span>
+</code></pre><p>当我们的容器启动了 Docker 创建的新的 Ubuntu 14.04 环境，并在容器内执行 <code>/bin/echo</code> 命令后。我们会在命令行看到如下结果：</p>
+<pre><code><span class="title">hello</span> world
+</code></pre><p>那么，我们创建容器之后会发生什么呢？ 当命令状态状态处于激活状态的时候 Docker 容器就会一直运行。这里只要 “hello world” 被输出，容器就会停止。</p>
+<h3 id="一个交互式的容器">一个交互式的容器</h3><p>让我们尝试再次运行 <code>docker run</code>，这次我们指定一个新的命令来运行我们的容器。</p>
+<pre><code><span class="variable">$ </span>sudo docker run -t -i <span class="symbol">ubuntu:</span><span class="number">14.04</span> /bin/bash
+root<span class="variable">@af8bae53bdd3</span><span class="symbol">:/</span><span class="comment">#</span>
+</code></pre><p>我们继续指定了 <code>docker run</code> 命令，并启动了 <code>ubuntu:14.04</code> 镜像。但是我们添加了两个新的标识(参数flags)： <code>-t</code> 和 <code>-i</code> 。<code>-t</code> 表示在新容器内指定一个伪终端或终端，<code>-i</code>表示允许我们对容器内的 (<code>STDIN</code>) 进行交互。</p>
+<p>我们在容器内还指定了一个新的命令： <code>/bin/bash</code> 。这将在容器内启动 <code>bash shell</code></p>
+<p>所以当容器（container）启动之后，我们会获取到一个命令提示符：</p>
+<pre><code>root<span class="variable">@af8bae53bdd3</span><span class="symbol">:/</span><span class="comment">#</span>
+</code></pre><p>我们尝试在容器内运行一些命令：</p>
+<pre><code>root@af8bae53bdd3:/<span class="comment"># pwd</span>
+/
+root@af8bae53bdd3:/<span class="comment"># ls</span>
+bin boot dev etc home lib lib64 media mnt opt <span class="keyword">proc</span> root run sbin srv sys tmp usr <span class="keyword">var</span>
+</code></pre><p>你可以看到我们运行 <code>pwd</code> 来显示当前目录，这时候显示的是我们的根目录。我们还列出了根目录的文件列表，通过目录列表我们看出来这是一个典型的 Linux 文件系统。</p>
+<p>你可以在容器内随便的玩耍，你可以使用 <code>exit</code> 命令或者使用 CTRL-D 来退出容器。</p>
+<pre><code>root<span class="variable">@af8bae53bdd3</span><span class="symbol">:/</span><span class="comment"># exit</span>
+</code></pre><p>与我们之前的容器一样，一旦你的 Bash shell 退出之后，你的容器就停止了。</p>
+<h3 id="Hello_world_守护进程">Hello world 守护进程</h3><p>现在当一个容器运行完一个命令后就会退出，但是这样看起来有时候并不好。让我们创建一个容器以进程的方式运行，就像大多数我们运行在 Docker 中的应用程序一样，这里我们可以使用 <code>docker run</code> 命令：</p>
+<pre><code>$ sudo docker run -d ubuntu:14.04 /bin/sh -c "while true<span class="comment">; do echo hello world; sleep 1; done"</span>
+<span class="number">1e5535038</span>e<span class="number">285177d52146</span><span class="number">59a068137486</span>f96ee<span class="number">5c2e85a4</span>ac52dc83f2ebe4147
+</code></pre><p>等等，怎么回事？我们的 “hello world” 输出呢？让我们看看它是怎么运行的。这个命令看起来应该很熟悉.我们运行<code>docker run</code> ，但是我们指定了一个 <code>-d</code> 标识。<code>-d</code> 标识告诉 docker 在容器内以后台进程模式运行。</p>
+<p>我们也指定了一个相同的镜像: <code>ubuntu:14.04</code></p>
+<p>最终，我们指定命令行运行:</p>
+<pre><code>/<span class="keyword">bin/sh </span>-c <span class="string">"while true; do echo hello world; sleep 1; done"</span>
+</code></pre><p>这是一个忠实的 hello world 进程：一个脚本会一直输出 “hello world”</p>
+<p>为什么我们看不到的一大堆的 “hello world” ? 而是docker返回的一个很长的字符串：</p>
+<pre><code><span class="number">1e5535038</span>e<span class="number">285177d52146</span><span class="number">59a068137486</span>f96ee<span class="number">5c2e85a4</span>ac52dc83f2ebe4147
+</code></pre><p>这个长的字符串叫做容器ID（container ID）。它对于每一个容器来说都是唯一的，所以我们可以使用它。</p>
 <blockquote>
-<p>警告：docker群组必须是和root等价的</p>
+<p>注意：容器 ID 是有点长并且非常的笨拙，稍后我们会看到一个短点的 ID,某些方面来说它是容器 ID 的简化版。</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果不存在docker群组，添加一个用户群组</span></span><br><span class="line">$ sudo groupadd docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the connected user "$&#123;USER&#125;" to the docker group.</span></span><br><span class="line"><span class="comment"># Change the user name to match your preferred user.</span></span><br><span class="line"><span class="comment"># You may have to logout and log back in again for</span></span><br><span class="line"><span class="comment"># this to take effect.</span></span><br><span class="line">$ sudo gpasswd <span class="operator">-a</span> <span class="variable">$&#123;USER&#125;</span> docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># Restart the docker daemon.</span></span><br><span class="line">$ sudo service docker restart</span><br></pre></td></tr></table></figure>
-<h3 id="让Docker使用其它的host/port或者Unix_socket">让Docker使用其它的host/port或者Unix socket</h3><blockquote>
-<p>警告!<br>改变默认的docker进程绑定的TCP端口或者Unix docker的用户组，将会 通过允许非root用户获得root权限来修改主机，会增加你的安全风险！</p>
-</blockquote>
-<p>使用 -H 他可以运行你改变docker进程监听指定的IP和端口。默认情况下，他会监听 unix:///var/run/docker.sock只允许本地的root用户连接，你可以设置他 0.0.0.0:4243 或者指定主机IP给任何用户，但是这不是我们所推荐的，因为那么低权限将会获得root正在运行的主机进程的访问权限！</p>
-<p>同样，docker客户端可以使用-H 来指定连接的端口</p>
-<p>-H 授权主机和端口的格式是这样的:tcp://[host][:port] or unix://path</p>
+<p>我们可以根据容器 ID 查看 “hello world” 进程发生了什么</p>
+<p>首先，我们要确保容器正在运行。我们可以使用 <code>docker ps</code> 命令来查看。<code>docker ps</code> 命令可以查询 docker 进程的所有容器。</p>
+<pre><code>$ sudo docker ps
+CONTAINER ID  IMAGE         COMMAND               CREATED        STATUS       PORTS NAMES
+<span class="number">1e5535038</span>e28  <span class="string">ubuntu:</span><span class="number">14.04</span>  <span class="regexp">/bin/</span>sh -c <span class="string">'while tr  2 minutes ago  Up 1 minute        insane_babbage</span>
+</code></pre><p>这里我们看到了以进程模式运行的容器。<code>docker ps</code> 命令会返回一些有用的信息，这里包括一个短的容器 ID：<code>1e5535038e28</code>。</p>
+<p>我们还可以查看到构建容器时使用的镜像， <code>ubuntu:14.04</code>，当命令运行之后，容器的状态随之改变并且被系统自动分配了名称 <code>insane_babbage</code>。</p>
 <blockquote>
-<p>举个例子</p>
+<p>注意：当容器启动的时候 Docker 会自动给这些容器命名，稍后我们可以看到我们如何给容器指定名称。</p>
+</blockquote>
+<p>好了，现在我们知道它正在运行。但是我们能要求它做什么呢？做到这，我们需要在我们容器内使用 <code>docker logs</code> 命令。让我们使用容器的名称来填充 <code>docker logs</code> 命令。</p>
+<pre><code><span class="variable">$ </span>sudo docker logs insane_babbage
+hello world
+hello world
+hello world
+. . .
+</code></pre><p><code>docker logs</code> 命令会查看容器内的标准输出：这个例子里输出的是我们的命令 <code>hello world</code></p>
+<p>太棒了！我们的 docker 进程是工作的，并且我们创建了我们第一个 docker 应用。</p>
+<p>现在我们已经可以创建我们自己的容器了，让我们处理正在运行的进程容器并停止它。我们使用 <code>docker stop</code> 命令来停止容器 。</p>
+<pre><code><span class="variable">$ </span>sudo docker stop insane_babbage
+insane_babbage
+</code></pre><p><code>docker stop</code> 命令会通知 Docker 停止正在运行的容器。如果它成功了，它将返回刚刚停止的容器名称。</p>
+<p>让我们通过 <code>docker ps</code> 命令来检查它是否还工作。</p>
+<pre><code><span class="variable">$ </span>sudo docker ps
+<span class="constant">CONTAINER ID </span> <span class="constant">IMAGE </span>        <span class="constant">COMMAND </span>              <span class="constant">CREATED </span>       <span class="constant">STATUS </span>      <span class="constant">PORTS NAMES</span>
+</code></pre><p>太好了，我们的容器停止了。</p>
+<p>现在我们看到了Docker 是多么简单，让我们学习如何做一些更高级的任务。</p>
+<h2 id="使用容器工作">使用容器工作</h2><p>在上一节的 Docker 用户指南中，我们启动了我们的第一个容器。而后边的例子中我们使用 <code>docker run</code> 命令启动了两个容器</p>
 <ul>
-<li>tcp://host:4243 -&gt; 使用tcp连接 host:4243</li>
-<li>unix://path/to/socket -&gt; 使用socket位于 path/to/socket</li>
+<li><p>与前台进行交互的容器</p>
+</li>
+<li><p>以进程方式在后台运行的容器</p>
+</li>
 </ul>
+<p>在这个过程中，我们学习到了几个 Docker 命令：</p>
+<ul>
+<li><code>docker ps</code>   列出容器</li>
+<li><code>docker logs</code> 显示容器的标准输出</li>
+<li><code>docker stop</code> 停止正在运行的容器</li>
+</ul>
+<blockquote>
+<p>提示：另一种学习 <code>docker</code> 命令的方式就是查看我们的 <a href="https://www.docker.com/tryit/" target="_blank" rel="external">交互式教程页面。</a></p>
 </blockquote>
-<p>-H 当空的时候 将会使用默认值就像没有 -H一样</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Run docker in daemon mode</span></span><br><span class="line">$ sudo &lt;path to&gt;/docker -H <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">5555</span> <span class="operator">-d</span> &amp;</span><br><span class="line"><span class="comment"># Download an ubuntu image</span></span><br><span class="line">$ sudo docker -H :<span class="number">5555</span> pull ubuntu</span><br></pre></td></tr></table></figure>
-<p>-H 也可以用简短的方式授权TCP绑定： host[:port] or :port</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Run docker in daemon mode</span></span><br><span class="line">sudo &lt;path to&gt;/docker -H tcp://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">4243</span> -H unix:///var/run/docker.sock <span class="operator">-d</span> &amp;</span><br><span class="line"><span class="comment"># Download an ubuntu image, use default Unix socket</span></span><br><span class="line">$ sudo docker pull ubuntu</span><br><span class="line"><span class="comment"># OR use the TCP port</span></span><br><span class="line">$ sudo docker -H tcp://<span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">4243</span> pull ubuntu</span><br></pre></td></tr></table></figure>
-<h3 id="开启一个长时间运行的工作进程">开启一个长时间运行的工作进程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启一个非常有用的长时间工作进程</span></span><br><span class="line">$ JOB=$(sudo docker run <span class="operator">-d</span> ubuntu /bin/sh -c <span class="string">"while true; do echo Hello world; sleep 1; done"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 到目前为止的收集的输出</span></span><br><span class="line">$ sudo docker logs <span class="variable">$JOB</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 杀死这个进程 </span></span><br><span class="line">$ sudo docker <span class="built_in">kill</span> <span class="variable">$JOB</span></span><br></pre></td></tr></table></figure>
-<h3 id="监听所有运行着的容器">监听所有运行着的容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker ps</span><br></pre></td></tr></table></figure>
-<h3 id="为服务绑定一个TCP端口">为服务绑定一个TCP端口</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为容器绑定4444端口，并告诉网络监听4444</span></span><br><span class="line">$ JOB=$(sudo docker run <span class="operator">-d</span> -p <span class="number">4444</span> ubuntu:<span class="number">12.10</span> /bin/nc <span class="operator">-l</span> <span class="number">4444</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看我的容器用的公共端口</span></span><br><span class="line">$ PORT=$(sudo docker port <span class="variable">$JOB</span> <span class="number">4444</span> | awk -F: <span class="string">'&#123; print $2 &#125;'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 连接公共端口</span></span><br><span class="line">$ <span class="built_in">echo</span> hello world | nc <span class="number">127.0</span>.<span class="number">0.1</span> <span class="variable">$PORT</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确认网络连接是否工作</span></span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"Daemon received: <span class="variable">$(sudo docker logs $JOB)</span>"</span></span><br></pre></td></tr></table></figure>
-<h3 id="提交（保存）容器的状态">提交（保存）容器的状态</h3><p>保存你的容器状态作为一个容器镜像，所以容易状态可以重用<br>当你保存你的容器的时候，仅仅只是保存现在容器和创建容器时候的不同状态（as a diff）,用’docker images’命令查看哪些镜像是你正在所使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Commit your container to a new named image</span></span><br><span class="line">$ sudo docker commit &lt;container_id&gt; &lt;some_name&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># List your containers</span></span><br><span class="line">$ sudo docker images</span><br></pre></td></tr></table></figure>
-<p>现在你有一个新的镜像状态（其实就是一个新的镜像），从中你可以创建新的实例</p>
+<p><code>docker</code> 客户端非常简单 。Docker 的每一项操作都是通过命令行来实现的，而每一条命令行都可以使用一系列的标识（flags）和参数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment"># Usage:  [sudo] docker [flags] [command] [arguments] ..</span></span><br><span class="line">	<span class="comment"># Example:</span></span><br><span class="line">	$ docker run -i -t ubuntu /bin/bash</span><br><span class="line">```	</span><br><span class="line"></span><br><span class="line">让我们看看这个使用 `docker version` 命令的操作，它将返回当前安装的 Docker 客户端和进程的版本信息。</span><br><span class="line"></span><br><span class="line">``` bash</span><br><span class="line">$ sudo docker version</span><br></pre></td></tr></table></figure>
+<p>这个命令不仅返回了您使用的 Docker 客户端和进程的版本信息，还返回了 GO 语言的版本信息( Docker的编程语言 )。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Client:</span><br><span class="line"> Version:      <span class="number">1.8</span>.<span class="number">1</span></span><br><span class="line"> API version:  <span class="number">1.20</span></span><br><span class="line"> Go version:   go1.<span class="number">4.2</span></span><br><span class="line"> Git commit:   d12ea79</span><br><span class="line"> Built:        Thu Aug <span class="number">13</span> <span class="number">02</span>:<span class="number">49</span>:<span class="number">29</span> UTC <span class="number">2015</span></span><br><span class="line"> OS/Arch:      darwin/amd64</span><br><span class="line"></span><br><span class="line">Server:</span><br><span class="line"> Version:      <span class="number">1.8</span>.<span class="number">1</span></span><br><span class="line"> API version:  <span class="number">1.20</span></span><br><span class="line"> Go version:   go1.<span class="number">4.2</span></span><br><span class="line"> Git commit:   d12ea79</span><br><span class="line"> Built:        Thu Aug <span class="number">13</span> <span class="number">02</span>:<span class="number">49</span>:<span class="number">29</span> UTC <span class="number">2015</span></span><br><span class="line"> OS/Arch:      linux/amd64</span><br></pre></td></tr></table></figure>
+<h3 id="查看一下_Docker_客户端都能做什么">查看一下 Docker 客户端都能做什么</h3><p>我们可以通过只输入不附加任何参数的 <code>docker</code> 命令来运行 docker 二进制文件，这样我们就会查看到 Docker 客户端的所有命令选项。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker</span><br></pre></td></tr></table></figure>
+<p>会看到当前可用的所有命令行列表：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Commands:</span><br><span class="line">    attach    Attach to a running container</span><br><span class="line">    build     Build an image from a Dockerfile</span><br><span class="line">    commit    Create a new image from a container<span class="string">'s changes</span><br><span class="line"> . . .</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看_Docker_命令用法">查看 Docker 命令用法</h3><p>你可以更深入的去了解指定的 Docker 命令使用方法。</p>
+<p>试着输入 Docker <code>[command]</code>，这里会看到 docker 命令的使用方法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker attach</span><br><span class="line">Help output . . .</span><br></pre></td></tr></table></figure>
+<p>或者你可以通过在 docker 命令中使用 <code>--help</code> 标识(flags)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker images --help</span><br></pre></td></tr></table></figure>
+<p>这将返回所有的帮助信息和可用的标识(flags)：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Usage: docker attach [OPTIONS] CONTAINER</span><br><span class="line">Attach to a running container</span><br><span class="line">--no-stdin=<span class="literal">false</span>: Do not attach stdin</span><br><span class="line">--sig-proxy=<span class="literal">true</span>: Proxify all received signal to the process (even <span class="keyword">in</span> non-tty mode)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：你可以点击<a href="https://docs.docker.com/reference/commandline/cli/" target="_blank" rel="external">这里</a> 来查看完整的 Docker 命令行列表和使用方法。</p>
+</blockquote>
+<h3 id="在Docker中运行一个web应用">在Docker中运行一个web应用</h3><p>到这里我们了解了更多关于 docker 客户端的知识，而现在我们需要将学习的焦点转移到重要的部分：运行多个容器。到目前为止我们发现运行的容器并没有一些什么特别的用处。让我们通过使用 docker 构建一个 web 应用程序来运行一个web应用程序来体验一下。</p>
+<p>在这个 web 应用中，我们将运行一个 Python Flask 应用。使用 <code>docker run</code> 命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run <span class="operator">-d</span> -P training/webapp python app.py</span><br></pre></td></tr></table></figure>
+<p>让我们来回顾一下我们的命令都做了什么。我们指定两个标识(flags)   <code>-d</code> 和 <code>-P</code> 。我们已知是 <code>-d</code> 标识是让 docker 容器在后台运行。新的 <code>-P</code> 标识通知 Docker 将容器内部使用的网络端口映射到我们使用的主机上。现在让我们看看我们的 web 应用。</p>
+<p>This image is a pre-built image we’ve created that contains a simple Python Flask web application.</p>
+<p>我们指定了 <code>training/web</code> 镜像。我们创建容器的时候使用的是这个预先构建好的镜像，并且这个镜像已经包含了简单的 Python Flask web 应用程序。</p>
+<p>最后，我们指定了我们容器要运行的命令： <code>python app.py</code>。这样我们的 web 应用就启动了。</p>
+<blockquote>
+<p>注意：你可以在<a href="http://docs.docker.com/reference/commandline/cli/#run" target="_blank" rel="external">命令参考</a>和<a href="http://docs.docker.com/reference/run/" target="_blank" rel="external">Docker run参考</a>查看更多 <code>docker run</code> 命令细节</p>
+</blockquote>
+<h3 id="查看_WEB_应用容器">查看 WEB 应用容器</h3><p>现在我们使用 <code>docker ps</code> 来查看我们正在运行的容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker ps <span class="operator">-l</span></span><br><span class="line">CONTAINER ID  IMAGE                   COMMAND       CREATED        STATUS        PORTS                    NAMES</span><br><span class="line">bc533791f3f5  training/webapp:latest  python app.py <span class="number">5</span> seconds ago  Up <span class="number">2</span> seconds  <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">49155</span>-&gt;<span class="number">5000</span>/tcp  nostalgic_morse</span><br></pre></td></tr></table></figure>
+<p>你可以看到我们在 <code>docker ps</code> 命令中指定了新的标识 <code>-l</code>。这样组合的 <code>docker ps</code> 命令会返回最后启动容器的详细信息。</p>
+<blockquote>
+<p>注意：默认情况下，<code>docker ps</code> 命令只显示运行中的容器。如果你还想看已经停止的容器，请加上 <code>-a</code> 标示。</p>
+</blockquote>
+<p>我们这里可以看到一些细节，与我们第一次运行 <code>docker ps</code> 命令的时候相比，这里多了一个 <code>PORTS</code> 列。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PORTS</span><br><span class="line"><span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">49155</span>-&gt;<span class="number">5000</span>/tcp</span><br></pre></td></tr></table></figure>
+<p>我们通过在 <code>docker run</code> 中使用 <code>-P</code> 标示(flags) 来将我们 Docker 镜像内部容器端口暴露给主机。</p>
+<blockquote>
+<p>提示：当我们学习<a href="./dockerimages.md">如何构建镜像的时候</a>，我们将了解更多关于如何开放 Docker 镜像端口。</p>
+</blockquote>
+<p>在这种情况下，Docker 开放了 5000 端口（默认 Python Flask 端口）映射到主机端口 49155 上。</p>
+<p>Docker 能够很容易的配置和绑定网络端口。在最后一个例子中 <code>-P</code> 标识(flags)是 <code>-p 5000</code> 的缩写，它将会把容器内部的 5000 端口映射到本地 Docker 主机的高位端口上(这个端口的通常范围是 32768 至 61000)。我们也可以指定 <code>-p</code> 标识来绑定指定端口。举例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run <span class="operator">-d</span> -p <span class="number">5000</span>:<span class="number">5000</span> training/webapp python app.py</span><br></pre></td></tr></table></figure>
+<p>这将会把容器内部的 5000 端口映射到我们本地主机的 5000 端口上。你可能现在会问：为什么我们只使用 1对1端口映射的方式将端口映射到 Docker 容器， 而不是采用自动映射高位端口的方式？这里 1:1 映射方式能够保证映射到本地主机端口的唯一性。假设你想要测试两个 Python 应用程序，两个容器内部都绑定了端口5000，这样就没有足够的 Docker 的端口映射，你只能访问其中一个。</p>
+<p>所以，现在我们打开浏览器访问端口32768。</p>
+<p><img src="http://7xkj44.com1.z0.glb.clouddn.com/docker-quick-start_webapp.jpg" alt="应用访问"></p>
+<p>我们的应用程序可以访问了！</p>
+<blockquote>
+<p>注意：如果你在 OS X windows或者Linux上使用 boot2docker 虚拟机，你需要获取虚拟机的 ip 来代替localhost 使用，你可以通过运行 boot2docker shell 来获取 ip。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ boot2docker ip</span><br><span class="line">The VM<span class="string">'s Host only interface IP address is: 192.168.59.103</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#如果使用MAC意见安装包则在启动的`Docker Quickstart Terminal` 时候会分配一个IP地址</span></span><br><span class="line">docker is configured to use the default machine with IP <span class="number">192.168</span>.<span class="number">99.100</span></span><br><span class="line">For <span class="built_in">help</span> getting started, check out the docs at https://docs.docker.com</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这种情况下,你可以通过输入 <a href="http://192.168.99.100:32768" target="_blank" rel="external">http://192.168.99.100:32768</a> 来访问上面的例子。</p>
+</blockquote>
+<h3 id="查看网络端口快捷方式">查看网络端口快捷方式</h3><p>使用 <code>docker ps</code> 命令来会返回端口的映射是一种比较笨拙的方法。为此，Docker 提供了一种快捷方式： <code>docker port</code> ，使用 <code>docker port</code> 可以查看指定 （ID或者名字的）容器的某个确定端口映射到宿主机的端口号。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker port nostalgic_morse <span class="number">5000</span></span><br><span class="line"><span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">49155</span></span><br></pre></td></tr></table></figure>
+<p>在这种情况下，我们看到容器的 5000 端口映射到了宿主机的的 49155 端口。</p>
+<h3 id="查看WEB应用程序日志">查看WEB应用程序日志</h3><p>让我们看看我们的容器中的应用程序都发生了什么，这里我们使用学习到的另一个命令 <code>docker logs</code> 来查看。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker logs <span class="operator">-f</span> nostalgic_morse</span><br><span class="line">* Running on http://<span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">5000</span>/</span><br><span class="line"><span class="number">10.0</span>.<span class="number">2.2</span> - - [<span class="number">23</span>/May/<span class="number">2014</span> <span class="number">20</span>:<span class="number">16</span>:<span class="number">31</span>] <span class="string">"GET / HTTP/1.1"</span> <span class="number">200</span> -</span><br><span class="line"><span class="number">10.0</span>.<span class="number">2.2</span> - - [<span class="number">23</span>/May/<span class="number">2014</span> <span class="number">20</span>:<span class="number">16</span>:<span class="number">31</span>] <span class="string">"GET /favicon.ico HTTP/1.1"</span> <span class="number">404</span> -</span><br></pre></td></tr></table></figure>
+<p>这次我们添加了一个 <code>-f</code> 标识。 <code>docker log</code> 命令就像使用 <code>tail -f</code> 一样来输出容器内部的标准输出。这里我们从显示屏上可以看到应用程序使用的是 5000 端口并且能够查看到应用程序的访问日志。</p>
+<h3 id="查看WEB应用程序容器的进程">查看WEB应用程序容器的进程</h3><p>我们除了可以查看容器日志，我们还可以使用 <code>docker top</code> 来查看容器内部运行的进程：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker top nostalgic_morse</span><br><span class="line">PID                 USER                COMMAND</span><br><span class="line"><span class="number">854</span>                 root                python app.py</span><br></pre></td></tr></table></figure>
+<p>这里我们可以看到 <code>python app.py</code> 在容器里唯一进程。</p>
+<h3 id="检查WEB应用程序">检查WEB应用程序</h3><p>最后，我们可以使用 <code>docker inspect</code> 来查看Docker的底层信息。它会返回一个 JSON 文件记录着 Docker 容器的配置和状态信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker inspect nostalgic_morse</span><br></pre></td></tr></table></figure>
+<p>来让我们看下JSON的输出。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[&#123;</span><br><span class="line">    "ID": "bc533791f3f500b280a9626688bc79e342e3ea0d528efe3a86a51ecb28ea20",</span><br><span class="line">    "Created": "2014-05-26T05:52:40.808952951Z",</span><br><span class="line">    "Path": "python",</span><br><span class="line">    "Args": [</span><br><span class="line">       "app.py"</span><br><span class="line">    ],</span><br><span class="line">    "Config": &#123;</span><br><span class="line">       "Hostname": "bc533791f3f5",</span><br><span class="line">       "Domainname": "",</span><br><span class="line">       "User": "",</span><br><span class="line">. . .</span><br></pre></td></tr></table></figure>
+<p>我们也可以针对我们想要的信息进行过滤，例如，返回容器的 IP 地址，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker inspect <span class="operator">-f</span> <span class="string">'&#123;&#123; .NetworkSettings.IPAddress &#125;&#125;'</span> nostalgic_morse</span><br><span class="line"><span class="number">172.17</span>.<span class="number">0.5</span></span><br></pre></td></tr></table></figure>
+<h3 id="停止WEB应用容器">停止WEB应用容器</h3><p>现在，我们的WEB应用程序处于工作状态。现在我们通过使用 <code>docker stop</code> 命令来停止名为 <code>nostalgic_morse</code> 的容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker stop nostalgic_morse</span><br><span class="line">nostalgic_morse</span><br></pre></td></tr></table></figure>
+<p>现在我们使用 <code>docker ps</code> 命令来检查容器是否停止了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker ps <span class="operator">-l</span></span><br></pre></td></tr></table></figure>
+<h3 id="重启WEB应用容器">重启WEB应用容器</h3><p>哎呀！刚才你停止了另一个开发人员所使用的容器。这里你现在有两个选择：您可以创建一个新的容器或者重新启动旧的。让我们启动我们之前的容器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker start nostalgic_morse</span><br><span class="line">nostalgic_morse</span><br></pre></td></tr></table></figure>
+<p>现在再次运行 <code>docker ps -l</code> 来查看正在运行的容器，或者通过URL访问来查看我们的应用程序是否响应。</p>
+<blockquote>
+<p>注意：也可以使用 <code>docker restart</code> 命令来停止容器然后再启动容器。</p>
+</blockquote>
+<h3 id="移除WEB应用容器">移除WEB应用容器</h3><p>你的同事告诉你他们已经完成了在容器上的工作，不在需要容器了。让我们使用 <code>docker rm</code> 命令来删除它：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker rm nostalgic_morse</span><br><span class="line">Error: Impossible to remove a running container, please stop it first or use <span class="operator">-f</span></span><br><span class="line"><span class="number">2014</span>/<span class="number">05</span>/<span class="number">24</span> <span class="number">08</span>:<span class="number">12</span>:<span class="number">56</span> Error: failed to remove one or more containers</span><br></pre></td></tr></table></figure>
+<p>发生了什么？实际上，我们不能删除正在运行的容器。这避免你意外删除了正在使用并且运行中的容器。让我们先停止容器，然后再试一试删除容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker stop nostalgic_morse</span><br><span class="line">nostalgic_morse</span><br><span class="line">$ sudo docker rm nostalgic_morse</span><br><span class="line">nostalgic_morse</span><br></pre></td></tr></table></figure>
+<p>现在我们停止并删除了容器。</p>
+<blockquote>
+<p>注意：删除容器是最后一步！<br>直到现在，我们使用的镜像都是从Docker Hub下载的。接下来，我们学习创建和分享镜像。</p>
+</blockquote>
+<h2 id="使用镜像">使用镜像</h2><p>在<a href="">了解Docker</a>这部分中，我们知道了 Docker 镜像是容器的基础。在<a href="dockerizing.md">前面的部分</a>我们使用的是已经构建好的 Docker 镜像，例如： <code>ubuntu</code> 镜像和 <code>training/webapp</code> 镜像。</p>
+<p>我们还了解了从 Docker 商店下载镜像到本地的 Docker 主机上。如果一个镜像不存在，他就会自动从 Docker 镜像仓库去下载，默认是从 <code>Docker Hub</code> 公共镜像源下载。</p>
+<p>在这一节中，我们将探讨更多的关于 Docker 镜像的东西：</p>
+<ul>
+<li>管理和使用本地 Docker 主机镜像。</li>
+<li>创建基本镜像</li>
+<li>上传 Docker 镜像到 <a href="https://registry.hub.docker.com/" target="_blank" rel="external">Docker Hub Registry</a>。</li>
+</ul>
+<h3 id="在主机上列出镜像列表">在主机上列出镜像列表</h3><p>让我们列出本地主机上的镜像。你可以使用 <code>docker images</code> 来完成这项任务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker images</span><br><span class="line">REPOSITORY       TAG      IMAGE ID      CREATED      VIRTUAL SIZE</span><br><span class="line">training/webapp  latest   <span class="built_in">fc</span>77f57ad303  <span class="number">3</span> weeks ago  <span class="number">280.5</span> MB</span><br><span class="line">ubuntu           <span class="number">13.10</span>    <span class="number">5</span>e019ab7bf6d  <span class="number">4</span> weeks ago  <span class="number">180</span> MB</span><br><span class="line">ubuntu           saucy    <span class="number">5</span>e019ab7bf6d  <span class="number">4</span> weeks ago  <span class="number">180</span> MB</span><br><span class="line">ubuntu           <span class="number">12.04</span>    <span class="number">74</span>fe38d11401  <span class="number">4</span> weeks ago  <span class="number">209.6</span> MB</span><br><span class="line">ubuntu           precise  <span class="number">74</span>fe38d11401  <span class="number">4</span> weeks ago  <span class="number">209.6</span> MB</span><br><span class="line">ubuntu           <span class="number">12.10</span>    a7cf8ae4e998  <span class="number">4</span> weeks ago  <span class="number">171.3</span> MB</span><br><span class="line">ubuntu           quantal  a7cf8ae4e998  <span class="number">4</span> weeks ago  <span class="number">171.3</span> MB</span><br><span class="line">ubuntu           <span class="number">14.04</span>    <span class="number">99</span>ec81b80c55  <span class="number">4</span> weeks ago  <span class="number">266</span> MB</span><br><span class="line">ubuntu           latest   <span class="number">99</span>ec81b80c55  <span class="number">4</span> weeks ago  <span class="number">266</span> MB</span><br><span class="line">ubuntu           trusty   <span class="number">99</span>ec81b80c55  <span class="number">4</span> weeks ago  <span class="number">266</span> MB</span><br><span class="line">ubuntu           <span class="number">13.04</span>    <span class="number">316</span>b678ddf48  <span class="number">4</span> weeks ago  <span class="number">169.4</span> MB</span><br><span class="line">ubuntu           raring   <span class="number">316</span>b678ddf48  <span class="number">4</span> weeks ago  <span class="number">169.4</span> MB</span><br><span class="line">ubuntu           <span class="number">10.04</span>    <span class="number">3</span>db9c44f4520  <span class="number">4</span> weeks ago  <span class="number">183</span> MB</span><br><span class="line">ubuntu           lucid    <span class="number">3</span>db9c44f4520  <span class="number">4</span> weeks ago  <span class="number">183</span> MB</span><br></pre></td></tr></table></figure>
+<p>我们可以看到之前使用的镜像。当我们每次要使用镜像来启动一个新容器的时候都会从 <a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub</a> 下载对应的镜像。</p>
+<p>我们在镜像列表中看到三个至关重要的东西。</p>
+<ul>
+<li>来自什么镜像源，例如 <code>ubuntu</code></li>
+<li>每个镜像都有标签(tags)，例如 <code>14.04</code></li>
+<li>每个镜像都有镜像ID</li>
+</ul>
+<p>镜像源中可能存储着一个镜像源的多个版本。我们会看到 <code>Ubuntu</code> 的多个版本：10.04, 12.04, 12.10, 13.04, 13.10 and 14.04。每个容器有一个唯一的标签(tag)，让我们来识别为不同的镜像，例如：</p>
+<pre><code><span class="label">ubuntu:</span><span class="number">14.04</span>
+</code></pre><p>所以我们可以运行一个带标签镜像的容器：</p>
+<pre><code>$ sudo docker run -t -i <span class="string">ubuntu:</span><span class="number">14.04</span> <span class="regexp">/bin/</span>bash
+</code></pre><p>如果我们想要使用 <code>Ubuntu 12.04</code> 的镜像来构建，我们可以这样做</p>
+<pre><code>$ sudo docker run -t -i <span class="string">ubuntu:</span><span class="number">12.04</span> <span class="regexp">/bin/</span>bash
+</code></pre><p>如果你不指定一个镜像的版本标签，例如你只使用 <code>Ubuntu</code>，Docker 将默认使用 <code>Ubuntu:latest</code> 镜像。</p>
+<blockquote>
+<p>提示：我们建议使用镜像时指定一个标签，例如 <code>ubuntu:12.04</code> 。这样你知道你使用的是一个什么版本的镜像。</p>
+</blockquote>
+<h3 id="获取一个新的镜像">获取一个新的镜像</h3><p>现在如何获取一个新的镜像？当我们在本地主机上使用一个不存在的镜像时 Docker 就会自动下载这个镜像。但是这需要一段时间来下载这个镜像。如果我们想预先下载这个镜像，我们可以使用 <code>docker pull</code> 命令来下载它。这里我们下载 <code>centos</code> 镜像。</p>
+<pre><code>$ sudo docker pull centos
+Pulling repository centos
+<span class="string">b7de3133ff98:</span> Pulling dependent layers
+<span class="number">5</span><span class="string">cc9e91966f7:</span> Pulling fs layer
+<span class="number">511136</span><span class="string">ea3c5a:</span> Download complete
+<span class="string">ef52fb1fe610:</span> Download complete
+. . .
+</code></pre><p>我们看到镜像的每一层都被下载下来了，现在我们可以直接使用这个镜像来运行容器，而不需要在下载这个镜像了。</p>
+<pre><code>$ sudo docker <span class="command">run</span> -t -i centos /bin/bash
+bash-<span class="number">4.1</span><span class="comment">#</span>
+</code></pre><h3 id="查找镜像">查找镜像</h3><p>Docker 的特点之一是人们创建了各种各样的 Docker 镜像。而且这些镜像已经被上传到了 <code>Docker Hub</code> 。我们可以从 <code>Docker Hub</code> 网站来搜索镜像。</p>
+<p><img src="http://7xkj44.com1.z0.glb.clouddn.com/docker-quick-start_search.png" alt=""></p>
+<p>我们也可以使用 <code>docker search</code> 命令来搜索镜像。譬如说我们的团队需要一个安装了 Ruby 和 Sinatra 的镜像来做我们的 web 应用程序开发。我们可以通过 <code>docker search</code> 命令搜索 <code>sinatra</code> 来寻找适合我们的镜像</p>
+<pre><code>$ sudo docker <span class="keyword">search</span> sinatra
+NAME                                   DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED
+training/sinatra                       Sinatra training image                          0                    [OK]
+marceldegraaf/sinatra                  Sinatra <span class="keyword">test</span> <span class="keyword">app</span>                                0
+mattwarren/docker-sinatra-demo                                                         0                    [OK]
+luisbebop/docker-sinatra-hello-world                                                   0                    [OK]
+bmorearty/handson-sinatra              handson-ruby + Sinatra <span class="keyword">for</span> Hands <span class="keyword">on</span> with <span class="keyword">D</span>...   0
+subwiz/sinatra                                                                         0
+bmorearty/sinatra                                                                      0
+. . . 
+</code></pre><p>我们看到返回了大量的 <code>sinatra</code>镜像。而列表中有镜像名称、描述、Stars(衡量镜像的流行程度-如果用户喜欢这个镜像他就会点击 stars )和 是否是正式版以及构建状态。<a href="https://docs.docker.com/docker-hub/official_repos/" target="_blank" rel="external">官方镜像仓库</a> 是官方精心整理出来服务 Docker 的 Docker 镜像库。自动化构建的镜像仓库是允许你验证镜像的内容和来源。</p>
+<p>通过检索镜像，我们决定使用 <code>training/sinatra</code> 镜像。到目前为止，我们已经看到了两种类型的镜像，像<code>ubuntu</code> 镜像，我们称它为基础镜像或者根镜像。这些镜像是由 Docker 官方提供构建、验证和支持。这些镜像都可以通过用自己的名字来标记。</p>
+<p>我们也可以查找其它用户的公开镜像，像我们选择使用的 <code>training/sinatra</code> 镜像，这属于个人镜像。个人镜像是由 Docker 社区的成员创建和维护的。你可以用用户名称来识别这些镜像，因为这些镜像的前缀都是以用户名来标记的 ，像 <code>training</code> ，就是由 <code>training</code> 用户创建的镜像。</p>
+<h3 id="拖取镜像(Pull_our_image)">拖取镜像(Pull our image)</h3><p>我们已经确定了要使用的镜像， <code>training/sinatra</code> , 现在我们使用 <code>docker pull</code> 命令来下载这个镜像。</p>
+<pre><code><span class="variable">$ </span>sudo docker pull training/sinatra
+</code></pre><p>现在团队成员可以在自己的容器内使用这个镜像了。</p>
+<pre><code><span class="variable">$ </span>sudo docker run -t -i training/sinatra /bin/bash
+root<span class="variable">@a8cb6ce02d85</span><span class="symbol">:/</span><span class="comment">#</span>
+</code></pre><h3 id="创建我们自己的镜像">创建我们自己的镜像</h3><p>团队成员发现 <code>training/sinatra</code> 镜像对于我们来说是非常有用的，但是它不能满足我们的需求，我们需要针对这个镜像做出更改。这里我们有两种方法，更新镜像或者创建一个新的镜像。</p>
+<ol>
+<li>我们可以从已经创建的容器中更新镜像，并且提交这个镜像。</li>
+<li>我们可以使用 <code>Dockerfile</code> 指令来创建一个新的镜像。</li>
+</ol>
+<h3 id="!!更新并且提交更改">!!更新并且提交更改</h3><p>更新镜像之前，我们需要使用镜像来创建一个容器。</p>
+<pre><code><span class="variable">$ </span>sudo docker run -t -i training/sinatra /bin/bash
+root<span class="variable">@0b2616b0e5a8</span><span class="symbol">:/</span><span class="comment">#</span>
+</code></pre><blockquote>
+<p>注意：已创建容器ID <code>0b2616b0e5a8</code>,我们在后边还需要使用它。</p>
+</blockquote>
+<p>在运行的容器内使用 gem 来安装 <code>json</code></p>
+<pre><code>root<span class="variable">@0b2616b0e5a8</span><span class="symbol">:/</span><span class="comment"># gem install json</span>
+</code></pre><p>在完成操作之后，输入 <code>exit</code>命令来退出这个容器。</p>
+<p>现在我们有一个根据我们需求做出更改的容器。我们可以使用 <code>docker commit</code> 来提交容器副本。</p>
+<pre><code>$ sudo docker commit -m=<span class="string">"Added json gem"</span> <span class="operator">-a</span>=<span class="string">"Kate Smith"</span> \
+<span class="number">0</span>b2616b0e5a8 ouruser/sinatra:v2
+<span class="number">4</span>f177bd27a9ff0f6dc2a830403925b5360bfe0b93d476f7<span class="built_in">fc</span>3231110e7f71b1c
+</code></pre><p>这里我们使用了 <code>docker commit</code> 命令。这里我们指定了两个标识(flags) <code>-m</code> 和 <code>-a</code> 。<code>-m</code> 标识我们指定提交的信息，就像你提交一个版本控制。<code>-a</code> 标识允许对我们的更新来指定一个作者。</p>
+<p>我们也指定了想要创建的新镜像容器来源 (我们先前记录的ID) <code>0b2616b0e5a8</code> 和 我们指定要创建的目标镜像：</p>
+<pre><code><span class="label">ouruser</span>/sinatra:<span class="literal">v2</span>
+</code></pre><p>我们分解一下前边的步骤。我们先给这个镜像分配了一个新用户名字 <code>ouruser</code>，接着，未修改镜像名称，保留了原有镜像名称<code>sinatra</code>；最后为镜像指定了标签(tag) <code>v2</code>。</p>
+<p>我们可以使用 <code>docker images</code> 命令来查看我们的新镜像 <code>ouruser/sinatra</code>。</p>
+<pre><code>$ sudo docker images
+<span class="label">REPOSITORY</span>          TAG     IMAGE ID       CREATED       VIRTUAL SIZE
+<span class="label">training</span>/sinatra    latest  <span class="number">5</span>bc342fa0b91   <span class="number">10</span> hours ago  <span class="number">446</span>.<span class="number">7</span> MB
+<span class="label">ouruser</span>/sinatra     <span class="literal">v2</span>      <span class="number">3</span>c59e02ddd1a   <span class="number">10</span> hours ago  <span class="number">446</span>.<span class="number">7</span> MB
+<span class="label">ouruser</span>/sinatra     latest  <span class="number">5</span>db5f8471261   <span class="number">10</span> hours ago  <span class="number">446</span>.<span class="number">7</span> MB
+</code></pre><p>使用我们的新镜像来创建一个容器：</p>
+<pre><code><span class="variable">$ </span>sudo docker run -t -i ouruser/<span class="symbol">sinatra:</span>v2 /bin/bash
+root<span class="variable">@78e82f680994</span><span class="symbol">:/</span><span class="comment">#</span>
+</code></pre><h3 id="使用_Dockerfile_构建镜像">使用 <code>Dockerfile</code> 构建镜像</h3><p>使用 <code>docker commit</code> 命令能够非常简单的扩展镜像。但是它有点麻烦，并且在一个团队中也不能够轻易的共享它的开发过程。为解决这个问题，我们使用一个新的命令 <code>docker build</code> ， 从零开始来创建一个新的镜像。</p>
+<p>为此，我们需要创建一个 <code>Dockerfile</code> 文件，其中包含一组指令来告诉 Docker 如何构建我们的镜像。</p>
+<p>现在创建一个目录，并且创建一个 <code>Dockerfile</code></p>
+<pre><code><span class="variable">$ </span>mkdir sinatra
+<span class="variable">$ </span>cd sinatra
+<span class="variable">$ </span>touch <span class="constant">Dockerfile</span>
+</code></pre><p>如果你是在 Windows 上使用的 Boot2Docker，你可以通过使用 <code>cd</code> 命令来访问你的本地主机目录 <code>/c/Users/your_user_name</code></p>
+<p>每一个指令都会在镜像上创建一个新的层，来看一个简单的例子，我们的开发团建来构建一个自己的 <code>Sinatra</code>镜像：</p>
+<pre><code><span class="comment"># This is a comment</span>
+<span class="built_in">FROM</span> ubuntu:<span class="number">14.04</span>
+<span class="built_in">MAINTAINER</span> Kate Smith &lt;ksmith@example.com&gt;
+<span class="built_in">RUN</span> <span class="bash">apt-get update &amp;&amp; apt-get install -y ruby ruby-dev
+</span><span class="built_in">RUN</span> <span class="bash">gem install sinatra</span>
+</code></pre><p>让我们看一下我们的 <code>Dockerfile</code> 做了什么。每一个指令的前缀都必须是大写的。</p>
+<pre><code><span class="title">INSTRUCTION</span> statement
+</code></pre><blockquote>
+<p>提示：我们可以使用 <strong>#</strong> 来注释</p>
+</blockquote>
+<p>第一个指令 <code>FROM</code> 是告诉 Docker 使用的哪个镜像源，在这个案例中，我们使用的是 Ubuntu 14.04 基础镜像。</p>
+<p>下一步，我们使用 <code>MAINTAINER</code> 指令来指定谁在维护这个新镜像。</p>
+<p>最后，我们指定了两个 <code>RUN</code> 指令。 <code>RUN</code> 指令在镜像内执行一条命令，例如：安装一个包。这里我们更新了 APT 的缓存，并且安装 Ruby 和 RubyGems ，然后使用 gem 安装 Sinatra 。</p>
+<blockquote>
+<p>注意：我们还提供了更多的 Dockerfile 指令参数。</p>
+</blockquote>
+<p>现在，我们使用 <code>Dockerfile</code> 文件，通过 <code>docker build</code> 命令来构建一个镜像。</p>
+<pre><code>$ docker build <span class="attribute">-t</span> ouruser/sinatra:v2 <span class="built_in">.
+</span>Sending build context <span class="keyword">to</span> Docker daemon <span class="number">2.048</span> kB
+Sending build context <span class="keyword">to</span> Docker daemon 
+Step <span class="number">0</span> : FROM ubuntu:<span class="number">14.04</span>
+ <span class="subst">---&gt;</span> e54ca5efa2e9
+Step <span class="number">1</span> : MAINTAINER Kate Smith <span class="subst">&lt;</span>ksmith@example<span class="built_in">.</span>com<span class="subst">&gt;</span>
+ <span class="subst">---&gt;</span> Using <span class="keyword">cache</span>
+ <span class="subst">---&gt;</span> <span class="number">851</span>baf55332b
+Step <span class="number">2</span> : RUN apt<span class="attribute">-get</span> update <span class="subst">&amp;&amp;</span> apt<span class="attribute">-get</span> install <span class="attribute">-y</span> ruby ruby<span class="attribute">-dev</span>
+ <span class="subst">---&gt;</span> Running <span class="keyword">in</span> <span class="number">3</span>a2558904e9b
+Selecting previously unselected package libasan0:amd64<span class="built_in">.
+</span>(Reading database <span class="attribute">...</span> <span class="number">11518</span> files <span class="literal">and</span> directories currently installed<span class="built_in">.</span>)
+Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libasan0_4<span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libasan0:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package libatomic1:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libatomic1_4<span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libatomic1:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package libgmp10:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libgmp10_2<span class="subst">%</span><span class="number">3</span>a5<span class="built_in">.1</span><span class="built_in">.3</span><span class="subst">+</span>dfsg<span class="subst">-</span><span class="number">1</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libgmp10:amd64 (<span class="number">2</span>:<span class="number">5.1</span><span class="built_in">.3</span><span class="subst">+</span>dfsg<span class="subst">-</span><span class="number">1</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package libisl10:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libisl10_0<span class="built_in">.12</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libisl10:amd64 (<span class="number">0.12</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>) <span class="attribute">...</span>
+Selecting previously unselected package libcloog<span class="attribute">-isl4</span>:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libcloog<span class="attribute">-isl4_0</span><span class="built_in">.18</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libcloog<span class="attribute">-isl4</span>:amd64 (<span class="number">0.18</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>) <span class="attribute">...</span>
+Selecting previously unselected package libgomp1:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libgomp1_4<span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libgomp1:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package libitm1:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libitm1_4<span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libitm1:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package libmpfr4:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libmpfr4_3<span class="built_in">.1</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libmpfr4:amd64 (<span class="number">3.1</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>) <span class="attribute">...</span>
+Selecting previously unselected package libquadmath0:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libquadmath0_4<span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libquadmath0:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package libtsan0:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libtsan0_4<span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libtsan0:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package libyaml<span class="subst">-</span><span class="number">0</span><span class="subst">-</span><span class="number">2</span>:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libyaml<span class="subst">-</span><span class="number">0</span><span class="subst">-</span><span class="number">2</span>_0<span class="built_in">.1</span><span class="built_in">.4</span><span class="subst">-</span><span class="number">3</span>ubuntu3_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libyaml<span class="subst">-</span><span class="number">0</span><span class="subst">-</span><span class="number">2</span>:amd64 (<span class="number">0.1</span><span class="built_in">.4</span><span class="subst">-</span><span class="number">3</span>ubuntu3) <span class="attribute">...</span>
+Selecting previously unselected package libmpc3:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libmpc3_1<span class="built_in">.0</span><span class="built_in">.1</span><span class="subst">-</span><span class="number">1</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libmpc3:amd64 (<span class="number">1.0</span><span class="built_in">.1</span><span class="subst">-</span><span class="number">1</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package openssl<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/openssl_1<span class="built_in">.0</span><span class="built_in">.1</span>f<span class="subst">-</span><span class="number">1</span>ubuntu2<span class="built_in">.4</span>_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking openssl (<span class="number">1.0</span><span class="built_in">.1</span>f<span class="subst">-</span><span class="number">1</span>ubuntu2<span class="built_in">.4</span>) <span class="attribute">...</span>
+Selecting previously unselected package ca<span class="attribute">-certificates</span><span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/ca<span class="attribute">-certificates_20130906ubuntu2_all</span><span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking ca<span class="attribute">-certificates</span> (<span class="number">20130906</span>ubuntu2) <span class="attribute">...</span>
+Selecting previously unselected package manpages<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/manpages_3<span class="built_in">.54</span><span class="subst">-</span><span class="number">1</span>ubuntu1_all<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking manpages (<span class="number">3.54</span><span class="subst">-</span><span class="number">1</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package binutils<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/binutils_2<span class="built_in">.24</span><span class="subst">-</span><span class="number">5</span>ubuntu3_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking binutils (<span class="number">2.24</span><span class="subst">-</span><span class="number">5</span>ubuntu3) <span class="attribute">...</span>
+Selecting previously unselected package cpp<span class="subst">-</span><span class="number">4.8</span><span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/cpp<span class="subst">-</span><span class="number">4.8</span>_4<span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking cpp<span class="subst">-</span><span class="number">4.8</span> (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package cpp<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/cpp_4<span class="subst">%</span><span class="number">3</span>a4<span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>ubuntu6_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking cpp (<span class="number">4</span>:<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>ubuntu6) <span class="attribute">...</span>
+Selecting previously unselected package libgcc<span class="subst">-</span><span class="number">4.8</span><span class="attribute">-dev</span>:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libgcc<span class="subst">-</span><span class="number">4.8</span><span class="attribute">-dev_4</span><span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libgcc<span class="subst">-</span><span class="number">4.8</span><span class="attribute">-dev</span>:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package gcc<span class="subst">-</span><span class="number">4.8</span><span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/gcc<span class="subst">-</span><span class="number">4.8</span>_4<span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking gcc<span class="subst">-</span><span class="number">4.8</span> (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package gcc<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/gcc_4<span class="subst">%</span><span class="number">3</span>a4<span class="built_in">.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>ubuntu6_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking gcc (<span class="number">4</span>:<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>ubuntu6) <span class="attribute">...</span>
+Selecting previously unselected package libc<span class="attribute">-dev</span><span class="attribute">-bin</span><span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libc<span class="attribute">-dev</span><span class="attribute">-bin_2</span><span class="built_in">.19</span><span class="subst">-</span><span class="number">0</span>ubuntu6_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libc<span class="attribute">-dev</span><span class="attribute">-bin</span> (<span class="number">2.19</span><span class="subst">-</span><span class="number">0</span>ubuntu6) <span class="attribute">...</span>
+Selecting previously unselected package linux<span class="attribute">-libc</span><span class="attribute">-dev</span>:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/linux<span class="attribute">-libc</span><span class="attribute">-dev_3</span><span class="built_in">.13</span><span class="built_in">.0</span><span class="subst">-</span><span class="number">30.55</span>_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking linux<span class="attribute">-libc</span><span class="attribute">-dev</span>:amd64 (<span class="number">3.13</span><span class="built_in">.0</span><span class="subst">-</span><span class="number">30.55</span>) <span class="attribute">...</span>
+Selecting previously unselected package libc6<span class="attribute">-dev</span>:amd64<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libc6<span class="attribute">-dev_2</span><span class="built_in">.19</span><span class="subst">-</span><span class="number">0</span>ubuntu6_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libc6<span class="attribute">-dev</span>:amd64 (<span class="number">2.19</span><span class="subst">-</span><span class="number">0</span>ubuntu6) <span class="attribute">...</span>
+Selecting previously unselected package ruby<span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/ruby_1<span class="subst">%</span><span class="number">3</span>a1<span class="built_in">.9</span><span class="built_in">.3</span><span class="built_in">.4</span>_all<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking ruby (<span class="number">1</span>:<span class="number">1.9</span><span class="built_in">.3</span><span class="built_in">.4</span>) <span class="attribute">...</span>
+Selecting previously unselected package ruby1<span class="built_in">.9</span><span class="built_in">.1</span><span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/ruby1<span class="built_in">.9</span><span class="built_in">.1</span>_1<span class="built_in">.9</span><span class="built_in">.3</span><span class="built_in">.484</span><span class="subst">-</span><span class="number">2</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking ruby1<span class="built_in">.9</span><span class="built_in">.1</span> (<span class="number">1.9</span><span class="built_in">.3</span><span class="built_in">.484</span><span class="subst">-</span><span class="number">2</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package libruby1<span class="built_in">.9</span><span class="built_in">.1</span><span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/libruby1<span class="built_in">.9</span><span class="built_in">.1</span>_1<span class="built_in">.9</span><span class="built_in">.3</span><span class="built_in">.484</span><span class="subst">-</span><span class="number">2</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking libruby1<span class="built_in">.9</span><span class="built_in">.1</span> (<span class="number">1.9</span><span class="built_in">.3</span><span class="built_in">.484</span><span class="subst">-</span><span class="number">2</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package manpages<span class="attribute">-dev</span><span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/manpages<span class="attribute">-dev_3</span><span class="built_in">.54</span><span class="subst">-</span><span class="number">1</span>ubuntu1_all<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking manpages<span class="attribute">-dev</span> (<span class="number">3.54</span><span class="subst">-</span><span class="number">1</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package ruby1<span class="built_in">.9</span><span class="built_in">.1</span><span class="attribute">-dev</span><span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/ruby1<span class="built_in">.9</span><span class="built_in">.1</span><span class="attribute">-dev_1</span><span class="built_in">.9</span><span class="built_in">.3</span><span class="built_in">.484</span><span class="subst">-</span><span class="number">2</span>ubuntu1_amd64<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking ruby1<span class="built_in">.9</span><span class="built_in">.1</span><span class="attribute">-dev</span> (<span class="number">1.9</span><span class="built_in">.3</span><span class="built_in">.484</span><span class="subst">-</span><span class="number">2</span>ubuntu1) <span class="attribute">...</span>
+Selecting previously unselected package ruby<span class="attribute">-dev</span><span class="built_in">.
+</span>Preparing <span class="keyword">to</span> unpack <span class="attribute">...</span>/ruby<span class="attribute">-dev_1</span><span class="subst">%</span><span class="number">3</span>a1<span class="built_in">.9</span><span class="built_in">.3</span><span class="built_in">.4</span>_all<span class="built_in">.</span>deb <span class="attribute">...</span>
+Unpacking ruby<span class="attribute">-dev</span> (<span class="number">1</span>:<span class="number">1.9</span><span class="built_in">.3</span><span class="built_in">.4</span>) <span class="attribute">...</span>
+Setting up libasan0:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Setting up libatomic1:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Setting up libgmp10:amd64 (<span class="number">2</span>:<span class="number">5.1</span><span class="built_in">.3</span><span class="subst">+</span>dfsg<span class="subst">-</span><span class="number">1</span>ubuntu1) <span class="attribute">...</span>
+Setting up libisl10:amd64 (<span class="number">0.12</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>) <span class="attribute">...</span>
+Setting up libcloog<span class="attribute">-isl4</span>:amd64 (<span class="number">0.18</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>) <span class="attribute">...</span>
+Setting up libgomp1:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Setting up libitm1:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Setting up libmpfr4:amd64 (<span class="number">3.1</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>) <span class="attribute">...</span>
+Setting up libquadmath0:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Setting up libtsan0:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Setting up libyaml<span class="subst">-</span><span class="number">0</span><span class="subst">-</span><span class="number">2</span>:amd64 (<span class="number">0.1</span><span class="built_in">.4</span><span class="subst">-</span><span class="number">3</span>ubuntu3) <span class="attribute">...</span>
+Setting up libmpc3:amd64 (<span class="number">1.0</span><span class="built_in">.1</span><span class="subst">-</span><span class="number">1</span>ubuntu1) <span class="attribute">...</span>
+Setting up openssl (<span class="number">1.0</span><span class="built_in">.1</span>f<span class="subst">-</span><span class="number">1</span>ubuntu2<span class="built_in">.4</span>) <span class="attribute">...</span>
+Setting up ca<span class="attribute">-certificates</span> (<span class="number">20130906</span>ubuntu2) <span class="attribute">...</span>
+debconf: unable <span class="keyword">to</span> initialize frontend: Dialog
+debconf: (TERM is <span class="literal">not</span> <span class="built_in">set</span>, so the dialog frontend is <span class="literal">not</span> usable<span class="built_in">.</span>)
+debconf: falling back <span class="keyword">to</span> frontend: Readline
+debconf: unable <span class="keyword">to</span> initialize frontend: Readline
+debconf: (This frontend requires a controlling tty<span class="built_in">.</span>)
+debconf: falling back <span class="keyword">to</span> frontend: Teletype
+Setting up manpages (<span class="number">3.54</span><span class="subst">-</span><span class="number">1</span>ubuntu1) <span class="attribute">...</span>
+Setting up binutils (<span class="number">2.24</span><span class="subst">-</span><span class="number">5</span>ubuntu3) <span class="attribute">...</span>
+Setting up cpp<span class="subst">-</span><span class="number">4.8</span> (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Setting up cpp (<span class="number">4</span>:<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>ubuntu6) <span class="attribute">...</span>
+Setting up libgcc<span class="subst">-</span><span class="number">4.8</span><span class="attribute">-dev</span>:amd64 (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Setting up gcc<span class="subst">-</span><span class="number">4.8</span> (<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">19</span>ubuntu1) <span class="attribute">...</span>
+Setting up gcc (<span class="number">4</span>:<span class="number">4.8</span><span class="built_in">.2</span><span class="subst">-</span><span class="number">1</span>ubuntu6) <span class="attribute">...</span>
+Setting up libc<span class="attribute">-dev</span><span class="attribute">-bin</span> (<span class="number">2.19</span><span class="subst">-</span><span class="number">0</span>ubuntu6) <span class="attribute">...</span>
+Setting up linux<span class="attribute">-libc</span><span class="attribute">-dev</span>:amd64 (<span class="number">3.13</span><span class="built_in">.0</span><span class="subst">-</span><span class="number">30.55</span>) <span class="attribute">...</span>
+Setting up libc6<span class="attribute">-dev</span>:amd64 (<span class="number">2.19</span><span class="subst">-</span><span class="number">0</span>ubuntu6) <span class="attribute">...</span>
+Setting up manpages<span class="attribute">-dev</span> (<span class="number">3.54</span><span class="subst">-</span><span class="number">1</span>ubuntu1) <span class="attribute">...</span>
+Setting up libruby1<span class="built_in">.9</span><span class="built_in">.1</span> (<span class="number">1.9</span><span class="built_in">.3</span><span class="built_in">.484</span><span class="subst">-</span><span class="number">2</span>ubuntu1) <span class="attribute">...</span>
+Setting up ruby1<span class="built_in">.9</span><span class="built_in">.1</span><span class="attribute">-dev</span> (<span class="number">1.9</span><span class="built_in">.3</span><span class="built_in">.484</span><span class="subst">-</span><span class="number">2</span>ubuntu1) <span class="attribute">...</span>
+Setting up ruby<span class="attribute">-dev</span> (<span class="number">1</span>:<span class="number">1.9</span><span class="built_in">.3</span><span class="built_in">.4</span>) <span class="attribute">...</span>
+Setting up ruby (<span class="number">1</span>:<span class="number">1.9</span><span class="built_in">.3</span><span class="built_in">.4</span>) <span class="attribute">...</span>
+Setting up ruby1<span class="built_in">.9</span><span class="built_in">.1</span> (<span class="number">1.9</span><span class="built_in">.3</span><span class="built_in">.484</span><span class="subst">-</span><span class="number">2</span>ubuntu1) <span class="attribute">...</span>
+Processing triggers for libc<span class="attribute">-bin</span> (<span class="number">2.19</span><span class="subst">-</span><span class="number">0</span>ubuntu6) <span class="attribute">...</span>
+Processing triggers for ca<span class="attribute">-certificates</span> (<span class="number">20130906</span>ubuntu2) <span class="attribute">...</span>
+Updating certificates <span class="keyword">in</span> /etc/ssl/certs<span class="attribute">...</span> <span class="number">164</span> added, <span class="number">0</span> removed; done<span class="built_in">.
+</span>Running hooks <span class="keyword">in</span> /etc/ca<span class="attribute">-certificates</span>/update<span class="built_in">.</span>d<span class="attribute">...</span><span class="built_in">.</span>done<span class="built_in">.
+ </span><span class="subst">---&gt;</span> c55c31703134
+Removing intermediate container <span class="number">3</span>a2558904e9b
+Step <span class="number">3</span> : RUN gem install sinatra
+ <span class="subst">---&gt;</span> Running <span class="keyword">in</span> <span class="number">6</span>b81cb6313e5
+unable <span class="keyword">to</span> convert <span class="string">"\xC3"</span> <span class="keyword">to</span> UTF<span class="subst">-</span><span class="number">8</span> <span class="keyword">in</span> conversion from ASCII<span class="subst">-</span><span class="number">8</span>BIT <span class="keyword">to</span> UTF<span class="subst">-</span><span class="number">8</span> <span class="keyword">to</span> US<span class="attribute">-ASCII</span> for README<span class="built_in">.</span>rdoc, skipping
+unable <span class="keyword">to</span> convert <span class="string">"\xC3"</span> <span class="keyword">to</span> UTF<span class="subst">-</span><span class="number">8</span> <span class="keyword">in</span> conversion from ASCII<span class="subst">-</span><span class="number">8</span>BIT <span class="keyword">to</span> UTF<span class="subst">-</span><span class="number">8</span> <span class="keyword">to</span> US<span class="attribute">-ASCII</span> for README<span class="built_in">.</span>rdoc, skipping
+Successfully installed rack<span class="subst">-</span><span class="number">1.5</span><span class="built_in">.2</span>
+Successfully installed tilt<span class="subst">-</span><span class="number">1.4</span><span class="built_in">.1</span>
+Successfully installed rack<span class="attribute">-protection</span><span class="subst">-</span><span class="number">1.5</span><span class="built_in">.3</span>
+Successfully installed sinatra<span class="subst">-</span><span class="number">1.4</span><span class="built_in">.5</span>
+<span class="number">4</span> gems installed
+Installing ri documentation for rack<span class="subst">-</span><span class="number">1.5</span><span class="built_in">.2</span><span class="attribute">...</span>
+Installing ri documentation for tilt<span class="subst">-</span><span class="number">1.4</span><span class="built_in">.1</span><span class="attribute">...</span>
+Installing ri documentation for rack<span class="attribute">-protection</span><span class="subst">-</span><span class="number">1.5</span><span class="built_in">.3</span><span class="attribute">...</span>
+Installing ri documentation for sinatra<span class="subst">-</span><span class="number">1.4</span><span class="built_in">.5</span><span class="attribute">...</span>
+Installing RDoc documentation for rack<span class="subst">-</span><span class="number">1.5</span><span class="built_in">.2</span><span class="attribute">...</span>
+Installing RDoc documentation for tilt<span class="subst">-</span><span class="number">1.4</span><span class="built_in">.1</span><span class="attribute">...</span>
+Installing RDoc documentation for rack<span class="attribute">-protection</span><span class="subst">-</span><span class="number">1.5</span><span class="built_in">.3</span><span class="attribute">...</span>
+Installing RDoc documentation for sinatra<span class="subst">-</span><span class="number">1.4</span><span class="built_in">.5</span><span class="attribute">...</span>
+ <span class="subst">---&gt;</span> <span class="number">97</span>feabe5d2ed
+Removing intermediate container <span class="number">6</span>b81cb6313e5
+Successfully built <span class="number">97</span>feabe5d2ed
+</code></pre><p>我们使用 <code>docker build</code> 命令并指定 <code>-t</code> 标识(flag)来标示属于 <code>ouruser</code> ，镜像名称为 <code>sinatra</code>,标签是 <code>v2</code>。</p>
+<p>如果 <code>Dockerfile</code> 在我们当前目录下，我们可以使用 <code>.</code> 来指定 <code>Dockerfile</code></p>
+<blockquote>
+<p>提示：你也可以指定 <code>Dockerfile</code> 路径</p>
+</blockquote>
+<p>现在我们可以看到构建过程。Docker 做的第一件事是通过你的上下文进行构建，基本上是目录的内容构建。这样做是因为 Docker 进程构建镜像是实时构建的，并且是需要本地的上下文来做这些工作的。（这里上下文是指Context）</p>
+<p>下一步，<code>Dockerfile</code> 中的每一条命令都一步一步的被执行。我们会看到每一步都会创建一个新的容器，在容器内部运行指令并且提交更改 - 就像我们之前使用的 <code>docker commit</code> 一样。当所有的指令执行完成之后，我们会得到<code>97feabe5d2ed</code> 镜像（也帮助标记为 <code>ouruser/sinatra:v2</code>）, 然后所有中间容器会被清除。</p>
+<blockquote>
+<p>注意：与存储程序驱动无关，镜像不能超过127层。这是一种全局设置，为了是从整体上来优化镜像的大小。</p>
+</blockquote>
+<p>我们可以使用新的镜像来创建容器：</p>
+<pre><code><span class="variable">$ </span>docker run -t -i ouruser/<span class="symbol">sinatra:</span>v2 /bin/bash
+root<span class="variable">@8196968dac35</span><span class="symbol">:/</span><span class="comment">#</span>
+</code></pre><blockquote>
+<p>注意：这里只是简单的介绍一下如何创建镜像。我们跳过了很多你可以使用的其它指令。你会从后边的章节看到更多的指令或者你可以参考 <code>Dockerfile</code> 的详细说明和每一条指令的例子。为了帮助你编写清晰、易读、易维护的 <code>Dockerfile</code> ，我们也编写了 <code>Dockerfile</code> <a href="#">最佳实践指南</a></p>
+</blockquote>
+<h3 id="更多Dockerfile教程">更多Dockerfile教程</h3><p>学习更多，请查看 <a href="https://docs.docker.com/userguide/level1/" target="_blank" rel="external"> Dockerfile 教程</a></p>
+<h3 id="设置镜像标签">设置镜像标签</h3><p>你可以在提交更改和构建之后为镜像来添加标签(tag)。我们可以使用 <code>docker tag</code> 命令。为我们的 <code>ouruser/sinatra</code> 镜像添加一个新的标签。</p>
+<pre><code>$ docker <span class="keyword">tag</span> <span class="number">5</span>db5f8471261 ouruser/sinatr<span class="variable">a:devel</span>
+</code></pre><p><code>docker tag</code> 需要使用镜像ID，这里是 <code>5db5f8471261</code> ,用户名称、镜像源名(repository name)和新的标签名(tag)。</p>
+<pre><code>$ docker images ouruser/sinatra
+REPOSITORY          TAG     IMAGE ID      CREATED        VIRTUAL SIZE
+ouruser/sinatra     latest  5db<span class="number">5f8471261</span>  11 hours ago   446.7 MB
+ouruser/sinatra     devel   5db<span class="number">5f8471261</span>  11 hours ago   446.7 MB
+ouruser/sinatra     v2      5db<span class="number">5f8471261</span>  11 hours ago   446.7 MB
+</code></pre><h3 id="Image_Digests">Image Digests</h3><p>v2 或后续版本格式的镜像会有内容定位标示符叫做 <code>digest</code>。只要用于生成镜像的镜像源不更改， digests 值就是可以预料的。使用 <code>--digests</code> 标识来列出镜像 digests 的值</p>
+<pre><code>$ docker images --digests | head
+REPOSITORY                         TAG                 DIGEST                                                                     IMAGE ID            CREATED             VIRTUAL SIZE
+ouruser/sinatra                    latest              sha256:cbbf<span class="number">2f9a99b47</span>fc<span class="number">460d42281</span>2b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf    5db<span class="number">5f8471261</span>        11 hours ago        446.7 MB
+</code></pre><p>当我们从 v2 版本的镜像仓库来推送或者拉取镜像的时候，<code>pull</code> 和 <code>push</code> 命令包含了镜像 digests 。 你可以使用 <code>digests</code> 值来拉取镜像。</p>
+<pre><code>$ docker pull ouruser/sinatra@cbbf<span class="number">2f9a99b47</span>fc<span class="number">460d42281</span>2b6a5adff7dfee951d8fa2e4a98caa0382cfbdbf
+</code></pre><p>你可以参考 digest 的 <code>create</code>、<code>run</code> 和 <code>rmi</code> 命令，以及 <code>Dockerfile</code> 中的 <code>FROM</code> 镜像。</p>
+<h3 id="推送镜像到_Docker_Hub">推送镜像到 Docker Hub</h3><p>一旦你构建或创建了一个新的镜像，你可以使用 <code>docker push</code> 命令将镜像推送到 Docker Hub 。这样你就可以分享你的镜像了，镜像可以是公开的，或者你可以把镜像添加到你的私有仓库中。</p>
+<pre><code>$ docker <span class="keyword">push </span>ouruser/sinatra
+<span class="label">The</span> <span class="keyword">push </span>refers to a repository [ouruser/sinatra] (len: <span class="number">1</span>)
+<span class="label">Sending</span> image list
+<span class="keyword">Pushing </span>repository ouruser/sinatra (<span class="number">3</span> tags)
+. . .
+</code></pre><h3 id="主机中移除镜像">主机中移除镜像</h3><p>你可以删除你主机上的镜像，类似于删处容器的方法，这里我们使用 <code>docker rmi</code> 命令。</p>
+<p>让我们删除这个不需要使用的容器：<code>training/sinatra</code>。</p>
+<pre><code>$ docker rmi training/sinatra
+Untagged: training/sinatra:latest
+Deleted: 5bc342fa0b91cabf<span class="number">652468370151</span>97eecfa24b2213ed<span class="number">6a51a8974</span>ae250fedd8d
+Deleted: ed0fffdcdae5eb<span class="number">2c3a55549</span>857a8be7fc8bc4241fb19ad714364cbfd7a56b22f
+Deleted: <span class="number">5c58979d73</span>ae448df5af<span class="number">1d8142436</span>d<span class="number">81116187a76</span><span class="number">33082650549</span>c<span class="number">52c3a2418</span>f0
+</code></pre><blockquote>
+<p>提示：为了能够从主机上删除镜像，请确保没有基于此镜像的容器。<br>现在，我们已经看到如何在容器中构建单独的应用程序。接下来，我们要学习如何把多个 Docker 容器连接在一起构建一个完整的应用程序。</p>
+</blockquote>
+<h2 id="连接容器">连接容器</h2><p>在使用<a href="#使用容器工作">使用容器工作</a>, 我们谈到了如何通过网络端口来访问运行在 Docker 容器内的服务。这是与docker容器内运行应用程序交互的一种方法。在本节中，我们打算通过端口连接到一个docker容器，并向您介绍容器连接概念。</p>
+<h3 id="网络端口映射">网络端口映射</h3><p>在<a href="#使用容器工作">使用容器工作</a>部分,我们创建了一个python应用的容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run <span class="operator">-d</span> -P training/webapp python app.py</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：容器有一个内部网络和IP地址（在使用Docker部分我们使用<code>docker inspect</code>命令显示容器的IP地址）。Docker可以有各种网络配置方式。你可以再这里学到更多docker网络信息。</p>
+</blockquote>
+<p>我们使用<code>-P</code>标记创建一个容器，将容器的内部端口随机映射到主机的高端口49000到49900。这时我们可以使用<code>docker ps</code>来看到端口5000绑定主机端口49155。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker ps nostalgic_morse</span><br><span class="line">CONTAINER ID  IMAGE                   COMMAND       CREATED        STATUS        PORTS                    NAMES</span><br><span class="line">bc533791f3f5  training/webapp:latest  python app.py <span class="number">5</span> seconds ago  Up <span class="number">2</span> seconds  <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">49155</span>-&gt;<span class="number">5000</span>/tcp  nostalgic_morse</span><br></pre></td></tr></table></figure>
+<p>我们也可以使用<code>-p</code>标识来指定容器端口绑定到主机端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run <span class="operator">-d</span> -p <span class="number">5000</span>:<span class="number">5000</span> training/webapp python app.py</span><br></pre></td></tr></table></figure>
+<p>我们看这为什么不是一个好的主意呢？因为它限制了我们容器的一个端口。</p>
+<p>我们还有很多设置<code>-p</code>标识的方法。默认<code>-p</code>标识会绑定本地主机上的指定端口。并且我们可以指定绑定的网络地址。举例设置<code>localhost</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run <span class="operator">-d</span> -p <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">5001</span>:<span class="number">5002</span> training/webapp python app.py</span><br></pre></td></tr></table></figure>
+<p>这将绑定容器内部5002端口到主机的<code>localhost</code>或者<code>127.0.0.1</code>的5001端口。</p>
+<p>如果要绑定容器端口5002到宿主机动态端口，并且让<code>localhost</code>访问，我们可以这样做：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run <span class="operator">-d</span> -p <span class="number">127.0</span>.<span class="number">0.1</span>::<span class="number">5002</span> training/webapp python app.py</span><br></pre></td></tr></table></figure>
+<p>我们也可以绑定UDP端口，我们可以在后面添加<code>/udp</code>,举例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run <span class="operator">-d</span> -p <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">5000</span>:<span class="number">5000</span>/udp training/webapp python app.py</span><br></pre></td></tr></table></figure>
+<p>我们可以使用<code>docker port</code>快捷方式来绑定我们的端口，这有助于向我们展示特定的端口。例如我们绑定<code>localhost</code>,如下是<code>docker port</code>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker port nostalgic_morse <span class="number">5000</span></span><br><span class="line"><span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">49155</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：<code>-p</code>可以使用多次配置多个端口。</p>
+</blockquote>
+<h3 id="Docker容器连接">Docker容器连接</h3><p>端口映射并不是唯一把docker连接到另一个容器的方法。docker有一个连接系统允许将多个容器连接在一起，共享连接信息。docker连接会创建一个父子关系，其中父容器可以看到子容器的信息。</p>
+<h3 id="容器命名">容器命名</h3><p>执行此连接需要依靠你的docker的名字，这里我们可以看到当我们创建每一个容器的时候，它都会自动被命名。事实上我们已经熟悉了老的<code>nostalgic_morse</code>指南。你也可以自己命名容器。这种命名提供了两个有用的功能：</p>
+<ul>
+<li>1.给容器特定的名字使你更容易记住他们，例如：命名web应用程序为web容器。</li>
+<li>2.它为docker提供一个参考，允许其他容器引用，举例连接web容器到db容器。</li>
+</ul>
+<p>你可以使用<code>--name</code>标识来命名容器，举例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run <span class="operator">-d</span> -P --name web training/webapp python app.py</span><br></pre></td></tr></table></figure>
+<p>我们可以看到我们启动了的容器，就是我们使用<code>--name</code>标识命名为<code>web</code>的容器。我们可以使用<code>docker ps</code>命令来查看容器名称。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker ps <span class="operator">-l</span></span><br><span class="line">CONTAINER ID  IMAGE                  COMMAND        CREATED       STATUS       PORTS                    NAMES</span><br><span class="line">aed84ee21bde  training/webapp:latest python app.py  <span class="number">12</span> hours ago  Up <span class="number">2</span> seconds <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">49154</span>-&gt;<span class="number">5000</span>/tcp  web</span><br></pre></td></tr></table></figure>
+<p>我们也可以使用<code>docker inspect</code>来返回容器名字。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker inspect <span class="operator">-f</span> <span class="string">"&#123;&#123; .Name &#125;&#125;"</span> aed84ee21bde</span><br><span class="line">/web</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：容器的名称必须是唯一的。这意味着你只能调用一个web容器。如果你想使用重复的名称来命名容器，你需要使用<code>docker rm</code>命令删除以前的容器。在容器停止后删除。</p>
+</blockquote>
+<h3 id="!!容器连接">!!容器连接</h3><p>连接允许容器之间可见并且安全地进行通信。使用<code>--link</code>创建连接。我们创建一个新容器，这个容器是数据库。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run <span class="operator">-d</span> --name db training/postgres</span><br></pre></td></tr></table></figure>
+<p>这里我们使用<code>training/postgres</code>容器创建一个新的容器。容器是PostgreSQL数据库。</p>
+<p>现在我们创建一个<code>web</code>容器来连接<code>db</code>容器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run <span class="operator">-d</span> -P --name web --link db:db training/webapp python app.py</span><br></pre></td></tr></table></figure>
+<p>这将使我们的web容器和db容器连接起来。<code>--link</code>的形式</p>
+<pre><code>-<span class="ruby">-link <span class="symbol">name:</span><span class="keyword">alias</span></span>
+</code></pre><p><code>name</code>是我们连接容器的名字，<code>alias</code>是link的别名。让我们看如何使用alias。</p>
+<p>让我们使用<code>docker ps</code>来查看容器连接.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker ps</span><br><span class="line">CONTAINER ID  IMAGE                     COMMAND               CREATED             STATUS             PORTS                    NAMES</span><br><span class="line"><span class="number">349169744</span>e49  training/postgres:latest  su postgres -c <span class="string">'/usr  About a minute ago  Up About a minute  5432/tcp                 db</span><br><span class="line">aed84ee21bde  training/webapp:latest    python app.py         16 hours ago        Up 2 minutes       0.0.0.0:49154-&gt;5000/tcp  db/web,web</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到我们命名的容器，<code>db</code>和<code>web</code>，我们还在名字列中可以看到web容器也显示<code>db/web</code>。这告诉我们web容器和db容器是父/子关系。</p>
+<p>我们连接容器做什么？我们发现连接的两个容器是父子关系。这里的父容器是<code>db</code>可以访问子容器<code>web</code>。为此docker在容器之间打开一个安全连接隧道不需要暴露任何端口在容器外部。你会注意到当你启动db容器的时候我们没有使用<code>-P</code>或者<code>-p</code>标识。我们连接容器的时候我们不需要通过网络给PostgreSQL数据库开放端口。</p>
+<p>Docker在父容器中开放子容器连接信息有两种方法：</p>
+<ul>
+<li>环境变量</li>
+<li>更新<code>/etc/hosts</code>文件。</li>
+</ul>
+<p>让我们先看看docker的环境变量。我们运行<code>env</code>命令来查看列表容器的环境变量。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker run --rm --name web2 --link db:db training/webapp env</span><br><span class="line">   	 	. . .</span><br><span class="line">    	DB_NAME=/web2/db</span><br><span class="line">    	DB_PORT=tcp://<span class="number">172.17</span>.<span class="number">0.5</span>:<span class="number">5432</span></span><br><span class="line">    	DB_PORT_5000_TCP=tcp://<span class="number">172.17</span>.<span class="number">0.5</span>:<span class="number">5432</span></span><br><span class="line">    	DB_PORT_5000_TCP_PROTO=tcp</span><br><span class="line">    	DB_PORT_5000_TCP_PORT=<span class="number">5432</span></span><br><span class="line">    	DB_PORT_5000_TCP_ADDR=<span class="number">172.17</span>.<span class="number">0.5</span></span><br><span class="line">   		. . .</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：这些环境变量只设置顶一个进程的容器。同样，一些守护进程(例如sshd)进行shell连接时就会去除。</p>
+</blockquote>
+<p>我们可以看到docker为我们的数据库容器创建了一系列环境变量。每个前缀变量是<code>DB_</code>填充我们指定的别名。如果我们的别名是<code>db1</code>，前缀别名就是<code>DB1_</code>。您可以使用这些环境变量来配置您的应用程序连接到你的数据库db容器。该连接时安全、私有的，只能在web容器和db容器之间通信。</p>
+<p>docker除了环境变量，可以添加信息到父主机的<code>/etc/hosts</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@aed84ee21bde:/opt/webapp<span class="comment"># cat /etc/hosts</span></span><br><span class="line"><span class="number">172.17</span>.<span class="number">0.7</span>  aed84ee21bde</span><br><span class="line">. . .</span><br><span class="line"><span class="number">172.17</span>.<span class="number">0.5</span>  db</span><br></pre></td></tr></table></figure>
+<p>这里我们可以看到两个主机项。第一项是web容器用容器ID作为主机名字。第二项是使用别名引用IP地址连接数据库容器。现在我们试试ping这个主机：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@aed84ee21bde:/opt/webapp<span class="comment"># apt-get install -yqq inetutils-ping</span></span><br><span class="line">root@aed84ee21bde:/opt/webapp<span class="comment"># ping db</span></span><br><span class="line">PING db (<span class="number">172.17</span>.<span class="number">0.5</span>): <span class="number">48</span> data bytes</span><br><span class="line"><span class="number">56</span> bytes from <span class="number">172.17</span>.<span class="number">0.5</span>: icmp_seq=<span class="number">0</span> ttl=<span class="number">64</span> time=<span class="number">0.267</span> ms</span><br><span class="line"><span class="number">56</span> bytes from <span class="number">172.17</span>.<span class="number">0.5</span>: icmp_seq=<span class="number">1</span> ttl=<span class="number">64</span> time=<span class="number">0.250</span> ms</span><br><span class="line"><span class="number">56</span> bytes from <span class="number">172.17</span>.<span class="number">0.5</span>: icmp_seq=<span class="number">2</span> ttl=<span class="number">64</span> time=<span class="number">0.256</span> ms</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：我们不得不安装<code>ping</code>，因为容器内没有它。</p>
+</blockquote>
+<p>我们使用<code>ping</code>命令来ping<code>db</code>容器，使用它解析到<code>127.17.0.5</code>主机。我们可以利用这个主机项配置应用程序来使用我们的<code>db</code>容器。</p>
+<blockquote>
+<p>注：你可以使用一个父容器连接多个子容器。例如，我们可以有多个web容器连接到我们的db数据库容器。<br>现在我们已经学会如何连接容器了，下一步我们学习融合管理数据、卷标和如果在容器内挂载。</p>
+</blockquote>
+<h2 id="管理容器数据">管理容器数据</h2><p>到目前为止，我们已经介绍了docker的一些基本概念，了解了如何使用docker镜像，以及容器之间如何通过网络连接。本节，我们来讨论如何管理容器和容器间的共享数据。</p>
+<p>接下来，我们将主要介绍Docker管理数据的两种主要的方法：</p>
+<ul>
+<li>数据卷</li>
+<li>数据卷容器</li>
+</ul>
+<h3 id="数据卷">数据卷</h3><p>数据卷是指在存在于一个或多个容器中的特定目录，此目录能够绕过<a href="http://docs.docker.com/terms/layer/#ufs-def" target="_blank" rel="external">Union File System</a>提供一些用于持续存储或共享数据的特性。</p>
+<ul>
+<li>数据卷可在容器之间共享或重用</li>
+<li>数据卷中的更改可以直接生效</li>
+<li>数据卷中的更改不会包含在镜像的更新中</li>
+<li>数据卷的生命周期一直持续到没有容器使用它为止</li>
+</ul>
+<h3 id="添加一个数据卷">添加一个数据卷</h3><p>你可以在<code>docker run</code>命令中使用<code>-v</code>标识来给容器内添加一个数据卷，你也可以在一次<code>docker run</code>命令中多次使用<code>-v</code>标识挂载多个数据卷。现在我们在web容器应用中创建单个数据卷。</p>
+<pre><code>$ sudo docker <span class="keyword">run</span> -<span class="keyword">d</span> -P --name web -v /webapp training/webapp python <span class="keyword">app</span>.py
+</code></pre><p>这会在容器内部创建一个新的卷<code>/webapp</code></p>
+<blockquote>
+<p>注：类似的，你可以在<code>Dockerfile</code>中使用<code>VOLUME</code>指令来给创建的镜像添加一个或多个数据卷。</p>
+</blockquote>
+<h3 id="挂载一个主机目录作为卷">挂载一个主机目录作为卷</h3><p>使用<code>-v</code>，除了可以创建一个数据卷，还可以挂载本地主机目录到容器中：</p>
+<pre><code>$ sudo docker run -d -P --name web -v <span class="regexp">/src/</span><span class="string">webapp:</span><span class="regexp">/opt/</span>webapp training/webapp python app.py
+</code></pre><p>这将会把本地目录<code>/src/webapp</code>挂载到容器的<code>/opt/webapp</code>目录。这在做测试时是非常有用的，例如我们可以挂载宿主机的源代码到容器内部，这样我们就可以看到改变源代码时的应用时如何工作的。宿主机上的目录必须是绝对路径，如果目录不存在docker会自动创建它。</p>
+<blockquote>
+<p>注：出于可移植和分享的考虑，这种方法不能够直接在<code>Dockerfile</code>中实现。作为宿主机目录——其性质——是依赖于特定宿主机的，并不能够保证在所有的宿主机上都存在这样的特定目录。</p>
+</blockquote>
+<p>docker默认情况下是对数据卷有读写权限，但是我们通过这样的方式让数据卷只读：</p>
+<pre><code>$ sudo docker run -d -P --name web -v <span class="regexp">/src/</span><span class="string">webapp:</span><span class="regexp">/opt/</span><span class="string">webapp:</span>ro training/webapp python app.py
+</code></pre><p>这里我们同样挂载了<code>/src/webapp</code>目录，只是添加了<code>ro</code>选项来限制它只读。</p>
+<h3 id="将宿主机上的特定文件挂载为数据卷">将宿主机上的特定文件挂载为数据卷</h3><p>除了能挂载目录外，<code>-v</code>标识还可以将宿主机的一个特定文件挂载为数据卷：</p>
+<pre><code>$ sudo docker run --rm -it -v ~/<span class="class">.bash_history</span>:/<span class="class">.bash_history</span> ubuntu /bin/bash
+</code></pre><p>上述命令会在容器中运行一个bash shell，当你退出此容器时在主机上也能够看到容器中bash的命令历史。</p>
+<blockquote>
+<p>注：很多文件编辑工具如<code>vi</code>和<code>sed --in-place</code>会导致inode change。Docker v1.1.0之后的版本，会产生一个错误：“sed cannot rename ./sedKdJ9Dy: Device or resource busy”。这种情况下如果想要更改挂载的文件，最好是直接挂载它的父目录。</p>
+</blockquote>
+<h3 id="创建、挂载数据卷容器">创建、挂载数据卷容器</h3><p>如果你想要容器之间数据共享，或者从非持久化容器中使用一些持久化数据，最好创建一个指定名称的数据卷容器，然后用它来挂载数据。</p>
+<p>让我们创建一个指定名称的数据卷容器：</p>
+<pre><code>$ sudo docker run <span class="operator">-d</span> -v /dbdata --name dbdata training/postgres <span class="built_in">echo</span> Data-only container <span class="keyword">for</span> postgres
+</code></pre><p>你可以在另外一个容器使用<code>--volumes-from</code>标识，通过刚刚创建的数据卷容器来挂载对应的数据卷。</p>
+<pre><code>$ sudo docker <span class="command">run</span> -d <span class="comment">--volumes-from dbdata --name db1 training/postgres</span>
+</code></pre><p>可以将对应的数据卷挂载到更多的容器中：</p>
+<pre><code>$ sudo docker <span class="command">run</span> -d <span class="comment">--volumes-from dbdata --name db2 training/postgres</span>
+</code></pre><p>当然，您也可以对一个容器使用多个<code>--volumes-from</code>标识，来将多个数据卷桥接到这个容器中。</p>
+<p>数据卷容器是可以进行链式扩展的，之前的<code>dbdata</code>数据卷依次挂载到了dbdata 、db1和db2容器，我们还可以使用这样的方式来将数据卷挂载到新的容器db3：</p>
+<pre><code>$ sudo docker <span class="command">run</span> -d <span class="comment">--name db3 --volumes-from db1 training/postgres</span>
+</code></pre><p>即使你删除所有de 挂载了数据卷dbdata的容器（包括最初的<code>dbdata</code>容器和后续的<code>db1</code>和<code>db2</code>），数据卷本身也不会被删除。要删在磁盘上删除这个数据卷，只能针对最后一个挂载了数据卷的容器显式地调用<code>docker rm -v</code>命令。这种方式可使你在容器之间方便的更新和迁移数据。</p>
+<h3 id="备份、恢复或者迁移数据卷">备份、恢复或者迁移数据卷</h3><p>数据卷还可以用来备份、恢复或迁移数据。为此我们使用<code>--volumes-from</code>参数来创建一个挂载数据卷的容器，像这样：</p>
+<pre><code><span class="variable">$ </span>sudo docker run --volumes-from dbdata -v <span class="variable">$(</span>pwd)<span class="symbol">:/backup</span> ubuntu tar cvf /backup/backup.tar /dbdata
+</code></pre><p>这里我们启动了一个挂载<code>dbdata</code>卷的新容器，并且挂载了一个本地目录作为<code>/backup</code>卷。最后，我们通过使用tar命令将<code>dbdata</code>卷的内容备份到容器中的<code>/backup</code>目录下的<code>backup.tar</code>文件中。当命令完成或者容器停止，我们会留下我们的<code>dbdata</code>卷的备份。</p>
+<p>然后，你可以在同一容器或在另外的容器中恢复此数据。创建一个新的容器</p>
+<pre><code>$ sudo docker <span class="command">run</span> -v /dbdata <span class="comment">--name dbdata2 ubuntu /bin/bash</span>
+</code></pre><p>然后在新的容器中的数据卷里un-tar此备份文件。</p>
+<pre><code><span class="variable">$ </span>sudo docker run --volumes-from dbdata2 -v <span class="variable">$(</span>pwd)<span class="symbol">:/backup</span> busybox tar xvf /backup/backup.tar
+</code></pre><p>你可以对熟悉的目录应用此技术，来测试自动备份、迁移和恢复。</p>
+<blockquote>
+<p>本小节中，我们学习了关于数据卷和数据卷容器使用方法。接下来，我们要看看如何使用Docker Hub服务，包括自动化构建和私人仓库。</p>
+</blockquote>
+<h2 id="使用Docker_Hub">使用Docker Hub</h2><p>现在你已经学习了如何利用命令行在本地运行Docker，还学习了如何<a href="usingdocker.md">拉取镜像</a>用于从现成的镜像中构建容器，并且还学习了如何<a href="dockerimages.md">创建自己的镜像</a>。</p>
+<p>接下来，你将会学到如何利用<a href="https://hub.docker.com" target="_blank" rel="external">Docker Hub</a>简化和提高你的Docker工作流程。</p>
+<p><a href="https://hub.docker.com" target="_blank" rel="external">Docker Hub</a>是一个由Docker公司负责维护的公共注册中心，它包含了超过15,000个可用来下载和构建容器的镜像，并且还提供认证、工作组结构、工作流工具（比如webhooks）、构建触发器以及私有工具（比如私有仓库可用于存储你并不想公开分享的镜像）。</p>
+<h3 id="Docker命令和Docker_Hub">Docker命令和Docker Hub</h3><p>Docker通过<code>docer search</code>、<code>pull</code>、<code>login</code>和<code>push</code>等命令提供了连接Docker Hub服务的功能，本页将展示这些命令如何工作的。</p>
+<h3 id="账号注册和登陆">账号注册和登陆</h3><p>一般，你需要先在docker中心创建一个账户（如果您尚未有）。你可以直接在<a href="https://hub.docker.com" target="_blank" rel="external">Docker Hub</a>创建你的账户，或通过运行：</p>
+<pre><code><span class="variable">$ </span>sudo docker login
+</code></pre><p>这将提示您输入用户名，这个用户名将成为你的公共存储库的命名空间名称。如果你的名字可用，docker会提示您输入一个密码和你的邮箱，然后会自动登录到Docker Hub，你现在可以提交和推送镜像到Docker Hub的你的存储库。</p>
+<blockquote>
+<p>注：你的身份验证凭证将被存储在你本地目录的<code>.dockercfg</code>文件中。</p>
+</blockquote>
+<h3 id="搜索镜像">搜索镜像</h3><p>你可以通过使用搜索接口或者通过使用命令行接口在Docker Hub中搜索，可对镜像名称、用户名或者描述等进行搜索：</p>
+<pre><code>$ sudo docker search centos
+NAME           DESCRIPTION                                     STARS     OFFICIAL   TRUSTED
+centos         Official CentOS <span class="number">6</span> Image <span class="keyword">as</span> <span class="operator">of</span> <span class="number">12</span> April <span class="number">2014</span>     <span class="number">88</span>
+tianon/centos  CentOS <span class="number">5</span> <span class="operator">and</span> <span class="number">6</span>, created <span class="keyword">using</span> rinse instea...   <span class="number">21</span>
+...
+</code></pre><p>这里你可以看到两个搜索的示例结果：<code>centos</code>和<code>tianon/centos</code>。第二个结果是从名为<code>tianon/</code>的用户仓储库搜索到的，而第一个结果<code>centos</code>没有用户空间这就意味着它是可信的顶级命名空间。<code>/</code>字符分割用户镜像和存储库的名称。</p>
+<p>当你发现你想要的镜像时，便可以用<code>docker pull &lt;imagename&gt;</code>来下载它。</p>
+<pre><code>$ sudo docker pull centos
+Pulling repository centos
+<span class="number">0</span><span class="string">b443ba03958:</span> Download complete
+<span class="number">539</span><span class="string">c0211cd76:</span> Download complete
+<span class="number">511136</span><span class="string">ea3c5a:</span> Download complete
+<span class="number">7064731</span><span class="string">afe90:</span> Download complete
+</code></pre><p>现在你有一个镜像，基于它你可以运行容器。</p>
+<h3 id="向Docker_Hub贡献">向Docker Hub贡献</h3><p>任何人都可以从<code>Docker Hub</code>仓库下载镜像，但是如果你想要分享你的镜像，你就必须先注册，就像你在<a href="dockerhub.md">第一部分的docker用户指南</a>看到的一样。</p>
+<h3 id="推送镜像到Docker_Hub">推送镜像到Docker Hub</h3><p>为了推送到仓库的公共注册库中，你需要一个命名的镜像或者将你的容器提到为一个命名的镜像，正像<a href="docerimages.md">这里</a>我们所看到的。</p>
+<p>你可以将此仓库推送到公共注册库中，并以镜像名字或者标签来对其进行标记。</p>
+<pre><code>$ sudo docker <span class="keyword">push </span>yourname/newimage
+</code></pre><p>镜像上传之后你的团队或者社区的人都可以使用它。</p>
+<h3 id="Docker_Hub特征">Docker Hub特征</h3><p>让我们再进一步看看Docker Hub的特色，<a href="http://docs.docker.com/docker-hub/" target="_blank" rel="external">这里</a>你可以看到更多的信息。</p>
+<ul>
+<li>私有仓库</li>
+<li>组织和团队</li>
+<li>自动构建</li>
+<li>Webhooks</li>
+</ul>
+<h3 id="私有仓库">私有仓库</h3><p>有时候你不想公开或者分享你的镜像，所以Docker Hub允许你有私有仓库，你可以在<a href="https://registry.hub.docker.com/plans/" target="_blank" rel="external">这里</a>登录设置它。</p>
+<h3 id="组织和机构">组织和机构</h3><p>私人仓库一个较有用的地方在于你可以将仓库分享给你团队或者你的组织。Docker Hub支持创建组织，这样你可以和你的同事来管理你的私有仓库，在<a href="https://registry.hub.docker.com/account/organizations/" target="_blank" rel="external">这里</a>你可以学到如何创建和管理一个组织。</p>
+<h3 id="自动构建">自动构建</h3><p>自动构建功能会自动从<a href="https://www.github.com/" target="_blank" rel="external">Github</a>和<a href="http://bitbucket.com/" target="_blank" rel="external">BitBucket</a>直接将镜像构建或更新至Docker Hub，通过为Github或Bitbucket的仓库添加一个提交的hook来实现，当你推送提交的时候就会触发构建和更新。</p>
+<p>设置一个自动化构建你需要：</p>
+<ul>
+<li>1.创建一个<a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub</a>账户并且登陆</li>
+<li>2.通过<a href="https://registry.hub.docker.com/account/accounts/" target="_blank" rel="external">Link Accounts</a>菜单连接你的GitHub或者BitBucket</li>
+<li>3.<a href="https://registry.hub.docker.com/builds/add/" target="_blank" rel="external">配置自动化构建</a></li>
+<li>4.选择一个包含<code>Dockerfile</code>的Github或BitBucket项目</li>
+<li>5.选择你想用于构建的分支（默认是<code>master</code>分支）</li>
+<li>6.给自动构建创建一个名称</li>
+<li>7.指定一个Docker标签来构建</li>
+<li>8.指定<code>Dockerfile</code>的路径，默认是<code>/</code>。</li>
+</ul>
+<p>一旦配置好自动构建，在几分钟内就会自动触发构建，你就会在<a href="https://hub.docker.com/" target="_blank" rel="external">Docker Hub</a>仓库源看到你新的构建，并且它将会和你的Github或者BitBucket保持同步更新直到你解除自动构建。</p>
+<p>如果你想看到你自动化构建的状态，你可以去你的Docker Hub<a href="https://registry.hub.docker.com/builds/" target="_blank" rel="external">自动化构建页面</a>，它将会想你展示你构建的状态和构建历史。</p>
+<p>一旦你创建了一个自动化构建，你可以禁用或删除它。但是，你不能通过<code>docker push</code>推送一个自动化构建，而只能通过在Github或者BitBucket提交你的代码来管理它。</p>
+<p>你可以在一个仓库中创建多个自动构建，配置它们只指定的<code>Dockerfile</code>或Git 分支。</p>
+<h3 id="构建触发器">构建触发器</h3><p>自动构建也可以通过Docker Hub的Url来触发，这样你就可以通过命令重构自动构建镜像。</p>
+<h3 id="Webhooks">Webhooks</h3><p>webhooks属于你的存储库的一部分，当一个镜像更新或者推送到你的存储库时允许你触发一个事件。当你的镜像被推送的时候，webhook可以根据你指定的url和一个有效的Json来递送。</p>
+<p>去使用Docker吧!</p>
+<blockquote>
+<p>更多参考 <a href="https://github.com/widuu/chinese_docker/blob/master/SUMMARY.md" target="_blank" rel="external">widuu/chinese_docker</a></p>
+</blockquote>
 
       
     </div>
@@ -417,7 +1077,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#两张图理解VM和Docker"><span class="nav-number">1.</span> <span class="nav-text">两张图理解VM和Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac_OS_X"><span class="nav-number">2.1.</span> <span class="nav-text">Mac OS X</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载_Docker_Toolbox_并安装"><span class="nav-number">2.1.1.</span> <span class="nav-text">下载 Docker Toolbox 并安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用"><span class="nav-number">2.1.2.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本命令"><span class="nav-number">3.</span> <span class="nav-text">基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Docker"><span class="nav-number">3.1.</span> <span class="nav-text">启动Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从索引仓库下载一个镜像"><span class="nav-number">3.2.</span> <span class="nav-text">从索引仓库下载一个镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行交互性的shell（就像运行一个单独的linux）"><span class="nav-number">3.3.</span> <span class="nav-text">运行交互性的shell（就像运行一个单独的linux）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管理员命令和docker组"><span class="nav-number">3.4.</span> <span class="nav-text">管理员命令和docker组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#让Docker使用其它的host/port或者Unix_socket"><span class="nav-number">3.5.</span> <span class="nav-text">让Docker使用其它的host/port或者Unix socket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启一个长时间运行的工作进程"><span class="nav-number">3.6.</span> <span class="nav-text">开启一个长时间运行的工作进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听所有运行着的容器"><span class="nav-number">3.7.</span> <span class="nav-text">监听所有运行着的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为服务绑定一个TCP端口"><span class="nav-number">3.8.</span> <span class="nav-text">为服务绑定一个TCP端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交（保存）容器的状态"><span class="nav-number">3.9.</span> <span class="nav-text">提交（保存）容器的状态</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#两张图理解VM和Docker"><span class="nav-number">1.</span> <span class="nav-text">两张图理解VM和Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac_OS_X"><span class="nav-number">2.1.</span> <span class="nav-text">Mac OS X</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载_Docker_Toolbox_并安装"><span class="nav-number">2.1.1.</span> <span class="nav-text">下载 Docker Toolbox 并安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用"><span class="nav-number">2.1.2.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本命令"><span class="nav-number">3.</span> <span class="nav-text">基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Docker"><span class="nav-number">3.1.</span> <span class="nav-text">启动Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从索引仓库下载一个镜像"><span class="nav-number">3.2.</span> <span class="nav-text">从索引仓库下载一个镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Docker中运行应用"><span class="nav-number">4.</span> <span class="nav-text">在Docker中运行应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello_world"><span class="nav-number">4.1.</span> <span class="nav-text">Hello world</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个交互式的容器"><span class="nav-number">4.2.</span> <span class="nav-text">一个交互式的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hello_world_守护进程"><span class="nav-number">4.3.</span> <span class="nav-text">Hello world 守护进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用容器工作"><span class="nav-number">5.</span> <span class="nav-text">使用容器工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看一下_Docker_客户端都能做什么"><span class="nav-number">5.1.</span> <span class="nav-text">查看一下 Docker 客户端都能做什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看_Docker_命令用法"><span class="nav-number">5.2.</span> <span class="nav-text">查看 Docker 命令用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在Docker中运行一个web应用"><span class="nav-number">5.3.</span> <span class="nav-text">在Docker中运行一个web应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看_WEB_应用容器"><span class="nav-number">5.4.</span> <span class="nav-text">查看 WEB 应用容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看网络端口快捷方式"><span class="nav-number">5.5.</span> <span class="nav-text">查看网络端口快捷方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看WEB应用程序日志"><span class="nav-number">5.6.</span> <span class="nav-text">查看WEB应用程序日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看WEB应用程序容器的进程"><span class="nav-number">5.7.</span> <span class="nav-text">查看WEB应用程序容器的进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查WEB应用程序"><span class="nav-number">5.8.</span> <span class="nav-text">检查WEB应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#停止WEB应用容器"><span class="nav-number">5.9.</span> <span class="nav-text">停止WEB应用容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启WEB应用容器"><span class="nav-number">5.10.</span> <span class="nav-text">重启WEB应用容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除WEB应用容器"><span class="nav-number">5.11.</span> <span class="nav-text">移除WEB应用容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用镜像"><span class="nav-number">6.</span> <span class="nav-text">使用镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在主机上列出镜像列表"><span class="nav-number">6.1.</span> <span class="nav-text">在主机上列出镜像列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取一个新的镜像"><span class="nav-number">6.2.</span> <span class="nav-text">获取一个新的镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找镜像"><span class="nav-number">6.3.</span> <span class="nav-text">查找镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拖取镜像(Pull_our_image)"><span class="nav-number">6.4.</span> <span class="nav-text">拖取镜像(Pull our image)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建我们自己的镜像"><span class="nav-number">6.5.</span> <span class="nav-text">创建我们自己的镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#!!更新并且提交更改"><span class="nav-number">6.6.</span> <span class="nav-text">!!更新并且提交更改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用_Dockerfile_构建镜像"><span class="nav-number">6.7.</span> <span class="nav-text">使用 Dockerfile 构建镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更多Dockerfile教程"><span class="nav-number">6.8.</span> <span class="nav-text">更多Dockerfile教程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置镜像标签"><span class="nav-number">6.9.</span> <span class="nav-text">设置镜像标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Image_Digests"><span class="nav-number">6.10.</span> <span class="nav-text">Image Digests</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送镜像到_Docker_Hub"><span class="nav-number">6.11.</span> <span class="nav-text">推送镜像到 Docker Hub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主机中移除镜像"><span class="nav-number">6.12.</span> <span class="nav-text">主机中移除镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接容器"><span class="nav-number">7.</span> <span class="nav-text">连接容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络端口映射"><span class="nav-number">7.1.</span> <span class="nav-text">网络端口映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker容器连接"><span class="nav-number">7.2.</span> <span class="nav-text">Docker容器连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容器命名"><span class="nav-number">7.3.</span> <span class="nav-text">容器命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#!!容器连接"><span class="nav-number">7.4.</span> <span class="nav-text">!!容器连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理容器数据"><span class="nav-number">8.</span> <span class="nav-text">管理容器数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据卷"><span class="nav-number">8.1.</span> <span class="nav-text">数据卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加一个数据卷"><span class="nav-number">8.2.</span> <span class="nav-text">添加一个数据卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#挂载一个主机目录作为卷"><span class="nav-number">8.3.</span> <span class="nav-text">挂载一个主机目录作为卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将宿主机上的特定文件挂载为数据卷"><span class="nav-number">8.4.</span> <span class="nav-text">将宿主机上的特定文件挂载为数据卷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建、挂载数据卷容器"><span class="nav-number">8.5.</span> <span class="nav-text">创建、挂载数据卷容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#备份、恢复或者迁移数据卷"><span class="nav-number">8.6.</span> <span class="nav-text">备份、恢复或者迁移数据卷</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Docker_Hub"><span class="nav-number">9.</span> <span class="nav-text">使用Docker Hub</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker命令和Docker_Hub"><span class="nav-number">9.1.</span> <span class="nav-text">Docker命令和Docker Hub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#账号注册和登陆"><span class="nav-number">9.2.</span> <span class="nav-text">账号注册和登陆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索镜像"><span class="nav-number">9.3.</span> <span class="nav-text">搜索镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向Docker_Hub贡献"><span class="nav-number">9.4.</span> <span class="nav-text">向Docker Hub贡献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送镜像到Docker_Hub"><span class="nav-number">9.5.</span> <span class="nav-text">推送镜像到Docker Hub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker_Hub特征"><span class="nav-number">9.6.</span> <span class="nav-text">Docker Hub特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#私有仓库"><span class="nav-number">9.7.</span> <span class="nav-text">私有仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组织和机构"><span class="nav-number">9.8.</span> <span class="nav-text">组织和机构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动构建"><span class="nav-number">9.9.</span> <span class="nav-text">自动构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建触发器"><span class="nav-number">9.10.</span> <span class="nav-text">构建触发器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webhooks"><span class="nav-number">9.11.</span> <span class="nav-text">Webhooks</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

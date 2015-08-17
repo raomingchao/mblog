@@ -845,7 +845,7 @@ body {
   width: 700px;
 }
 .main {
-  padding-bottom: auto100px;
+  padding-bottom: 100px;
 }
 .main-inner {
   margin: 0 auto;
@@ -1135,7 +1135,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c18af9;
+  background: #b030bf;
 }
 .sidebar-nav {
   margin: 0;
