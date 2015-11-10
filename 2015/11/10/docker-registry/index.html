@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="css,html," />
+  <meta name="keywords" content="docker," />
 
 
 
@@ -57,7 +57,7 @@
 
 
 
-  <title> 使用iframe调用指定网页的特定位置 // M </title>
+  <title> Docker 部署私库 // M </title>
 </head>
 
 <body>
@@ -178,7 +178,7 @@
           
           
             
-              使用iframe调用指定网页的特定位置
+              Docker 部署私库
             
           
         </h1>
@@ -193,7 +193,7 @@
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/开发技巧/">开发技巧</a>
+              <a href="/categories/docker/">docker</a>
 
               
               
@@ -206,8 +206,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/11/10/iframe-to-only-show-a-certain-part-of-the-page/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/10/iframe-to-only-show-a-certain-part-of-the-page/"></span>
+            <a href="/2015/11/10/docker-registry/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/10/docker-registry/"></span>
             </a>
           </span>
           
@@ -221,8 +221,12 @@
       
 
       
-        <h2 id="HTML">HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">id</span>=<span class="value">"embed"</span> <span class="attribute">src</span>=<span class="value">"http://www.example.com"</span>&gt;</span><span class="tag">&lt;/<span class="title">iframe</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="CSS">CSS</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">div</span><span class="id">#container</span></span><br><span class="line"><span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">840px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">317px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">overflow</span>:<span class="value">scroll</span></span>;     <span class="comment">/* if you don't want a scrollbar, set to hidden */</span></span><br><span class="line">    <span class="rule"><span class="attribute">overflow-x</span>:<span class="value">hidden</span></span>;   <span class="comment">/* hides horizontal scrollbar on newer browsers */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* resize and min-height are optional, allows user to resize viewable area */</span></span><br><span class="line">    <span class="rule"><span class="attribute">-webkit-resize</span>:<span class="value">vertical</span></span>; </span><br><span class="line">    <span class="rule"><span class="attribute">-moz-resize</span>:<span class="value">vertical</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">resize</span>:<span class="value">vertical</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">min-height</span>:<span class="value"><span class="number">317px</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">iframe</span><span class="id">#embed</span></span><br><span class="line"><span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">width</span>:<span class="value"><span class="number">1000px</span></span></span>;       <span class="comment">/* set this to approximate width of entire page you're embedding */</span></span><br><span class="line">    <span class="rule"><span class="attribute">height</span>:<span class="value"><span class="number">2000px</span></span></span>;      <span class="comment">/* determines where the bottom of the page cuts off */</span></span><br><span class="line">    <span class="rule"><span class="attribute">margin-left</span>:<span class="value">-<span class="number">183px</span></span></span>; <span class="comment">/* clipping left side of page */</span></span><br><span class="line">    <span class="rule"><span class="attribute">margin-top</span>:<span class="value">-<span class="number">244px</span></span></span>;  <span class="comment">/* clipping top of page */</span></span><br><span class="line">    <span class="rule"><span class="attribute">overflow</span>:<span class="value">hidden</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* resize seems to inherit in at least Firefox */</span></span><br><span class="line">    <span class="rule"><span class="attribute">-webkit-resize</span>:<span class="value">none</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">-moz-resize</span>:<span class="value">none</span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">resize</span>:<span class="value">none</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+        <h2 id="docker-compose-yml">docker-compose.yml</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">nginx:</span><br><span class="line">  image: <span class="string">"nginx:1.9"</span></span><br><span class="line">  ports:</span><br><span class="line">    - <span class="number">443</span>:<span class="number">443</span></span><br><span class="line">  links:</span><br><span class="line">    - registry:registry</span><br><span class="line">  volumes:</span><br><span class="line">    - /root/auth/:/etc/nginx/conf.d</span><br><span class="line"></span><br><span class="line">registry:</span><br><span class="line">  image: registry:<span class="number">2</span></span><br><span class="line">  ports:</span><br><span class="line">    - <span class="number">127.0</span>.<span class="number">0.1</span>:<span class="number">5000</span>:<span class="number">5000</span></span><br><span class="line">  environment:</span><br><span class="line">    REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data</span><br><span class="line">  volumes:</span><br><span class="line">    - /root/data:/data</span><br></pre></td></tr></table></figure>
+<h2 id="auth文件夹">auth文件夹</h2><h3 id="domain-crt">domain.crt</h3><h3 id="domain-key">domain.key</h3><h3 id="registry-conf">registry.conf</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">upstream docker-registry &#123;</span><br><span class="line">  server registry:<span class="number">5000</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">  listen <span class="number">5043</span> ssl;</span><br><span class="line">  server_name docker.zhimei360.com;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># SSL</span></span><br><span class="line">  ssl on;</span><br><span class="line">  ssl_certificate /etc/nginx/conf.d/domain.crt;</span><br><span class="line">  ssl_certificate_key /etc/nginx/conf.d/domain.key;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># disable any limits to avoid HTTP 413 for large image uploads</span></span><br><span class="line">  client_max_body_size <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment"># required to avoid HTTP 411: see Issue #1486 (https://github.com/docker/docker/issues/1486)</span></span><br><span class="line">  chunked_transfer_encoding on;</span><br><span class="line"></span><br><span class="line"> location / &#123;</span><br><span class="line">        proxy_pass                          http://docker-registry;</span><br><span class="line">        proxy_<span class="built_in">set</span>_header  Host              <span class="variable">$http_host</span>;   <span class="comment"># required for docker client's sake</span></span><br><span class="line">        proxy_<span class="built_in">set</span>_header  X-Real-IP         <span class="variable">$remote_addr</span>; <span class="comment"># pass on real client's IP</span></span><br><span class="line">        proxy_<span class="built_in">set</span>_header  X-Forwarded-For   <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_<span class="built_in">set</span>_header  X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">        proxy_<span class="built_in">set</span>_header  Authorization     <span class="string">""</span>; <span class="comment"># For basic auth through nginx in v1 to work, please comment this line</span></span><br><span class="line">        proxy_<span class="built_in">read</span>_timeout                  <span class="number">900</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location /v2/ &#123;</span><br><span class="line">        proxy_pass                          http://docker-registry;</span><br><span class="line">        proxy_<span class="built_in">set</span>_header  Host              <span class="variable">$http_host</span>;   <span class="comment"># required for docker client's sake</span></span><br><span class="line">        proxy_<span class="built_in">set</span>_header  X-Real-IP         <span class="variable">$remote_addr</span>; <span class="comment"># pass on real client's IP</span></span><br><span class="line">        proxy_<span class="built_in">set</span>_header  X-Forwarded-For   <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        proxy_<span class="built_in">set</span>_header  X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">        proxy_<span class="built_in">read</span>_timeout                  <span class="number">900</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="参考">参考</h2><blockquote>
+<p><a href="https://docs.docker.com/registry/nginx/" title="Authenticating proxy with nginx" target="_blank" rel="external"> https://docs.docker.com/registry/nginx/</a></p>
+</blockquote>
+
       
     </div>
 
@@ -230,9 +234,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/css/"> #css </a>
-          
-            <a href="/tags/html/"> #html </a>
+            <a href="/tags/docker/"> #docker </a>
           
         </div>
       
@@ -241,13 +243,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/10/docker-registry/">Docker 部署私库</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/18/docker-php-development/">PHP应用Docker开发</a>
+              <a href="/2015/11/10/iframe-to-only-show-a-certain-part-of-the-page/">使用iframe调用指定网页的特定位置</a>
             
           </div>
         </div>
@@ -267,8 +267,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/11/10/iframe-to-only-show-a-certain-part-of-the-page/"
-               data-title="使用iframe调用指定网页的特定位置" data-url="http://misael.cn/2015/11/10/iframe-to-only-show-a-certain-part-of-the-page/">
+          <div class="ds-thread" data-thread-key="2015/11/10/docker-registry/"
+               data-title="Docker 部署私库" data-url="http://misael.cn/2015/11/10/docker-registry/">
           </div>
         
       </div>
@@ -367,7 +367,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML"><span class="nav-number">1.</span> <span class="nav-text">HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">2.</span> <span class="nav-text">CSS</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-compose-yml"><span class="nav-number">1.</span> <span class="nav-text">docker-compose.yml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#auth文件夹"><span class="nav-number">2.</span> <span class="nav-text">auth文件夹</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#domain-crt"><span class="nav-number">2.1.</span> <span class="nav-text">domain.crt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#domain-key"><span class="nav-number">2.2.</span> <span class="nav-text">domain.key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#registry-conf"><span class="nav-number">2.3.</span> <span class="nav-text">registry.conf</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
