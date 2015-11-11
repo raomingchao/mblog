@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="beanstalkd,laravel,php," />
+  <meta name="keywords" content="sublime," />
 
 
 
@@ -57,7 +57,7 @@
 
 
 
-  <title> Laravel 队列[beanstalkd]实践 // M </title>
+  <title> Sublime Text 使用技巧 // M </title>
 </head>
 
 <body>
@@ -178,7 +178,7 @@
           
           
             
-              Laravel 队列[beanstalkd]实践
+              Sublime Text 使用技巧
             
           
         </h1>
@@ -186,22 +186,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-08-06
+          发表于 2015-11-11
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/php/">php</a>
-
-              
-              
-                ， 
-              
-
-            
-              <a href="/categories/php/laravel/">laravel</a>
+              <a href="/categories/开发工具/">开发工具</a>
 
               
               
@@ -214,8 +206,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/08/06/beanstalkd-queues-with-laravel/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/06/beanstalkd-queues-with-laravel/"></span>
+            <a href="/2015/11/11/sublime-text-mastery/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/11/sublime-text-mastery/"></span>
             </a>
           </span>
           
@@ -229,57 +221,35 @@
       
 
       
-        <h2 id="安装">安装</h2><blockquote>
-<p>Ubuntu 12.04.5 LTS</p>
+        <h2 id="定制你的_Sublime_主题">定制你的 Sublime 主题</h2><ul>
+<li>安装<a href="https://packagecontrol.io/installation" title="Package Control" target="_blank" rel="external">Package Control</a></li>
+</ul>
+<h3 id="安装_Material_Theme">安装 <a href="https://github.com/equinusocio/material-theme" title="material-theme" target="_blank" rel="external">Material Theme</a></h3><ul>
+<li>打开控制台：shift+command+p</li>
+<li>选择Package Ctonroller: package install（等待loading完成)</li>
+<li>再次打开控制台-&gt;输入：material theme</li>
+<li>复制粘贴以下 到 settings-user -&gt; command+s<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">"theme": "Material-Theme.sublime-theme",</span><br><span class="line">"color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",</span><br><span class="line">"theme": "Material-Theme.sublime-theme",</span><br><span class="line">"color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",</span><br><span class="line">"overlay_scroll_bars": "enabled",</span><br><span class="line">"line_padding_top": 3,</span><br><span class="line">"line_padding_bottom": 3,</span><br><span class="line">"always_show_minimap_viewport": true,</span><br><span class="line">"bold_folder_labels": true,</span><br><span class="line">"indent_guide_options": [ "draw_normal", "draw_active" ],   // Highlight active indent</span><br><span class="line">"font_options": [ "gray_antialias" ],                       // For</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装_Colorsublime">安装 Colorsublime</h3><ul>
+<li>shift+command+p -&gt; install -&gt; Enter</li>
+<li>colorsublime -&gt; Enter -&gt; shift+command+p -&gt; install Theme -&gt; 选择一个color(ex. facebook)</li>
+</ul>
+<h3 id="修改项目控制板颜色">修改项目控制板颜色</h3><ul>
+<li>shift+command+p -&gt; install -&gt; Enter</li>
+<li>shift+command+p -&gt; package resourceViewer -&gt; Enter</li>
+<li>shift+command+p -&gt; packageResourceViewer: extract package -&gt; material Theme</li>
+<li>然后编辑 Preferences -&gt; Browse Packages -&gt; Material Theme -&gt; Material-Theme.sublime-theme 文件中</li>
+</ul>
+<h3 id="选项设定">选项设定</h3><blockquote>
+<p>可以把default的选项覆盖到user上面去</p>
 </blockquote>
-<ol>
-<li>sudo apt-get install beanstalkd</li>
-<li>vi /etc/default/beanstalkd #uncomment START=yes</li>
-<li>service beanstalkd start</li>
-</ol>
-<blockquote>
-<p>安装Laravel 4.2下beanstalkd依赖包<code>pda/pheanstalk</code></p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ composer require pda/pheanstalk <span class="comment">#输入2.1.*版本</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>网页控制台</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer create-project ptrofimov/beanstalk_console <span class="operator">-s</span> dev</span><br></pre></td></tr></table></figure>
-<p><a href="https://github.com/ptrofimov/beanstalk_console" title="beanstalk_console" target="_blank" rel="external">Github beanstalk Console</a></p>
-<h2 id="配置">配置</h2><blockquote>
-<p>在 config/queue.php 中设置<code>defautl</code>选项为:<code>beanstalkd</code></p>
-</blockquote>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'beanstalkd'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">	<span class="string">'driver'</span> =&gt; <span class="string">'beanstalkd'</span>,</span><br><span class="line">	<span class="string">'host'</span>   =&gt; <span class="string">'localhost'</span>, <span class="comment">//可以设置未第三方服务器</span></span><br><span class="line">	<span class="string">'queue'</span>  =&gt; <span class="string">'default'</span>,</span><br><span class="line">	<span class="string">'ttr'</span>    =&gt; <span class="number">60</span>, <span class="comment">//seconds</span></span><br><span class="line">),</span><br></pre></td></tr></table></figure>
-<h2 id="测试">测试</h2><ol>
-<li>在路由中</li>
-</ol>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//推送一个闭包去队列，这个方法非常的方便及快速的来处理需要使用队列的简单的任务</span></span><br><span class="line">Route::get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">	Queue::push(<span class="function"><span class="keyword">function</span><span class="params">(<span class="variable">$job</span>)</span></span>&#123;</span><br><span class="line">		Log::info(<span class="string">'Queues test info'</span>);</span><br><span class="line">		<span class="variable">$job</span>-&gt;delete();<span class="comment">//删除</span></span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="keyword">return</span> <span class="string">'Job added to the queue'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>启动Laravel queue 监听</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ php artisan queue:work <span class="comment">#处理队列中事务</span></span><br><span class="line">$ php artisan queue:listen <span class="comment">#监听</span></span><br></pre></td></tr></table></figure>
-<h2 id="处理错误队列">处理错误队列</h2><ol>
-<li>在数据库中生成存储queue job错误的表</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ php artisan queue:failed-table</span><br><span class="line">$ php artisan migrate</span><br></pre></td></tr></table></figure>
-<ol>
-<li>在 config/queue.php 中设置<code>failed</code>中数据库配置项</li>
-</ol>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">|--------------------------------------------------------------------------</span><br><span class="line">| Failed Queue Jobs</span><br><span class="line">|--------------------------------------------------------------------------</span><br><span class="line">|</span><br><span class="line">| These options configure the behavior of failed queue job logging so you</span><br><span class="line">| can control which database and table are used to store the jobs that</span><br><span class="line">| have failed. You may change them to any database / table you wish.</span><br><span class="line">|</span><br><span class="line">*/</span></span><br><span class="line"></span><br><span class="line"><span class="string">'failed'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line"></span><br><span class="line">	<span class="string">'database'</span> =&gt; <span class="string">'mysql'</span>, <span class="string">'table'</span> =&gt; <span class="string">'failed_jobs'</span>,</span><br><span class="line"></span><br><span class="line">),</span><br></pre></td></tr></table></figure>
-<ol>
-<li>设置failed job重试次数</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ php artisan queue:listen --tries=<span class="number">3</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>命令行中查看错误列表</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ php artisan queue:failed <span class="comment">#查询数据库表中错误列表</span></span><br></pre></td></tr></table></figure>
-<h2 id="守护处理队列进程(Supervisor)">守护处理队列进程(Supervisor)</h2><h3 id="安装-1">安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install supervisor</span><br></pre></td></tr></table></figure>
-<h3 id="配置-1">配置</h3><blockquote>
-<p>新建 <code>vi /etc/supervisor/conf.d/queue.conf</code></p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[program:queue]</span><br><span class="line"><span class="built_in">command</span>=php artisan queue:listen --tries=<span class="number">2</span></span><br><span class="line">directory=/home/wwwroot/demo.example.com</span><br><span class="line">stdout_logfile=/home/wwwlogs/demo.example.com.supervisor.log</span><br><span class="line">redirect_stderr=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用">使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo supervisorctl</span><br><span class="line"><span class="built_in">help</span></span><br><span class="line">supervisor&gt; reread</span><br><span class="line">supervisor&gt; add queue</span><br><span class="line">supervisor&gt; start queue</span><br><span class="line">supervisor&gt; status</span><br></pre></td></tr></table></figure>
+<ul>
+<li>不显示行数字：”line_numbers”: false</li>
+<li>文本左边边距：”margin”: 0,</li>
+<li>安装专用代码字体：<a href="https://github.com/tonsky/FiraCode" title="FiraCode" target="_blank" rel="external">FiraCode</a> -&gt; “font_face”: “Fira Code”</li>
+</ul>
+
       
     </div>
 
@@ -287,11 +257,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/beanstalkd/"> #beanstalkd </a>
-          
-            <a href="/tags/laravel/"> #laravel </a>
-          
-            <a href="/tags/php/"> #php </a>
+            <a href="/tags/sublime/"> #sublime </a>
           
         </div>
       
@@ -300,13 +266,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/13/cocos2d-js-quick-start/">coco2d-JS 快速安装</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/03/php-patterns/">PHP设计模式</a>
+              <a href="/2015/11/10/docker-registry/">Docker 部署私库</a>
             
           </div>
         </div>
@@ -326,8 +290,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/08/06/beanstalkd-queues-with-laravel/"
-               data-title="Laravel 队列[beanstalkd]实践" data-url="http://misael.cn/2015/08/06/beanstalkd-queues-with-laravel/">
+          <div class="ds-thread" data-thread-key="2015/11/11/sublime-text-mastery/"
+               data-title="Sublime Text 使用技巧" data-url="http://misael.cn/2015/11/11/sublime-text-mastery/">
           </div>
         
       </div>
@@ -426,7 +390,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理错误队列"><span class="nav-number">4.</span> <span class="nav-text">处理错误队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#守护处理队列进程(Supervisor)"><span class="nav-number">5.</span> <span class="nav-text">守护处理队列进程(Supervisor)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-1"><span class="nav-number">5.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-1"><span class="nav-number">5.2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">5.3.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#定制你的_Sublime_主题"><span class="nav-number">1.</span> <span class="nav-text">定制你的 Sublime 主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装_Material_Theme"><span class="nav-number">1.1.</span> <span class="nav-text">安装 Material Theme</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装_Colorsublime"><span class="nav-number">1.2.</span> <span class="nav-text">安装 Colorsublime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改项目控制板颜色"><span class="nav-number">1.3.</span> <span class="nav-text">修改项目控制板颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选项设定"><span class="nav-number">1.4.</span> <span class="nav-text">选项设定</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
