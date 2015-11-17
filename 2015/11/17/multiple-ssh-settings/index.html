@@ -57,7 +57,7 @@
 
 
 
-  <title> git常用技巧 // M </title>
+  <title> 多个github帐号的SSH key切换 // M </title>
 </head>
 
 <body>
@@ -178,7 +178,7 @@
           
           
             
-              git常用技巧
+              多个github帐号的SSH key切换
             
           
         </h1>
@@ -186,7 +186,7 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-07-17
+          发表于 2015-11-17
         </span>
 
         
@@ -206,8 +206,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/07/17/git-skills/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/17/git-skills/"></span>
+            <a href="/2015/11/17/multiple-ssh-settings/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/17/multiple-ssh-settings/"></span>
             </a>
           </span>
           
@@ -221,18 +221,62 @@
       
 
       
-        <h3 id="强制拉取master(覆盖本地)：">强制拉取master(覆盖本地)：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:laravel/laravel.git --depth=1</span><br></pre></td></tr></table></figure>
-<h3 id="只拉取最后一次的提交结果。">只拉取最后一次的提交结果。</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@github.com:laravel/laravel.git --depth=1</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="开发者私人信息保密方法">开发者私人信息保密方法</h3><p>实际开发中（类似邮件功能）需要开发者私人密码的文件，可以采用以下方法进行隐私保护。请在命令行中使用。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// &#20551;&#35774;&#25991;&#20214;&#26080;&#25913;&#21160;&#65292;&#20316;&#29992;&#20110;&#29256;&#26412;&#24211;&#20013;&#24050;&#23384;&#22312;&#30340;&#25991;&#20214;&#12290;&#10;// &#27492;&#26041;&#27861;&#23558;&#30830;&#20445;&#26412;&#22320;&#25991;&#20214;&#19981;&#25552;&#20132;&#65292;&#24182;&#19988;&#29256;&#26412;&#24211;&#20013;&#27492;&#25991;&#20214;&#30340;&#21464;&#26356;&#26080;&#27861;&#24433;&#21709;&#26412;&#22320;&#25991;&#20214;&#12290;&#10;git update-index --assume-unchanged app/config/mail.php&#10;// &#21462;&#28040;&#24182;&#24674;&#22797;&#20026;&#26222;&#36890;&#25991;&#20214;&#10;git update-index --no-assume-unchanged app/config/mail.php</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="设置全局代理（来自网络）">设置全局代理（来自网络）</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global https.proxy https://user:password@address:port</span><br></pre></td></tr></table></figure>
-<h3 id="clone某个特定分支">clone某个特定分支</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir $BRANCH &#10;cd $BRANCH &#10;git init &#10;git remote add -t $BRANCH -f origin $REMOTE_REPO &#10;git checkout $BRANCH</span><br></pre></td></tr></table></figure>
-<h3 id="比较某个文件和远程分支上的区别">比较某个文件和远程分支上的区别</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff localbranch remotebranch filepath</span><br></pre></td></tr></table></figure>
-<h3 id="在版本库所有版本中搜寻一条字符串">在版本库所有版本中搜寻一条字符串</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rev-list --all | ( &#10;    while read revision; do &#10;        git grep -F &#39;Your search string&#39; $revision &#10;    done &#10;)</span><br></pre></td></tr></table></figure>
-<h3 id="向分支提交一个初始的空commit，保证完全复位">向分支提交一个初始的空commit，保证完全复位</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1.&#21019;&#24314;&#19968;&#20010;&#26032;&#30340;&#31354;&#20998;&#25903;&#65292;&#20363;&#22914;&#65306;newroot&#10;&#10;git checkout --orphan newroot &#10;git rm --cached -r . &#10;git clean -f -d &#10;2.&#21019;&#24314;&#31354;&#30340;commit&#10;&#10;git commit --allow-empty -m &#39;[empty] initial commit&#39; &#10;3.&#37325;&#26032;&#21457;&#36865;&#20998;&#25903;&#30340;&#20840;&#37096;&#20869;&#23481;&#10;&#10;git rebase --onto newroot --root master &#10;4.&#21024;&#38500;&#20020;&#26102;&#20998;&#25903;newroot&#10;&#10;git branch -d newroot &#10;&#29616;&#22312;master&#23601;&#24050;&#32463;&#21253;&#21547;&#20102;&#19968;&#20010;&#31354;&#30340;root commit&#20102;&#12290;</span><br></pre></td></tr></table></figure>
-<h3 id="如何修改一个特定的commit">如何修改一个特定的commit</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#24403;&#20320;&#24819;&#22312;&#25512;&#36865;&#21069;&#37325;&#20570;&#20320;&#26368;&#21518;&#30340;commit&#26102;&#65292;&#21487;&#20197;&#20351;&#29992;&#20462;&#25913;&#21629;&#20196;&#65288;git commit --amend&#65289;&#12290;&#22914;&#26524;&#20320;&#24819;&#20462;&#25913;&#30340;&#19981;&#26159;&#26368;&#21518;&#19968;&#20010;commit&#21602;&#65311;&#10;&#10;&#36825;&#31181;&#24773;&#20917;&#19979;&#65292;&#20320;&#21487;&#20197;&#20351;&#29992;git rebase&#65292;&#20363;&#22914;&#65292;&#20320;&#24819;&#35201;&#20462;&#25913;bbc643cd commit&#65292;&#36816;&#34892;&#19979;&#38754;&#30340;&#21629;&#20196;&#65306;&#10;&#10;$git rebase bbc643cd^ --interactive  &#10;&#22312;&#40664;&#35748;&#30340;&#32534;&#36753;&#22120;&#20013;&#36873;&#25321;&#24182;&#20462;&#25913;&#20320;&#26399;&#26395;&#20462;&#25913;&#30340;&#65292;&#28982;&#21518;&#20445;&#23384;&#20462;&#25913;&#24182;&#36755;&#20837;&#65306;&#10;&#10;$ git add &#10;&#60;&#10;filepattern&#10;&#62;&#10;  &#10;&#29616;&#22312;&#20320;&#23601;&#21487;&#20197;&#20351;&#29992;&#10;&#10;$git commit --amend &#10;&#26469;&#20462;&#25913;commit&#65292;&#20043;&#21518;&#20351;&#29992;&#10;&#10;$ git rebase --continue  &#10;&#36820;&#22238;&#20043;&#21069;&#26368;&#26032;&#30340;commit&#12290;</span><br></pre></td></tr></table></figure>
+        <h1 id="Multiple_SSH_Keys_settings_for_different_github_account">Multiple SSH Keys settings for different github account</h1><h2 id="create_different_public_key">create different public key</h2><p>create different ssh key according the article <a href="http://help.github.com/mac-set-up-git/" target="_blank" rel="external">Mac Set-Up Git</a></p>
+<pre><code><span class="variable">$ </span>ssh-keygen -t rsa -<span class="constant">C </span><span class="string">"your_email@youremail.com"</span>
+</code></pre><p>Please refer to <a href="http://help.github.com/ssh-issues/" target="_blank" rel="external">github ssh issues</a> for common problems.</p>
+<p>for example, 2 keys created at:</p>
+<pre><code>~/.ssh/id_rs<span class="built_in">a_activehacker</span>
+~/.ssh/id_rs<span class="built_in">a_raomingchao</span>
+</code></pre><p>then, add these two keys as following</p>
+<pre><code><span class="variable">$ </span>ssh-add ~<span class="regexp">/.ssh/id</span>_rsa_activehacker
+<span class="variable">$ </span>ssh-add ~<span class="regexp">/.ssh/id</span>_rsa_raomingchao
+</code></pre><p>you can delete all cached keys before</p>
+<pre><code>$ ssh-<span class="keyword">add </span>-D
+</code></pre><p>finally, you can check your saved keys</p>
+<pre><code>$ ssh-<span class="keyword">add </span>-l
+</code></pre><h2 id="Modify_the_ssh_config">Modify the ssh config</h2><pre><code><span class="variable">$ </span>cd ~<span class="regexp">/.ssh/</span>
+<span class="variable">$ </span>touch config
+<span class="variable">$ </span>subl -a config
+</code></pre><p>Then added</p>
+<pre><code><span class="id">#activehacker</span> account
+Host github<span class="class">.com-activehacker</span>
+    HostName github<span class="class">.com</span>
+    User git
+    IdentityFile ~/.ssh/id_rsa_activehacker
+
+<span class="id">#raomingchao</span> account
+Host github<span class="class">.com-raomingchao</span>
+    HostName github<span class="class">.com</span>
+    User git
+    IdentityFile ~/.ssh/id_rsa_raomingchao
+</code></pre><h2 id="Clone_you_repo_and_modify_your_Git_config">Clone you repo and modify your Git config</h2><p>clone your repo<br>    git clone git@github.com:activehacker/gfs.git gfs_raomingchao</p>
+<p>cd gfs_raomingchao and modify git config</p>
+<pre><code>$ git config user<span class="class">.name</span> <span class="string">"raomingchao"</span>
+$ git config user<span class="class">.email</span> <span class="string">"raomingchao@gmail.com"</span> 
+
+$ git config user<span class="class">.name</span> <span class="string">"activehacker"</span>
+$ git config user<span class="class">.email</span> <span class="string">"jexlab@gmail.com"</span> 
+</code></pre><p>or you can have global git config<br>    $ git config —global user.name “raomingchao”<br>    $ git config —global user.email “raomingchao@gmail.com”</p>
+<p>then use normal flow to push your code</p>
+<pre><code><span class="variable">$ </span>git add .
+<span class="variable">$ </span>git commit -m <span class="string">"your comments"</span>
+<span class="variable">$ </span>git push
+</code></pre><h1 id="Another_related_article_in_stackoverflow">Another related article in stackoverflow</h1><p>Even if the user and host are the same, they can still be distinguished in ~/.ssh/config. For example, if your configuration looks like this:</p>
+<pre><code>Host gitolite-as-alice
+  HostName git<span class="class">.company</span><span class="class">.com</span>
+  User git
+  IdentityFile /home/whoever/.ssh/id_rsa<span class="class">.alice</span>
+  IdentitiesOnly yes
+
+Host gitolite-as-bob
+  HostName git<span class="class">.company</span><span class="class">.com</span>
+  User git
+  IdentityFile /home/whoever/.ssh/id_dsa<span class="class">.bob</span>
+  IdentitiesOnly yes
+</code></pre><p>Then you just use gitolite-as-alice and gitolite-as-bob instead of the hostname in your URL:</p>
+<pre><code>git remote add alice git<span class="annotation">@gitolite</span>-<span class="keyword">as</span>-<span class="string">alice:</span>whatever.git
+git remote add bob git<span class="annotation">@gitolite</span>-<span class="keyword">as</span>-<span class="string">bob:</span>whatever.git
+</code></pre>
       
     </div>
 
@@ -249,13 +293,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/17/github-auto-deploy/">自动部署 -- github</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/13/composer/">Composer</a>
+              <a href="/2015/11/11/sublime-text-mastery/">Sublime Text 使用技巧</a>
             
           </div>
         </div>
@@ -275,8 +317,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/07/17/git-skills/"
-               data-title="git常用技巧" data-url="http://misael.cn/2015/07/17/git-skills/">
+          <div class="ds-thread" data-thread-key="2015/11/17/multiple-ssh-settings/"
+               data-title="多个github帐号的SSH key切换" data-url="http://misael.cn/2015/11/17/multiple-ssh-settings/">
           </div>
         
       </div>
@@ -375,7 +417,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#强制拉取master(覆盖本地)："><span class="nav-number">1.</span> <span class="nav-text">强制拉取master(覆盖本地)：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只拉取最后一次的提交结果。"><span class="nav-number">2.</span> <span class="nav-text">只拉取最后一次的提交结果。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发者私人信息保密方法"><span class="nav-number">3.</span> <span class="nav-text">开发者私人信息保密方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置全局代理（来自网络）"><span class="nav-number">4.</span> <span class="nav-text">设置全局代理（来自网络）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#clone某个特定分支"><span class="nav-number">5.</span> <span class="nav-text">clone某个特定分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较某个文件和远程分支上的区别"><span class="nav-number">6.</span> <span class="nav-text">比较某个文件和远程分支上的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在版本库所有版本中搜寻一条字符串"><span class="nav-number">7.</span> <span class="nav-text">在版本库所有版本中搜寻一条字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#向分支提交一个初始的空commit，保证完全复位"><span class="nav-number">8.</span> <span class="nav-text">向分支提交一个初始的空commit，保证完全复位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何修改一个特定的commit"><span class="nav-number">9.</span> <span class="nav-text">如何修改一个特定的commit</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Multiple_SSH_Keys_settings_for_different_github_account"><span class="nav-number">1.</span> <span class="nav-text">Multiple SSH Keys settings for different github account</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#create_different_public_key"><span class="nav-number">1.1.</span> <span class="nav-text">create different public key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modify_the_ssh_config"><span class="nav-number">1.2.</span> <span class="nav-text">Modify the ssh config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clone_you_repo_and_modify_your_Git_config"><span class="nav-number">1.3.</span> <span class="nav-text">Clone you repo and modify your Git config</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Another_related_article_in_stackoverflow"><span class="nav-number">2.</span> <span class="nav-text">Another related article in stackoverflow</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
