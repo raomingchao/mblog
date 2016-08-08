@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="Drupal,theme," />
+  <meta name="keywords" content="osx,mamp,开发环境," />
 
 
 
@@ -57,7 +57,7 @@
 
 
 
-  <title> Ariva 极简创意 Drupal主题 // M </title>
+  <title> macOS 使用MAMP环境安装扩展 // M </title>
 </head>
 
 <body>
@@ -178,7 +178,7 @@
           
           
             
-              Ariva 极简创意 Drupal主题
+              macOS 使用MAMP环境安装扩展
             
           
         </h1>
@@ -186,14 +186,22 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2016-06-01
+          发表于 2016-08-08
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/Drupal/">Drupal</a>
+              <a href="/categories/osx/">osx</a>
+
+              
+              
+                ， 
+              
+
+            
+              <a href="/categories/osx/开发环境/">开发环境</a>
 
               
               
@@ -206,8 +214,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2016/06/01/drupal7-theme-ariva/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/01/drupal7-theme-ariva/"></span>
+            <a href="/2016/08/08/mamp-install-extension/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/08/mamp-install-extension/"></span>
             </a>
           </span>
           
@@ -221,10 +229,19 @@
       
 
       
-        <p><img src="http://7xkj44.com1.z0.glb.clouddn.com/Ariva-Minimal-Drupal-Theme-with-Builder.jpg" alt="drupal-Ariva-preview" title="drupal-Ariva-preview"></p>
-<h3 id="Ariva_极简创意_Drupal主题">Ariva 极简创意 Drupal主题</h3><p>Ariva Drupal主题，一款简洁创意自适应主题。主题特点：兼容Drupal 7.3.x，自适应， MD AWEContent页面搭建，8个首页模版，12个部分，Drupal Commerce购物商城支持，6个首页头部类型，2个菜单样式，博客风格，提供演示和说明文档提供等。</p>
-<p><a href="http://demo.megadrupal.com/d7/md-ariva/" title="Ariva Preview" target="_blank" rel="external">演示地址</a></p>
-<p>Ariva Drupal主题下载地址[完整版]：<br><a href="http://pan.baidu.com/s/1bpDOaDL" title="p6we" target="_blank" rel="external">百度网盘下载</a></p>
+        <p>I’m using PHP <strong>5.6.10</strong>, and trying to install the <strong>memcache</strong> extension. You can adapt this to other PHP versions and to other extensions, of course :smile:</p>
+<ul>
+<li>Download the version of PHP you’re using from php.net.</li>
+<li>At /Applications/MAMP/bin/php/php5.6.10, create a directory named <strong>include</strong>.</li>
+<li>Inside /Applications/MAMP/bin/php/php5.6.10/include (your newly created folder), untar the php file you downloaded from php.net. </li>
+<li>For me, it produced a folder named “php-5.6.10”. <strong>Rename it to “php”</strong>. Now you’ll have this structure:  /Applications/MAMP/bin/php/php5.6.10/include/php</li>
+<li>Go to that folder on terminal, and run <strong>./configure</strong></li>
+<li>Then, go to /Applications/MAMP/bin/php/php5.6.10/include/php/bin</li>
+<li>Run, for instance: <strong>sudo /Applications/MAMP/bin/php/php5.6.10/bin/pecl install memcache</strong></li>
+<li>Afterwards, edit your php.ini file (/Applications/MAMP/bin/php/php5.6.10/conf/php.ini), and add the line <strong>extension=memcache.so</strong></li>
+<li>Restart apache (on MAMP)</li>
+<li>Profit!</li>
+</ul>
 
       
     </div>
@@ -233,9 +250,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Drupal/"> #Drupal </a>
+            <a href="/tags/osx/"> #osx </a>
           
-            <a href="/tags/theme/"> #theme </a>
+            <a href="/tags/mamp/"> #mamp </a>
+          
+            <a href="/tags/开发环境/"> #开发环境 </a>
           
         </div>
       
@@ -244,13 +263,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/03/html-template-dashonepage/">Dash 单页 HTML5模板</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/01/drupal7-theme-boson/">Boson 多用途 Drupal主题</a>
+              <a href="/2016/07/26/java-emulator/">Java Application(.jar) Emulator for Windows</a>
             
           </div>
         </div>
@@ -270,8 +287,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2016/06/01/drupal7-theme-ariva/"
-               data-title="Ariva 极简创意 Drupal主题" data-url="http://misael.cn/2016/06/01/drupal7-theme-ariva/">
+          <div class="ds-thread" data-thread-key="2016/08/08/mamp-install-extension/"
+               data-title="macOS 使用MAMP环境安装扩展" data-url="http://misael.cn/2016/08/08/mamp-install-extension/">
           </div>
         
       </div>
@@ -370,7 +387,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ariva_极简创意_Drupal主题"><span class="nav-number">1.</span> <span class="nav-text">Ariva 极简创意 Drupal主题</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
