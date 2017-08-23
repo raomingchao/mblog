@@ -232,6 +232,7 @@
 <h1 id="laradock介绍">laradock介绍</h1><p>Laradock 努力简化创建开发环境过程。<br>它包含预包装 Docker 镜像，提供你一个美妙的开发环境而不需要安装 PHP, Apache, NGINX, MySQL 和其他任何软件在你本地机器上。</p>
 <h2 id="极速开启">极速开启</h2><p>让我们了解使用它安装 <code>NGINX</code>, <code>PHP</code>, <code>Composer</code>, <code>MySQL</code> 和 <code>Redis</code>，然后运行 <code>Laravel</code></p>
 <p>1.将Laradock放到你的PHP(aravel)项目同级目录中：</p>
+<p>注：不能把项目放到 <code>/root</code> 目录中</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/laradock/laradock.git</span><br></pre></td></tr></table></figure>
 <p>2.进入 Laradock 目录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> laradock</span><br><span class="line">cp env-example .env</span><br></pre></td></tr></table></figure>
