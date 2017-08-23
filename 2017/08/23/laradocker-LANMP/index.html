@@ -24,7 +24,7 @@
 
 
 
-  <meta name="keywords" content="html,css," />
+  <meta name="keywords" content="php,laravel,docker," />
 
 
 
@@ -57,7 +57,7 @@
 
 
 
-  <title> 使用iframe调用指定网页的特定位置 // M </title>
+  <title> 基于LaraDock中快速构建LANMP环境 // M </title>
 </head>
 
 <body>
@@ -178,7 +178,7 @@
           
           
             
-              使用iframe调用指定网页的特定位置
+              基于LaraDock中快速构建LANMP环境
             
           
         </h1>
@@ -186,14 +186,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-11-10
+          发表于 2017-08-23
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/开发技巧/">开发技巧</a>
+              <a href="/categories/docker/">docker</a>
 
               
               
@@ -206,8 +206,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/11/10/iframe-to-only-show-a-certain-part-of-the-page/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/10/iframe-to-only-show-a-certain-part-of-the-page/"></span>
+            <a href="/2017/08/23/laradocker-LANMP/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2017/08/23/laradocker-LANMP/"></span>
             </a>
           </span>
           
@@ -221,8 +221,32 @@
       
 
       
-        <h2 id="HTML">HTML</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">iframe</span> <span class="attr">id</span>=<span class="string">"embed"</span> <span class="attr">src</span>=<span class="string">"http://www.example.com"</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="CSS">CSS</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-id">#container</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">840px</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">317px</span>;</span><br><span class="line">    <span class="attribute">overflow</span>:scroll;     <span class="comment">/* if you don't want a scrollbar, set to hidden */</span></span><br><span class="line">    <span class="attribute">overflow-x</span>:hidden;   <span class="comment">/* hides horizontal scrollbar on newer browsers */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* resize and min-height are optional, allows user to resize viewable area */</span></span><br><span class="line">    <span class="attribute">-webkit-resize</span>:vertical; </span><br><span class="line">    <span class="attribute">-moz-resize</span>:vertical;</span><br><span class="line">    <span class="attribute">resize</span>:vertical;</span><br><span class="line">    <span class="attribute">min-height</span>:<span class="number">317px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">iframe</span><span class="selector-id">#embed</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">1000px</span>;       <span class="comment">/* set this to approximate width of entire page you're embedding */</span></span><br><span class="line">    <span class="attribute">height</span>:<span class="number">2000px</span>;      <span class="comment">/* determines where the bottom of the page cuts off */</span></span><br><span class="line">    <span class="attribute">margin-left</span>:-<span class="number">183px</span>; <span class="comment">/* clipping left side of page */</span></span><br><span class="line">    <span class="attribute">margin-top</span>:-<span class="number">244px</span>;  <span class="comment">/* clipping top of page */</span></span><br><span class="line">    <span class="attribute">overflow</span>:hidden;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* resize seems to inherit in at least Firefox */</span></span><br><span class="line">    <span class="attribute">-webkit-resize</span>:none;</span><br><span class="line">    <span class="attribute">-moz-resize</span>:none;</span><br><span class="line">    <span class="attribute">resize</span>:none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h1 id="docker_安装_(基于Ubuntu16-04)">docker 安装 (基于Ubuntu16.04)</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ apt-get update</span><br></pre></td></tr></table></figure>
+<h2 id="使用curl获取最新的Docker_(使用阿里的镜像服务且使用云服务器外部网络下载)">使用curl获取最新的Docker (使用阿里的镜像服务且使用云服务器外部网络下载)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl <span class="_">-s</span>SL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure>
+<h2 id="使用curl获取最新的Docker_(使用阿里的镜像服务且使用云服务器内部网络下载)">使用curl获取最新的Docker (使用阿里的镜像服务且使用云服务器内部网络下载)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl <span class="_">-s</span>SL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/intranet | sh -</span><br></pre></td></tr></table></figure>
+<h2 id="安装_docker-compose">安装 <code>docker-compose</code></h2><p><a href="https://github.com/docker/compose/releases" target="_blank" rel="external">https://github.com/docker/compose/releases</a></p>
+<h2 id="阿里云加速">阿里云加速</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p /etc/systemd/system/docker.service.d</span><br><span class="line">$ vi /etc/systemd/system/docker.service.d/mirror.conf</span><br></pre></td></tr></table></figure>
+<p>复制<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">ExecStart=</span><br><span class="line">ExecStart=/usr/bin/docker daemon -H fd:// --registry-mirror=https://xxxxx.mirror.aliyuncs.com</span><br></pre></td></tr></table></figure></p>
+<p>重启生效</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h1 id="laradock介绍">laradock介绍</h1><p>Laradock 努力简化创建开发环境过程。<br>它包含预包装 Docker 镜像，提供你一个美妙的开发环境而不需要安装 PHP, Apache, NGINX, MySQL 和其他任何软件在你本地机器上。</p>
+<h2 id="极速开启">极速开启</h2><p>让我们了解使用它安装 <code>NGINX</code>, <code>PHP</code>, <code>Composer</code>, <code>MySQL</code> 和 <code>Redis</code>，然后运行 <code>Laravel</code></p>
+<ol>
+<li>将Laradock放到你的PHP(aravel)项目同级目录中：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/laradock/laradock.git</span><br></pre></td></tr></table></figure>
+<ol>
+<li>进入 Laradock 目录</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> laradock</span><br><span class="line">cp env-example .env</span><br></pre></td></tr></table></figure>
+<ol>
+<li>设置 <code>.env</code> 环境变量，参考：</li>
+</ol>
+<p><a href="https://github.com/laradock/laradock" target="_blank" rel="external">https://github.com/laradock/laradock</a></p>
+<ol>
+<li>运行这些容器。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up <span class="_">-d</span> nginx mysql redis</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -230,9 +254,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/html/"> #html </a>
+            <a href="/tags/php/"> #php </a>
           
-            <a href="/tags/css/"> #css </a>
+            <a href="/tags/laravel/"> #laravel </a>
+          
+            <a href="/tags/docker/"> #docker </a>
           
         </div>
       
@@ -241,13 +267,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/11/10/docker-registry/">Docker 部署私库</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/18/docker-php-development/">PHP应用Docker开发</a>
+              <a href="/2017/04/25/vultr-ubuntu-ss-bbr/">vultr VPS一键搭建SS + BBR加速</a>
             
           </div>
         </div>
@@ -267,8 +291,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/11/10/iframe-to-only-show-a-certain-part-of-the-page/"
-               data-title="使用iframe调用指定网页的特定位置" data-url="http://misael.cn/2015/11/10/iframe-to-only-show-a-certain-part-of-the-page/">
+          <div class="ds-thread" data-thread-key="2017/08/23/laradocker-LANMP/"
+               data-title="基于LaraDock中快速构建LANMP环境" data-url="http://misael.cn/2017/08/23/laradocker-LANMP/">
           </div>
         
       </div>
@@ -367,7 +391,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML"><span class="nav-number">1.</span> <span class="nav-text">HTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">2.</span> <span class="nav-text">CSS</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#docker_安装_(基于Ubuntu16-04)"><span class="nav-number">1.</span> <span class="nav-text">docker 安装 (基于Ubuntu16.04)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用curl获取最新的Docker_(使用阿里的镜像服务且使用云服务器外部网络下载)"><span class="nav-number">1.1.</span> <span class="nav-text">使用curl获取最新的Docker (使用阿里的镜像服务且使用云服务器外部网络下载)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用curl获取最新的Docker_(使用阿里的镜像服务且使用云服务器内部网络下载)"><span class="nav-number">1.2.</span> <span class="nav-text">使用curl获取最新的Docker (使用阿里的镜像服务且使用云服务器内部网络下载)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装_docker-compose"><span class="nav-number">1.3.</span> <span class="nav-text">安装 docker-compose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阿里云加速"><span class="nav-number">1.4.</span> <span class="nav-text">阿里云加速</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#laradock介绍"><span class="nav-number">2.</span> <span class="nav-text">laradock介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#极速开启"><span class="nav-number">2.1.</span> <span class="nav-text">极速开启</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
